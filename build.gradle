@@ -16,7 +16,8 @@ dependencies {
 
 sonarqube {
     properties {
-        property "sonar.projectName", "Java Gradle-based project analyzed on SonarCloud using Travis"
-        property "sonar.projectKey", "com.sonarqube.examples.java-gradle-travis-project"
+        property "sonar.projectKey", "vitaminac_stratego"
+        property "sonar.organization", "vitaminac-github"
+        property "sonar.host.url", "https://sonarcloud.io"
     }
 }
