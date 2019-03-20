@@ -74,3 +74,6 @@ fabric.properties
 
 .idea
 output
+build
+.settings
+.gradle
