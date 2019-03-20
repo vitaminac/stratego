@@ -16,8 +16,8 @@ dependencies {
 
 sonarqube {
     properties {
+        property "sonar.projectName", "stratego"
         property "sonar.projectKey", "vitaminac_stratego"
-        property "sonar.organization", "vitaminac-github"
         property "sonar.host.url", "https://sonarcloud.io"
     }
 }

@@ -18,6 +18,7 @@ cache:
 
 addons:
   sonarcloud:
+    organization: "vitaminac-github"
     token:
       secure: "ZnevDLcAOpak0oz/onmhgOuh6oFU4yePLHfK+oBoqH+PV36TJcfZuPUXvWlKTKeYK4UZrT3dh+EBaj6q4OtRe8YqLnfxQfEMvMeh8Wa3yZfBwwfpbNXwBLMVTd9DiATtbTN2NwqPkLYROKoasGPBFw18enzD+3ERZZz5WLT0vffvLMaApdi2PPhnDSvVRbySu/3MX+gepP2GVm/Y5G362yN1s0YV5sbCAAD+fK25rqQhedP3Rj5wJwiIla3ftnxacdivPjqiT0dehyuoedXGh16i5NdAt4UZeYLe+jIh/KquYBP//HSaM0Mmq/EbIZNRsyTf+mce3tZtw5Xeflp7a596NlL4jS/f/hOpw6Bf52iUWQVuyfhYpUTryTBG2ZaIuSNEEAXVNHliljdeWsvOcwaI+pimhVY1m+6s89HeyF+XzGK35uYQJJsQaFTxhIVi9jQr3jhsQitjajOW1LKG47QlYsnAGYata9p14tualTLBI9mrfnTY6oG1Vf5xmx4QeK0LTDdUB/rJKPx3xwXzEzshDMDjpx8IvBne3QhNGLTrMyMrS7Y0NObndw3V6fYFcaL3kKLWXS/+USc4SyarXx0eenIepubm9MIRHDdoGl6rS7jzZMRLXla5h1UjaihHDOM0Sp0v+y4K7sk/6YKUreWP+6jlc0aq9jx+r3dHspM="
 
