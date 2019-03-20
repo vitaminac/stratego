@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<BugCollection version="3.1.11" sequence="0" timestamp="1551852308000" analysisTimestamp="1552524295286" release="">
+  <Project>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/Server.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/Client.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/util/HashTables.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/util/MutableBoolean.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/game/Move.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/game/ClientGameManager$ResetSquareImage.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/game/Game.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/game/ClientSocket.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/game/MoveStatus.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/game/ClientGameManager.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/game/Piece.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/game/PieceColor.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/game/GameStatus.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/game/PieceSet.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/game/BattleOutcome.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/game/Piece$1.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/game/Player.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/game/ServerGameManager.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/game/SetupBoard.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/game/ClientGameManager$ResetImageVisibility.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/game/PieceType.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/game/ClientGameManager$1.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/gui/ConnectionScene$ConnectToServer.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/gui/ClientStage.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/gui/ConnectionScene.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/gui/ConnectionScene$ProcessFields.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/gui/ConnectionScene$1.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/gui/BoardScene.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/gui/WaitingScene.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/media/SoundConstants.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/media/PlaySound.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/media/ImageConstants.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/game/board/ServerBoard.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/game/board/ServerSquare.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/game/board/ClientBoard.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/game/board/ClientSquare.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/gui/board/BoardSquarePane.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/gui/board/BoardTurnIndicator.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/gui/board/BoardPane.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/gui/board/BoardTurnIndicator$1.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/gui/board/BoardSquareType.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/gui/board/BoardTurnIndicator$UpdateColor.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/gui/board/BoardSquareEventPane.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/gui/board/BoardSquareEventPane$1.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/gui/board/BoardSquareEventPane$OnHover.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/gui/board/BoardSquareEventPane$OffHover.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/gui/board/BoardEventPane.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/gui/board/BoardSquareEventPane$SelectSquare.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/gui/board/setup/SetupTimer$1.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/gui/board/setup/SetupPanel$1.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/gui/board/setup/SetupTimer$StartTimer.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/gui/board/setup/SetupPieces$SelectPiece.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/gui/board/setup/SetupPieces$1.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/gui/board/setup/SetupPieces.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/gui/board/setup/SetupPanel$UpdateReadyButton.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/gui/board/setup/SetupTimer.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/gui/board/setup/SetupPanel.class</Jar>
+    <Jar>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego/gui/board/setup/SetupTimer$TimerFinished.class</Jar>
+    <AuxClasspathEntry>/Users/jorge/Documents/GitHub/Stratego/output/production/Stratego/edu/asu/stratego</AuxClasspathEntry>
+    <AuxClasspathEntry>/Users/jorge/Documents/GitHub/Stratego/target/sonar/findbugs/annotations.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/Users/jorge/Documents/GitHub/Stratego/target/sonar/findbugs/jsr305.jar</AuxClasspathEntry>
+    <WrkDir>/Users/jorge/Documents/GitHub/Stratego/target/sonar</WrkDir>
+  </Project>
+  <Errors errors="0" missingClasses="39">
+    <MissingClass>handle</MissingClass>
+    <MissingClass>javafx.animation.FadeTransition</MissingClass>
+    <MissingClass>javafx.animation.FillTransition</MissingClass>
+    <MissingClass>javafx.animation.KeyFrame</MissingClass>
+    <MissingClass>javafx.animation.KeyValue</MissingClass>
+    <MissingClass>javafx.animation.Timeline</MissingClass>
+    <MissingClass>javafx.application.Application</MissingClass>
+    <MissingClass>javafx.application.Platform</MissingClass>
+    <MissingClass>javafx.beans.property.IntegerProperty</MissingClass>
+    <MissingClass>javafx.beans.property.SimpleIntegerProperty</MissingClass>
+    <MissingClass>javafx.beans.property.StringProperty</MissingClass>
+    <MissingClass>javafx.collections.ObservableList</MissingClass>
+    <MissingClass>javafx.event.Event</MissingClass>
+    <MissingClass>javafx.event.EventHandler</MissingClass>
+    <MissingClass>javafx.geometry.HPos</MissingClass>
+    <MissingClass>javafx.geometry.Insets</MissingClass>
+    <MissingClass>javafx.geometry.Pos</MissingClass>
+    <MissingClass>javafx.scene.Scene</MissingClass>
+    <MissingClass>javafx.scene.control.Button</MissingClass>
+    <MissingClass>javafx.scene.control.Label</MissingClass>
+    <MissingClass>javafx.scene.control.TextField</MissingClass>
+    <MissingClass>javafx.scene.effect.ColorAdjust</MissingClass>
+    <MissingClass>javafx.scene.effect.Glow</MissingClass>
+    <MissingClass>javafx.scene.image.Image</MissingClass>
+    <MissingClass>javafx.scene.image.ImageView</MissingClass>
+    <MissingClass>javafx.scene.input.MouseEvent</MissingClass>
+    <MissingClass>javafx.scene.layout.BorderPane</MissingClass>
+    <MissingClass>javafx.scene.layout.ColumnConstraints</MissingClass>
+    <MissingClass>javafx.scene.layout.GridPane</MissingClass>
+    <MissingClass>javafx.scene.layout.RowConstraints</MissingClass>
+    <MissingClass>javafx.scene.layout.StackPane</MissingClass>
+    <MissingClass>javafx.scene.media.AudioClip</MissingClass>
+    <MissingClass>javafx.scene.paint.Color</MissingClass>
+    <MissingClass>javafx.scene.shape.Rectangle</MissingClass>
+    <MissingClass>javafx.scene.text.Font</MissingClass>
+    <MissingClass>javafx.scene.text.FontWeight</MissingClass>
+    <MissingClass>javafx.stage.Stage</MissingClass>
+    <MissingClass>javafx.util.Duration</MissingClass>
+    <MissingClass>run</MissingClass>
+  </Errors>
+  <FindBugsSummary timestamp="Wed, 6 Mar 2019 07:05:08 +0100" total_classes="58" referenced_classes="111" total_bugs="0" total_size="1966" num_packages="8" java_version="11" vm_version="11+28" cpu_seconds="25.88" clock_seconds="7.52" peak_mbytes="467.53" alloc_mbytes="2048.00" gc_seconds="0.12">
+    <FileStats path="edu/asu/stratego/Client.java" bugCount="0" size="13"/>
+    <FileStats path="edu/asu/stratego/Server.java" bugCount="0" size="19"/>
+    <FileStats path="edu/asu/stratego/game/BattleOutcome.java" bugCount="0" size="13"/>
+    <FileStats path="edu/asu/stratego/game/ClientGameManager.java" bugCount="0" size="258"/>
+    <FileStats path="edu/asu/stratego/game/ClientSocket.java" bugCount="0" size="11"/>
+    <FileStats path="edu/asu/stratego/game/Game.java" bugCount="0" size="53"/>
+    <FileStats path="edu/asu/stratego/game/GameStatus.java" bugCount="0" size="29"/>
+    <FileStats path="edu/asu/stratego/game/Move.java" bugCount="0" size="67"/>
+    <FileStats path="edu/asu/stratego/game/MoveStatus.java" bugCount="0" size="17"/>
+    <FileStats path="edu/asu/stratego/game/Piece.java" bugCount="0" size="56"/>
+    <FileStats path="edu/asu/stratego/game/PieceColor.java" bugCount="0" size="11"/>
+    <FileStats path="edu/asu/stratego/game/PieceSet.java" bugCount="0" size="11"/>
+    <FileStats path="edu/asu/stratego/game/PieceType.java" bugCount="0" size="55"/>
+    <FileStats path="edu/asu/stratego/game/Player.java" bugCount="0" size="16"/>
+    <FileStats path="edu/asu/stratego/game/ServerGameManager.java" bugCount="0" size="247"/>
+    <FileStats path="edu/asu/stratego/game/SetupBoard.java" bugCount="0" size="17"/>
+    <FileStats path="edu/asu/stratego/game/board/ClientBoard.java" bugCount="0" size="23"/>
+    <FileStats path="edu/asu/stratego/game/board/ClientSquare.java" bugCount="0" size="19"/>
+    <FileStats path="edu/asu/stratego/game/board/ServerBoard.java" bugCount="0" size="13"/>
+    <FileStats path="edu/asu/stratego/game/board/ServerSquare.java" bugCount="0" size="10"/>
+    <FileStats path="edu/asu/stratego/gui/BoardScene.java" bugCount="0" size="41"/>
+    <FileStats path="edu/asu/stratego/gui/ClientStage.java" bugCount="0" size="34"/>
+    <FileStats path="edu/asu/stratego/gui/ConnectionScene.java" bugCount="0" size="98"/>
+    <FileStats path="edu/asu/stratego/gui/WaitingScene.java" bugCount="0" size="13"/>
+    <FileStats path="edu/asu/stratego/gui/board/BoardEventPane.java" bugCount="0" size="11"/>
+    <FileStats path="edu/asu/stratego/gui/board/BoardPane.java" bugCount="0" size="16"/>
+    <FileStats path="edu/asu/stratego/gui/board/BoardSquareEventPane.java" bugCount="0" size="243"/>
+    <FileStats path="edu/asu/stratego/gui/board/BoardSquarePane.java" bugCount="0" size="16"/>
+    <FileStats path="edu/asu/stratego/gui/board/BoardSquareType.java" bugCount="0" size="11"/>
+    <FileStats path="edu/asu/stratego/gui/board/BoardTurnIndicator.java" bugCount="0" size="55"/>
+    <FileStats path="edu/asu/stratego/gui/board/setup/SetupPanel.java" bugCount="0" size="140"/>
+    <FileStats path="edu/asu/stratego/gui/board/setup/SetupPieces.java" bugCount="0" size="111"/>
+    <FileStats path="edu/asu/stratego/gui/board/setup/SetupTimer.java" bugCount="0" size="50"/>
+    <FileStats path="edu/asu/stratego/media/ImageConstants.java" bugCount="0" size="98"/>
+    <FileStats path="edu/asu/stratego/media/PlaySound.java" bugCount="0" size="19"/>
+    <FileStats path="edu/asu/stratego/media/SoundConstants.java" bugCount="0" size="3"/>
+    <FileStats path="edu/asu/stratego/util/HashTables.java" bugCount="0" size="35"/>
+    <FileStats path="edu/asu/stratego/util/MutableBoolean.java" bugCount="0" size="14"/>
+    <PackageStats package="edu.asu.stratego" total_bugs="0" total_types="2" total_size="32">
+      <ClassStats class="edu.asu.stratego.Client" sourceFile="Client.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.Server" sourceFile="Server.java" interface="false" size="19" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="edu.asu.stratego.game" total_bugs="0" total_types="18" total_size="861">
+      <ClassStats class="edu.asu.stratego.game.BattleOutcome" sourceFile="BattleOutcome.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.game.ClientGameManager" sourceFile="ClientGameManager.java" interface="false" size="225" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.game.ClientGameManager$1" sourceFile="ClientGameManager.java" interface="false" size="1" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.game.ClientGameManager$ResetImageVisibility" sourceFile="ClientGameManager.java" interface="false" size="16" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.game.ClientGameManager$ResetSquareImage" sourceFile="ClientGameManager.java" interface="false" size="16" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.game.ClientSocket" sourceFile="ClientSocket.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.game.Game" sourceFile="Game.java" interface="false" size="53" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.game.GameStatus" sourceFile="GameStatus.java" interface="false" size="29" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.game.Move" sourceFile="Move.java" interface="false" size="67" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.game.MoveStatus" sourceFile="MoveStatus.java" interface="false" size="17" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.game.Piece" sourceFile="Piece.java" interface="false" size="52" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.game.Piece$1" sourceFile="Piece.java" interface="false" size="4" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.game.PieceColor" sourceFile="PieceColor.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.game.PieceSet" sourceFile="PieceSet.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.game.PieceType" sourceFile="PieceType.java" interface="false" size="55" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.game.Player" sourceFile="Player.java" interface="false" size="16" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.game.ServerGameManager" sourceFile="ServerGameManager.java" interface="false" size="247" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.game.SetupBoard" sourceFile="SetupBoard.java" interface="false" size="17" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="edu.asu.stratego.game.board" total_bugs="0" total_types="4" total_size="65">
+      <ClassStats class="edu.asu.stratego.game.board.ClientBoard" sourceFile="ClientBoard.java" interface="false" size="23" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.game.board.ClientSquare" sourceFile="ClientSquare.java" interface="false" size="19" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.game.board.ServerBoard" sourceFile="ServerBoard.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.game.board.ServerSquare" sourceFile="ServerSquare.java" interface="false" size="10" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="edu.asu.stratego.gui" total_bugs="0" total_types="7" total_size="186">
+      <ClassStats class="edu.asu.stratego.gui.BoardScene" sourceFile="BoardScene.java" interface="false" size="41" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.gui.ClientStage" sourceFile="ClientStage.java" interface="false" size="34" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.gui.ConnectionScene" sourceFile="ConnectionScene.java" interface="false" size="49" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.gui.ConnectionScene$1" sourceFile="ConnectionScene.java" interface="false" size="1" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.gui.ConnectionScene$ConnectToServer" sourceFile="ConnectionScene.java" interface="false" size="17" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.gui.ConnectionScene$ProcessFields" sourceFile="ConnectionScene.java" interface="false" size="31" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.gui.WaitingScene" sourceFile="WaitingScene.java" interface="false" size="13" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="edu.asu.stratego.gui.board" total_bugs="0" total_types="12" total_size="352">
+      <ClassStats class="edu.asu.stratego.gui.board.BoardEventPane" sourceFile="BoardEventPane.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.gui.board.BoardPane" sourceFile="BoardPane.java" interface="false" size="16" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.gui.board.BoardSquareEventPane" sourceFile="BoardSquareEventPane.java" interface="false" size="139" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.gui.board.BoardSquareEventPane$1" sourceFile="BoardSquareEventPane.java" interface="false" size="1" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.gui.board.BoardSquareEventPane$OffHover" sourceFile="BoardSquareEventPane.java" interface="false" size="19" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.gui.board.BoardSquareEventPane$OnHover" sourceFile="BoardSquareEventPane.java" interface="false" size="21" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.gui.board.BoardSquareEventPane$SelectSquare" sourceFile="BoardSquareEventPane.java" interface="false" size="63" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.gui.board.BoardSquarePane" sourceFile="BoardSquarePane.java" interface="false" size="16" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.gui.board.BoardSquareType" sourceFile="BoardSquareType.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.gui.board.BoardTurnIndicator" sourceFile="BoardTurnIndicator.java" interface="false" size="28" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.gui.board.BoardTurnIndicator$1" sourceFile="BoardTurnIndicator.java" interface="false" size="1" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.gui.board.BoardTurnIndicator$UpdateColor" sourceFile="BoardTurnIndicator.java" interface="false" size="26" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="edu.asu.stratego.gui.board.setup" total_bugs="0" total_types="10" total_size="301">
+      <ClassStats class="edu.asu.stratego.gui.board.setup.SetupPanel" sourceFile="SetupPanel.java" interface="false" size="113" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.gui.board.setup.SetupPanel$1" sourceFile="SetupPanel.java" interface="false" size="1" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.gui.board.setup.SetupPanel$UpdateReadyButton" sourceFile="SetupPanel.java" interface="false" size="26" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.gui.board.setup.SetupPieces" sourceFile="SetupPieces.java" interface="false" size="86" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.gui.board.setup.SetupPieces$1" sourceFile="SetupPieces.java" interface="false" size="1" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.gui.board.setup.SetupPieces$SelectPiece" sourceFile="SetupPieces.java" interface="false" size="24" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.gui.board.setup.SetupTimer" sourceFile="SetupTimer.java" interface="false" size="26" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.gui.board.setup.SetupTimer$1" sourceFile="SetupTimer.java" interface="false" size="1" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.gui.board.setup.SetupTimer$StartTimer" sourceFile="SetupTimer.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.gui.board.setup.SetupTimer$TimerFinished" sourceFile="SetupTimer.java" interface="false" size="9" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="edu.asu.stratego.media" total_bugs="0" total_types="3" total_size="120">
+      <ClassStats class="edu.asu.stratego.media.ImageConstants" sourceFile="ImageConstants.java" interface="false" size="98" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.media.PlaySound" sourceFile="PlaySound.java" interface="false" size="19" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.media.SoundConstants" sourceFile="SoundConstants.java" interface="false" size="3" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="edu.asu.stratego.util" total_bugs="0" total_types="2" total_size="49">
+      <ClassStats class="edu.asu.stratego.util.HashTables" sourceFile="HashTables.java" interface="false" size="35" bugs="0"/>
+      <ClassStats class="edu.asu.stratego.util.MutableBoolean" sourceFile="MutableBoolean.java" interface="false" size="14" bugs="0"/>
+    </PackageStats>
+    <FindBugsProfile>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassInfoAnalysisEngine" totalMilliseconds="691" invocations="807" avgMicrosecondsPerInvocation="857" maxMicrosecondsPerInvocation="22110" standardDeviationMicrosecondsPerInvocation="1890"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.taintanalysis.TaintDataflowEngine" totalMilliseconds="329" invocations="287" avgMicrosecondsPerInvocation="1149" maxMicrosecondsPerInvocation="44571" standardDeviationMicrosecondsPerInvocation="3999"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ValueNumberDataflowFactory" totalMilliseconds="290" invocations="305" avgMicrosecondsPerInvocation="951" maxMicrosecondsPerInvocation="32907" standardDeviationMicrosecondsPerInvocation="3376"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.TypeDataflowFactory" totalMilliseconds="246" invocations="298" avgMicrosecondsPerInvocation="828" maxMicrosecondsPerInvocation="24381" standardDeviationMicrosecondsPerInvocation="2538"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.IsNullValueDataflowFactory" totalMilliseconds="220" invocations="287" avgMicrosecondsPerInvocation="766" maxMicrosecondsPerInvocation="21720" standardDeviationMicrosecondsPerInvocation="1949"/>
+      <ClassProfile name="edu.umd.cs.findbugs.ba.npe.NullDerefAndRedundantComparisonFinder" totalMilliseconds="199" invocations="280" avgMicrosecondsPerInvocation="713" maxMicrosecondsPerInvocation="15403" standardDeviationMicrosecondsPerInvocation="1758"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FieldItemSummary" totalMilliseconds="197" invocations="111" avgMicrosecondsPerInvocation="1778" maxMicrosecondsPerInvocation="20156" standardDeviationMicrosecondsPerInvocation="3552"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.UnconditionalValueDerefDataflowFactory" totalMilliseconds="195" invocations="287" avgMicrosecondsPerInvocation="680" maxMicrosecondsPerInvocation="12392" standardDeviationMicrosecondsPerInvocation="1615"/>
+      <ClassProfile name="edu.umd.cs.findbugs.OpcodeStack$JumpInfoFactory" totalMilliseconds="168" invocations="524" avgMicrosecondsPerInvocation="321" maxMicrosecondsPerInvocation="8809" standardDeviationMicrosecondsPerInvocation="621"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNoSideEffectMethods" totalMilliseconds="167" invocations="111" avgMicrosecondsPerInvocation="1505" maxMicrosecondsPerInvocation="16582" standardDeviationMicrosecondsPerInvocation="2787"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindRefComparison$SpecialTypeAnalysis" totalMilliseconds="149" invocations="183" avgMicrosecondsPerInvocation="816" maxMicrosecondsPerInvocation="15260" standardDeviationMicrosecondsPerInvocation="1916"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.CFGFactory" totalMilliseconds="146" invocations="287" avgMicrosecondsPerInvocation="509" maxMicrosecondsPerInvocation="14516" standardDeviationMicrosecondsPerInvocation="1290"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassDataAnalysisEngine" totalMilliseconds="134" invocations="812" avgMicrosecondsPerInvocation="165" maxMicrosecondsPerInvocation="6905" standardDeviationMicrosecondsPerInvocation="328"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.StreamResourceTracker" totalMilliseconds="86" invocations="45" avgMicrosecondsPerInvocation="1915" maxMicrosecondsPerInvocation="6768" standardDeviationMicrosecondsPerInvocation="2170"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteDirectlyRelevantTypeQualifiers" totalMilliseconds="81" invocations="111" avgMicrosecondsPerInvocation="733" maxMicrosecondsPerInvocation="13411" standardDeviationMicrosecondsPerInvocation="1863"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.OverridingEqualsNotSymmetrical" totalMilliseconds="80" invocations="111" avgMicrosecondsPerInvocation="722" maxMicrosecondsPerInvocation="18897" standardDeviationMicrosecondsPerInvocation="2488"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.MethodGenFactory" totalMilliseconds="76" invocations="287" avgMicrosecondsPerInvocation="266" maxMicrosecondsPerInvocation="42497" standardDeviationMicrosecondsPerInvocation="2500"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.JavaClassAnalysisEngine" totalMilliseconds="65" invocations="224" avgMicrosecondsPerInvocation="292" maxMicrosecondsPerInvocation="23447" standardDeviationMicrosecondsPerInvocation="1643"/>
+      <ClassProfile name="edu.umd.cs.findbugs.util.TopologicalSort" totalMilliseconds="61" invocations="710" avgMicrosecondsPerInvocation="86" maxMicrosecondsPerInvocation="1682" standardDeviationMicrosecondsPerInvocation="163"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ConstantDataflowFactory" totalMilliseconds="56" invocations="287" avgMicrosecondsPerInvocation="195" maxMicrosecondsPerInvocation="3701" standardDeviationMicrosecondsPerInvocation="445"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FunctionsThatMightBeMistakenForProcedures" totalMilliseconds="55" invocations="111" avgMicrosecondsPerInvocation="496" maxMicrosecondsPerInvocation="6760" standardDeviationMicrosecondsPerInvocation="1165"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.CalledMethods" totalMilliseconds="52" invocations="111" avgMicrosecondsPerInvocation="468" maxMicrosecondsPerInvocation="4206" standardDeviationMicrosecondsPerInvocation="757"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.injection.custom.CustomInjectionDetector" totalMilliseconds="46" invocations="58" avgMicrosecondsPerInvocation="809" maxMicrosecondsPerInvocation="21874" standardDeviationMicrosecondsPerInvocation="2864"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindOpenStream" totalMilliseconds="46" invocations="58" avgMicrosecondsPerInvocation="808" maxMicrosecondsPerInvocation="15693" standardDeviationMicrosecondsPerInvocation="2856"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.UnreadFields" totalMilliseconds="43" invocations="58" avgMicrosecondsPerInvocation="754" maxMicrosecondsPerInvocation="7501" standardDeviationMicrosecondsPerInvocation="1205"/>
+      <ClassProfile name="edu.umd.cs.findbugs.DetectorToDetector2Adapter" totalMilliseconds="42" invocations="12687" avgMicrosecondsPerInvocation="3" maxMicrosecondsPerInvocation="389" standardDeviationMicrosecondsPerInvocation="4"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.BuildObligationPolicyDatabase" totalMilliseconds="42" invocations="111" avgMicrosecondsPerInvocation="383" maxMicrosecondsPerInvocation="4423" standardDeviationMicrosecondsPerInvocation="716"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.injection.ldap.LdapInjectionDetector" totalMilliseconds="41" invocations="58" avgMicrosecondsPerInvocation="713" maxMicrosecondsPerInvocation="16495" standardDeviationMicrosecondsPerInvocation="2199"/>
+      <ClassProfile name="edu.umd.cs.findbugs.ba.obl.ObligationAnalysis" totalMilliseconds="38" invocations="37" avgMicrosecondsPerInvocation="1034" maxMicrosecondsPerInvocation="10376" standardDeviationMicrosecondsPerInvocation="1887"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.file.PathTraversalDetector" totalMilliseconds="37" invocations="58" avgMicrosecondsPerInvocation="650" maxMicrosecondsPerInvocation="3882" standardDeviationMicrosecondsPerInvocation="895"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.DumbMethods" totalMilliseconds="37" invocations="58" avgMicrosecondsPerInvocation="649" maxMicrosecondsPerInvocation="8251" standardDeviationMicrosecondsPerInvocation="1211"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.injection.redirect.UnvalidatedRedirectDetector" totalMilliseconds="34" invocations="58" avgMicrosecondsPerInvocation="594" maxMicrosecondsPerInvocation="7501" standardDeviationMicrosecondsPerInvocation="1130"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.LiveLocalStoreDataflowFactory" totalMilliseconds="34" invocations="221" avgMicrosecondsPerInvocation="154" maxMicrosecondsPerInvocation="3415" standardDeviationMicrosecondsPerInvocation="370"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.ExplicitSerialization" totalMilliseconds="32" invocations="111" avgMicrosecondsPerInvocation="294" maxMicrosecondsPerInvocation="6597" standardDeviationMicrosecondsPerInvocation="1103"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.xml.StdXmlTransformDetector" totalMilliseconds="30" invocations="58" avgMicrosecondsPerInvocation="529" maxMicrosecondsPerInvocation="3489" standardDeviationMicrosecondsPerInvocation="842"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.xpath.XPathInjectionDetector" totalMilliseconds="30" invocations="58" avgMicrosecondsPerInvocation="520" maxMicrosecondsPerInvocation="3605" standardDeviationMicrosecondsPerInvocation="792"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.ReflectiveClasses" totalMilliseconds="30" invocations="111" avgMicrosecondsPerInvocation="271" maxMicrosecondsPerInvocation="3731" standardDeviationMicrosecondsPerInvocation="592"/>
+      <ClassProfile name="edu.umd.cs.findbugs.ba.npe.TypeQualifierNullnessAnnotationDatabase" totalMilliseconds="29" invocations="5226" avgMicrosecondsPerInvocation="5" maxMicrosecondsPerInvocation="3778" standardDeviationMicrosecondsPerInvocation="55"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.injection.script.ScriptInjectionDetector" totalMilliseconds="29" invocations="58" avgMicrosecondsPerInvocation="505" maxMicrosecondsPerInvocation="3846" standardDeviationMicrosecondsPerInvocation="786"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindInconsistentSync2" totalMilliseconds="28" invocations="58" avgMicrosecondsPerInvocation="495" maxMicrosecondsPerInvocation="3424" standardDeviationMicrosecondsPerInvocation="686"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.injection.script.OgnlInjectionDetector" totalMilliseconds="27" invocations="58" avgMicrosecondsPerInvocation="478" maxMicrosecondsPerInvocation="3492" standardDeviationMicrosecondsPerInvocation="703"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.BuildStringPassthruGraph" totalMilliseconds="27" invocations="111" avgMicrosecondsPerInvocation="247" maxMicrosecondsPerInvocation="5583" standardDeviationMicrosecondsPerInvocation="665"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.injection.trust.TrustBoundaryViolationAttributeDetector" totalMilliseconds="27" invocations="58" avgMicrosecondsPerInvocation="470" maxMicrosecondsPerInvocation="3798" standardDeviationMicrosecondsPerInvocation="691"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.injection.command.CommandInjectionDetector" totalMilliseconds="27" invocations="58" avgMicrosecondsPerInvocation="466" maxMicrosecondsPerInvocation="3475" standardDeviationMicrosecondsPerInvocation="732"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.injection.aws.AwsQueryInjectionDetector" totalMilliseconds="26" invocations="58" avgMicrosecondsPerInvocation="460" maxMicrosecondsPerInvocation="2912" standardDeviationMicrosecondsPerInvocation="677"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ValueRangeAnalysisFactory" totalMilliseconds="26" invocations="287" avgMicrosecondsPerInvocation="92" maxMicrosecondsPerInvocation="6709" standardDeviationMicrosecondsPerInvocation="445"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.CheckRelaxingNullnessAnnotation" totalMilliseconds="26" invocations="58" avgMicrosecondsPerInvocation="458" maxMicrosecondsPerInvocation="8466" standardDeviationMicrosecondsPerInvocation="1137"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.injection.crlf.CrlfLogInjectionDetector" totalMilliseconds="26" invocations="58" avgMicrosecondsPerInvocation="457" maxMicrosecondsPerInvocation="3449" standardDeviationMicrosecondsPerInvocation="774"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.scala.ScalaSensitiveDataExposureDetector" totalMilliseconds="26" invocations="58" avgMicrosecondsPerInvocation="457" maxMicrosecondsPerInvocation="3291" standardDeviationMicrosecondsPerInvocation="673"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.LoadOfKnownNullValue" totalMilliseconds="26" invocations="58" avgMicrosecondsPerInvocation="455" maxMicrosecondsPerInvocation="5754" standardDeviationMicrosecondsPerInvocation="815"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.password.ConstantPasswordDetector" totalMilliseconds="26" invocations="58" avgMicrosecondsPerInvocation="451" maxMicrosecondsPerInvocation="4128" standardDeviationMicrosecondsPerInvocation="622"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.injection.sql.SqlInjectionDetector" totalMilliseconds="25" invocations="58" avgMicrosecondsPerInvocation="445" maxMicrosecondsPerInvocation="2470" standardDeviationMicrosecondsPerInvocation="636"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNullDeref$CheckCallSitesAndReturnInstructions" totalMilliseconds="25" invocations="280" avgMicrosecondsPerInvocation="91" maxMicrosecondsPerInvocation="1675" standardDeviationMicrosecondsPerInvocation="199"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.HttpResponseSplittingDetector" totalMilliseconds="25" invocations="58" avgMicrosecondsPerInvocation="441" maxMicrosecondsPerInvocation="3575" standardDeviationMicrosecondsPerInvocation="722"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.scala.SSRFDetector" totalMilliseconds="25" invocations="58" avgMicrosecondsPerInvocation="439" maxMicrosecondsPerInvocation="3254" standardDeviationMicrosecondsPerInvocation="732"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.injection.trust.TrustBoundaryViolationValueDetector" totalMilliseconds="25" invocations="58" avgMicrosecondsPerInvocation="438" maxMicrosecondsPerInvocation="2801" standardDeviationMicrosecondsPerInvocation="675"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.scala.XssMvcApiDetector" totalMilliseconds="25" invocations="58" avgMicrosecondsPerInvocation="436" maxMicrosecondsPerInvocation="3507" standardDeviationMicrosecondsPerInvocation="718"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindDeadLocalStores" totalMilliseconds="25" invocations="58" avgMicrosecondsPerInvocation="435" maxMicrosecondsPerInvocation="4066" standardDeviationMicrosecondsPerInvocation="691"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.crypto.WeakTLSDetector" totalMilliseconds="25" invocations="58" avgMicrosecondsPerInvocation="433" maxMicrosecondsPerInvocation="15291" standardDeviationMicrosecondsPerInvocation="1984"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.injection.sql.AndroidSqlInjectionDetector" totalMilliseconds="25" invocations="58" avgMicrosecondsPerInvocation="432" maxMicrosecondsPerInvocation="3001" standardDeviationMicrosecondsPerInvocation="639"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.PotentialValueDetector" totalMilliseconds="25" invocations="58" avgMicrosecondsPerInvocation="431" maxMicrosecondsPerInvocation="3120" standardDeviationMicrosecondsPerInvocation="649"/>
+    </FindBugsProfile>
+  </FindBugsSummary>
+  <ClassFeatures></ClassFeatures>
+  <History></History>
+</BugCollection>
