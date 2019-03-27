@@ -3,7 +3,10 @@ package edu.asu.stratego.game;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import edu.asu.stratego.Server;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -21,13 +24,14 @@ import edu.asu.stratego.util.HashTables;
  * Task to handle the Stratego game on the client-side.
  */
 public class ClientGameManager implements Runnable {
-    
+
+    private static String msgInterruption = "Interrupted!!";
     private static Object setupPieces = new Object();
     private static Object sendMove    = new Object();
     private static Object receiveMove = new Object();
     private static Object waitFade    = new Object();
     private static Object waitVisible = new Object();
-    
+    private static final Logger logger = Logger.getLogger( ClientGameManager.class.getName() );
     private ObjectOutputStream toServer;
     private ObjectInputStream  fromServer;
     
@@ -46,7 +50,7 @@ public class ClientGameManager implements Runnable {
      * See ServerGameManager's run() method to understand how the client 
      * interacts with the server.
      * 
-     * @see edu.asu.stratego.Game.ServerGameManager
+     *
      */
     @Override
     public void run() {
@@ -82,8 +86,10 @@ public class ClientGameManager implements Runnable {
             serverConnect.join();
         }
         catch(InterruptedException e) {
-            // TODO Handle this exception somehow...
-            e.printStackTrace();
+            // to do Handle this exception somehow...
+            logger.log( Level.SEVERE, e.toString(), e );
+            // Restore interrupted state...      
+            Thread.currentThread().interrupt();
         }
     }
     
@@ -99,7 +105,7 @@ public class ClientGameManager implements Runnable {
      * </p>
      */
     private void waitForOpponent() {
-        Platform.runLater(() -> { stage.setWaitingScene(); });
+        Platform.runLater(() -> stage.setWaitingScene());
         
         try {
             // I/O Streams.
@@ -117,8 +123,8 @@ public class ClientGameManager implements Runnable {
                 Game.getPlayer().setColor(PieceColor.RED);
         }
         catch (IOException | ClassNotFoundException e) {
-            // TODO Handle this exception somehow...
-            e.printStackTrace();
+            // TO DO Handle this exception somehow...
+            logger.log( Level.SEVERE, e.toString(), e );
         }
     }
     
@@ -128,7 +134,7 @@ public class ClientGameManager implements Runnable {
      * positions are sent to the server.
      */
     private void setupBoard() {
-        Platform.runLater(() -> { stage.setBoardScene(); });
+        Platform.runLater(() ->  stage.setBoardScene());
         
         synchronized (setupPieces) {
             try {
@@ -160,23 +166,25 @@ public class ClientGameManager implements Runnable {
                 });
             }
             catch (InterruptedException | IOException | ClassNotFoundException e) {
-                // TODO Handle this exception somehow...
+                // to do Handle this exception somehow...
+                logger.log( Level.SEVERE, e.toString(), e );
+                // Restore interrupted state...      
+                Thread.currentThread().interrupt();
             }
         }
     }
     
     private void playGame() {
     	// Remove setup panel
-        Platform.runLater(() -> {
-            BoardScene.getRootPane().getChildren().remove(BoardScene.getSetupPanel());
-        });
+        Platform.runLater(() ->
+                BoardScene.getRootPane().getChildren().remove(BoardScene.getSetupPanel()));
         
         // Get game status from the server
         try {
 			Game.setStatus((GameStatus) fromServer.readObject());
 		} catch (ClassNotFoundException | IOException e1) {
-			// TODO Handle this somehow...
-			e1.printStackTrace();
+			// TO DO Handle this somehow...
+            logger.log( Level.SEVERE, e1.toString(), e1 );
 		}
 
         
@@ -212,7 +220,7 @@ public class ClientGameManager implements Runnable {
                 Piece endPiece = Game.getMove().getEndPiece();
                                 
                 // If the move is an attack, not just a move to an unoccupied square
-                if(Game.getMove().isAttackMove() == true) {
+                if(Game.getMove().isAttackMove()) {
                 	Piece attackingPiece = Game.getBoard().getSquare(Game.getMove().getStart().x, Game.getMove().getStart().y).getPiece();
                 	if(attackingPiece.getPieceType() == PieceType.SCOUT) {
                 		// Check if the scout is attacking over more than one square
@@ -237,8 +245,8 @@ public class ClientGameManager implements Runnable {
                 					startSquare.getPiecePane().setPiece(null);
                 				}
         						catch (Exception e) {
-        							// TODO Handle this somehow...
-        							e.printStackTrace();
+        							// TO DO Handle this somehow...
+                                    logger.log( Level.SEVERE, e.toString(), e );
         						}
                 			});
 
@@ -274,8 +282,8 @@ public class ClientGameManager implements Runnable {
                             endSquare.getPiecePane().setPiece(HashTables.PIECE_MAP.get(animEndPiece.getPieceSpriteKey()));
             			}
 						catch (Exception e) {
-							// TODO Handle this somehow...
-							e.printStackTrace();
+							// TO DO Handle this somehow...
+                            logger.log( Level.SEVERE, e.toString(), e );
 						}
             		});
 
@@ -289,14 +297,14 @@ public class ClientGameManager implements Runnable {
 	                        ClientSquare endSquare = Game.getBoard().getSquare(Game.getMove().getEnd().x, Game.getMove().getEnd().y);
 	                        
 	                        // If the piece dies, fade it out (also considers a draw, where both "win" are set to false)
-	                        if(Game.getMove().isAttackWin() == false) {
+	                        if(!Game.getMove().isAttackWin()) {
 		                        FadeTransition fadeStart = new FadeTransition(Duration.millis(1500), startSquare.getPiecePane().getPiece());
 		                        fadeStart.setFromValue(1.0);
 		                        fadeStart.setToValue(0.0);
 		                        fadeStart.play();
 		                        fadeStart.setOnFinished(new ResetImageVisibility());
 	                        }
-	                        if(Game.getMove().isDefendWin() == false) {
+	                        if(!Game.getMove().isDefendWin()) {
 		                        FadeTransition fadeEnd = new FadeTransition(Duration.millis(1500), endSquare.getPiecePane().getPiece());
 		                        fadeEnd.setFromValue(1.0);
 		                        fadeEnd.setToValue(0.0);
@@ -305,8 +313,8 @@ public class ClientGameManager implements Runnable {
 	                        }
             			}
 						catch (Exception e) {
-							// TODO Handle this somehow...
-							e.printStackTrace();
+							// TO DO Handle this somehow...
+                            logger.log( Level.SEVERE, e.toString(), e );
 						}
             		});
             		
@@ -320,7 +328,6 @@ public class ClientGameManager implements Runnable {
 
                 // Update GUI.
                 Platform.runLater(() -> {
-                    // obselete: ClientSquare startSquare = Game.getBoard().getSquare(Game.getMove().getStart().x, Game.getMove().getStart().y);
                     ClientSquare endSquare = Game.getBoard().getSquare(Game.getMove().getEnd().x, Game.getMove().getEnd().y);
                     
                     // Draw
@@ -381,8 +388,10 @@ public class ClientGameManager implements Runnable {
                 Game.setStatus((GameStatus) fromServer.readObject());
             }
             catch (ClassNotFoundException | IOException | InterruptedException e) {
-                // TODO Handle this exception somehow...
-                e.printStackTrace();
+                // TO DO Handle this exception somehow...
+                logger.log( Level.SEVERE, e.toString(), e );
+                // Restore interrupted state...      
+                Thread.currentThread().interrupt();
             }
         }
         
@@ -416,7 +425,7 @@ public class ClientGameManager implements Runnable {
         @Override
         public void handle(ActionEvent event) {
             synchronized (waitFade) {
-                waitFade.notify();
+                waitFade.notifyAll();
                 Game.getBoard().getSquare(Game.getMove().getStart().x, Game.getMove().getStart().y).getPiecePane().getPiece().setOpacity(1.0);
                 Game.getBoard().getSquare(Game.getMove().getStart().x, Game.getMove().getStart().y).getPiecePane().getPiece().setRotate(0.0);
                 Game.getBoard().getSquare(Game.getMove().getStart().x, Game.getMove().getStart().y).getPiecePane().setPiece(null);
@@ -431,7 +440,7 @@ public class ClientGameManager implements Runnable {
         @Override
         public void handle(ActionEvent event) {
             synchronized (waitVisible) {
-            	waitVisible.notify();
+            	waitVisible.notifyAll();
                 Game.getBoard().getSquare(Game.getMove().getStart().x, Game.getMove().getStart().y).getPiecePane().getPiece().setOpacity(1.0);
                 Game.getBoard().getSquare(Game.getMove().getStart().x, Game.getMove().getStart().y).getPiecePane().getPiece().setRotate(0.0);
                 Game.getBoard().getSquare(Game.getMove().getStart().x, Game.getMove().getStart().y).getPiecePane().setPiece(null);

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.logging.Logger;
 
 import edu.asu.stratego.game.ServerGameManager;
 
@@ -14,33 +15,35 @@ import edu.asu.stratego.game.ServerGameManager;
  * status of the game.
  */
 public class Server {
+    private static final Logger logger = Logger.getLogger( Server.class.getName() );
     public static void main(String[] args) throws IOException {
-        
         String hostAddress    = InetAddress.getLocalHost().getHostAddress();
         ServerSocket listener = null;
         int sessionNumber     = 1;
         
         try {
             listener = new ServerSocket(4212);
-            System.out.println("Server started @ " + hostAddress);
-            System.out.println("Waiting for incoming connections...\n");
+            logger.info("Server started @ " + hostAddress);
+            logger.info("Waiting for incoming connections...\n");
             
             while (true) {
                 Socket playerOne = listener.accept();
-                System.out.println("Session " + sessionNumber + 
+                logger.info("Session " + sessionNumber +
                                    ": Player 1 has joined the session");
                 
                 Socket playerTwo = listener.accept();
-                System.out.println("Session " + sessionNumber + 
+                logger.info("Session " + sessionNumber +
                                    ": Player 2 has joined the session");
                 
                 Thread session = new Thread(new ServerGameManager(
                         playerOne, playerTwo, sessionNumber++));
                 session.setDaemon(true);
                 session.start();
+
+                // Aquí abría que añadir el fin del juego, este bucle no tiene un end, por tanto se queda
+                // ahi esperando un movimiento que nunca llegará
             }
         }
-        
         finally { listener.close(); }
     }
 }
