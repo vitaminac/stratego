@@ -1,24 +1,23 @@
 package edu.asu.stratego.game;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import edu.asu.stratego.Server;
+import edu.asu.stratego.game.board.ClientSquare;
+import edu.asu.stratego.gui.BoardScene;
+import edu.asu.stratego.gui.ConnectionScene;
+import edu.asu.stratego.gui.IClientStage;
+import edu.asu.stratego.gui.board.BoardTurnIndicator;
+import edu.asu.stratego.media.ImageConstants;
+import edu.asu.stratego.util.HashTables;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.util.Duration;
-import edu.asu.stratego.game.board.ClientSquare;
-import edu.asu.stratego.gui.BoardScene;
-import edu.asu.stratego.gui.ClientStage;
-import edu.asu.stratego.gui.ConnectionScene;
-import edu.asu.stratego.gui.board.BoardTurnIndicator;
-import edu.asu.stratego.media.ImageConstants;
-import edu.asu.stratego.util.HashTables;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Task to handle the Stratego game on the client-side.
@@ -31,18 +30,19 @@ public class ClientGameManager implements Runnable {
     private static Object receiveMove = new Object();
     private static Object waitFade    = new Object();
     private static Object waitVisible = new Object();
-    private static final Logger logger = Logger.getLogger( ClientGameManager.class.getName() );
-    private ObjectOutputStream toServer;
-    private ObjectInputStream  fromServer;
+    // TODO: revert permission
+    protected static final Logger logger = Logger.getLogger( ClientGameManager.class.getName() );
+    protected ObjectOutputStream toServer;
+    protected ObjectInputStream  fromServer;
     
-    private ClientStage stage;
+    private IClientStage stage;
     
     /**
      * Creates a new instance of ClientGameManager.
      * 
      * @param stage the stage that the client is set in
      */
-    public ClientGameManager(ClientStage stage) {
+    public ClientGameManager(IClientStage stage) {
         this.stage = stage;
     }
 
@@ -104,7 +104,7 @@ public class ClientGameManager implements Runnable {
      * the game.
      * </p>
      */
-    private void waitForOpponent() {
+    protected void waitForOpponent() {
         Platform.runLater(() -> stage.setWaitingScene());
         
         try {

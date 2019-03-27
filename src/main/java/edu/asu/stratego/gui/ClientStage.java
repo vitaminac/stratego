@@ -10,7 +10,7 @@ import javafx.stage.Stage;
  * preset Stage for facilitating easy navigation between scenes in the Client 
  * application.
  */
-public class ClientStage extends Stage {
+public class ClientStage extends Stage implements IClientStage {
     
     private ConnectionScene connection;
     private WaitingScene    waiting;

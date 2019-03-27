@@ -89,13 +89,13 @@ public class ConnectionScene {
             });
  
             nickname = nicknameField.getText();
-            serverIP = serverIPField.getText();
+            Game.setServerIP(serverIPField.getText());
             
             // Default values.
             if (nickname.equals(""))
                 nickname = "Player";
-            if (serverIP.equals(""))
-                serverIP = "localhost";
+            if (Game.getServerIP().equals(""))
+                Game.setServerIP("localhost");
            
             Game.getPlayer().setNickname(nickname);
            
@@ -149,7 +149,7 @@ public class ConnectionScene {
                         playerLogin.wait();
                        
                         // Attempt connection to server.
-                        ClientSocket.connect(serverIP, 4212);
+                        ClientSocket.connect(Game.getServerIP(), Game.PORT);
                     }
                     catch (IOException | InterruptedException e) {
                         Platform.runLater(() -> {

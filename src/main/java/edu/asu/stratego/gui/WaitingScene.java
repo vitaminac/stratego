@@ -1,5 +1,6 @@
 package edu.asu.stratego.gui;
 
+import edu.asu.stratego.game.ai.AIGameManager;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -38,7 +39,9 @@ public class WaitingScene {
         aiButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                // TODO:
+                Thread manager = new Thread(new AIGameManager(new AIClientStage()));
+                manager.setDaemon(true);
+                manager.start();
             }
         });
 
