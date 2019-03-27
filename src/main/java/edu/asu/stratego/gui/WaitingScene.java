@@ -1,8 +1,12 @@
 package edu.asu.stratego.gui;
 
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 /**
@@ -17,15 +21,27 @@ public class WaitingScene {
     private final int WINDOW_HEIGHT = 150;
     
     Scene scene;
+    private static Button aiButton = new Button();
     
     /**
      * Creates a new instance of WaitingScene.
      */
     public WaitingScene() {
-        // Create UI.
-        StackPane pane = new StackPane();
-        pane.getChildren().add(new Label("Waiting for an opponent..."));
+        aiButton.setPrefSize(WINDOW_WIDTH * 0.5, WINDOW_HEIGHT * 0.1);
+        aiButton.setText("Play vs Computer");
         
+        // Create UI.
+        VBox pane = new VBox();
+        pane.getChildren().add(new Label("Waiting for an opponent..."));
+        pane.getChildren().add(aiButton);
+        pane.setAlignment(Pos.CENTER);
+        aiButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                // TODO:
+            }
+        });
+
         scene = new Scene(pane, WINDOW_WIDTH, WINDOW_HEIGHT);
         scene.setFill(Color.LIGHTGRAY);
     }
