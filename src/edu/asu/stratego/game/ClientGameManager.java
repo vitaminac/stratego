@@ -51,6 +51,8 @@ public class ClientGameManager implements Runnable {
     @Override
     public void run() {
         connectToServer();
+        //TODO: quitar
+        //setOutcomeScene();
         waitForOpponent();
 
         setupBoard();
@@ -412,7 +414,10 @@ public class ClientGameManager implements Runnable {
     }
 
     private void setOutcomeScene() {
-        stage.setOutcomeScene();
+        Platform.runLater(() -> {
+            ClientStage stage2 = new ClientStage();
+            stage2.setOutcomeScene();
+        });
     }
     
     // Finicky, ill-advised to edit. Resets the opacity, rotation, and piece to null
