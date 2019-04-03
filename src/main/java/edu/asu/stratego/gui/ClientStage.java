@@ -55,11 +55,6 @@ public class ClientStage extends Stage {
         this.setScene(waiting.scene);
     }
 
-    public void setFinalScene() {
-        finished = new FinalScene();
-        this.setScene(finished.scene);
-    }
-
     /**
      * Switch to the Board Scene.
      * 
