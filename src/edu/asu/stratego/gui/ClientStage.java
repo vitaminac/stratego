@@ -15,6 +15,7 @@ public class ClientStage extends Stage {
     private ConnectionScene connection;
     private WaitingScene    waiting;
     private BoardScene      board;
+    private OutcomeScene    outcome;
     
     private static double UNIT;
     private static int    SIDE;
@@ -28,7 +29,8 @@ public class ClientStage extends Stage {
         SIDE = (int) (0.85 * screenSize.getHeight()) / 12 * 12;
         UNIT = SIDE / 12;
         
-        setConnectionScene();
+        //setConnectionScene();
+        setOutcomeScene();
         this.setTitle("ASU Stratego");
         this.setResizable(false);
         this.show();
@@ -59,6 +61,15 @@ public class ClientStage extends Stage {
     public void setBoardScene() {
         board = new BoardScene();
         this.setScene(board.scene);
+    }
+
+    /**
+     * Switch to the Outcome Scene.
+     * @see edu.asu.stratego.gui.OutcomeScene
+     */
+    public void setOutcomeScene() {
+        outcome = new OutcomeScene();
+        this.setScene(outcome.scene);
     }
 
     /**
