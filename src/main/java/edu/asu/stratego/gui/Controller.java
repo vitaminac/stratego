@@ -1,14 +1,21 @@
 package edu.asu.stratego.gui;
 
+import edu.asu.stratego.Client;
 import edu.asu.stratego.game.ClientGameManager;
 import edu.asu.stratego.game.Game;
+import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 import static edu.asu.stratego.gui.prueba.*;
 
@@ -68,8 +75,16 @@ public class Controller {
 
     }
 
-    public void onPlayAgainButtonClicked(MouseEvent event) {
-        new prueba();
+    public void onPlayAgainButtonClicked(MouseEvent event) {        try {
+
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("ConnectionScreen.fxml"));
+       Stage stage= (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene= null;
+            scene = new Scene(loader.load());
+
+        stage.setScene(scene); } catch (IOException e) {
+        e.printStackTrace();
+    }
     }
 
 

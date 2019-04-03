@@ -23,6 +23,7 @@ public class FinalScene  extends Application {
     private double yOffset;
 
     public Scene scene;
+
     {
         try {
             start(null);
@@ -34,10 +35,6 @@ public class FinalScene  extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("FinalScreen.fxml"));
-
-
-        //Fin movimiento de ventana.
-
 
         scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
