@@ -22,15 +22,21 @@ import static edu.asu.stratego.gui.prueba.*;
 public class Controller {
 
     // Connection Screen
-    @FXML private ImageView userArrow;
-    @FXML private ImageView AIArrow;
+    @FXML
+    private ImageView userArrow;
+    @FXML
+    private ImageView AIArrow;
 
-    @FXML private AnchorPane AIPanel;
-    @FXML private AnchorPane userPanel;
+    @FXML
+    private AnchorPane AIPanel;
+    @FXML
+    private AnchorPane userPanel;
 
     //@FXML private TextField nombreIA; WHEN IMPLEMENT IA WE PUT THIS WITH IF.
-    @FXML private TextField nombreUsuario;
-    @FXML private TextField dirIP;
+    @FXML
+    private TextField nombreUsuario;
+    @FXML
+    private TextField dirIP;
 
 
     // END CONNECTION SCREEN
@@ -49,8 +55,7 @@ public class Controller {
         if (!AIArrow.isVisible() || userArrow.isVisible()) {
             AIArrow.setVisible(true);
             userArrow.setVisible(false);
-        }
-        else
+        } else
             AIArrow.setVisible(false);
         if (!AIPanel.isVisible()) {
             AIPanel.setVisible(true);
@@ -75,16 +80,18 @@ public class Controller {
 
     }
 
-    public void onPlayAgainButtonClicked(MouseEvent event) {        try {
+    public void onPlayAgainButtonClicked(MouseEvent event) {
+        try {
 
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("ConnectionScreen.fxml"));
-       Stage stage= (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene= null;
+            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("ConnectionScreen.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene;
             scene = new Scene(loader.load());
 
-        stage.setScene(scene); } catch (IOException e) {
-        e.printStackTrace();
-    }
+            stage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -93,16 +100,13 @@ public class Controller {
         nickname = nombreUsuario.getText();
         serverIP = dirIP.getText();
 
-
         Game.getPlayer().setNickname(nickname);
-
 
         synchronized (playerLogin) {
             try {
                 playerLogin.notify();  // Signal submitFields button event.
                 playerLogin.wait();    // Wait for connection attempt.
-            }
-            catch (InterruptedException e) {
+            } catch (InterruptedException e) {
                 // TODO Handle this exception somehow...
                 e.printStackTrace();
             }
