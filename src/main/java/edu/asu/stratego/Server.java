@@ -30,7 +30,6 @@ public class Server {
             logger.info("Server started @ " + hostAddress);
             logger.info("Waiting for incoming connections...\n");
             prueba prueba1 = new prueba();
-            //Parent root = FXMLLoader.load(Server.class.getResource("/sample.fxml"));
             prueba1.init();
             
             while (true) {

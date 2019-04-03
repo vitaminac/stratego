@@ -42,6 +42,8 @@ public class prueba extends Application {
         launch(args);
     }
 
+
+
     public static class ConnectToServer implements Runnable {
         @Override
         public void run() {

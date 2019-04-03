@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="340.0" prefWidth="318.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.asu.stratego.gui.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="340.0" prefWidth="318.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.asu.stratego.gui.Controller">
     <children>
         <AnchorPane prefHeight="63.0" prefWidth="318.0" style="-fx-background-color: #35445b;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -58,7 +58,7 @@
                         <Image url="@../media/images/icons/domain.png" />
                     </image>
                 </ImageView>
-                <ImageView fitHeight="43.0" fitWidth="40.0" layoutX="140.0" layoutY="174.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="43.0" fitWidth="40.0" layoutX="140.0" layoutY="174.0" onMouseClicked="#onPlayButtonClicked" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../media/images/icons/play.png" />
                     </image>

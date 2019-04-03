@@ -1,5 +1,6 @@
 package edu.asu.stratego.gui;
 
+import edu.asu.stratego.game.Game;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -41,33 +42,6 @@ public class Controller {
 
         userPanel.setVisible(false);
         userArrow.setVisible(false);
-        nombreIA.setOnInputMethodTextChanged(t ->{
-            nickname = nombreIA.getText();
-            synchronized (playerLogin) {
-                try {
-                    playerLogin.notify();  // Signal submitFields button event.
-                    playerLogin.wait();    // Wait for connection attempt.
-                }
-                catch (InterruptedException e) {
-                    // TODO Handle this exception somehow...
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        dirIP.setOnInputMethodTextChanged(t ->{
-            serverIP = dirIP.getText();
-            synchronized (playerLogin) {
-                try {
-                    playerLogin.notify();  // Signal submitFields button event.
-                    playerLogin.wait();    // Wait for connection attempt.
-                }
-                catch (InterruptedException e) {
-                    // TODO Handle this exception somehow...
-                    e.printStackTrace();
-                }
-            }
-        });
     }
 
     public void onPlayerButtonClicked(MouseEvent event) {
@@ -85,6 +59,23 @@ public class Controller {
 
 
     public void onPlayButtonClicked(MouseEvent event) {
-        
+
+        nickname = nombreIA.getText();
+        serverIP = dirIP.getText();
+
+
+        Game.getPlayer().setNickname(nickname);
+
+
+        synchronized (playerLogin) {
+            try {
+                playerLogin.notify();  // Signal submitFields button event.
+                playerLogin.wait();    // Wait for connection attempt.
+            }
+            catch (InterruptedException e) {
+                // TODO Handle this exception somehow...
+                e.printStackTrace();
+            }
+        }
     }
 }
