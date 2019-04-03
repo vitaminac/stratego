@@ -1,4 +1,4 @@
-package main.java.edu.asu.stratego.gui;
+package edu.asu.stratego.gui;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Label;

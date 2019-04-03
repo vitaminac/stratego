@@ -11,7 +11,6 @@ import edu.asu.stratego.game.Game;
 import edu.asu.stratego.gui.board.BoardTurnIndicator;
 import edu.asu.stratego.gui.board.setup.SetupPanel;
 import edu.asu.stratego.media.ImageConstants;
-import edu.asu.stratego.media.PlaySound;
 
 /**
  * Wrapper class for a JavaFX scene. Contains a scene UI and its associated 
