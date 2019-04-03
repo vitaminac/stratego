@@ -1,8 +1,10 @@
 package edu.asu.stratego.gui;
 
+import edu.asu.stratego.game.ClientGameManager;
 import edu.asu.stratego.game.Game;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -12,6 +14,7 @@ import static edu.asu.stratego.gui.prueba.*;
 
 public class Controller {
 
+    // Connection Screen
     @FXML private ImageView userArrow;
     @FXML private ImageView AIArrow;
 
@@ -21,6 +24,13 @@ public class Controller {
     //@FXML private TextField nombreIA; WHEN IMPLEMENT IA WE PUT THIS WITH IF.
     @FXML private TextField nombreUsuario;
     @FXML private TextField dirIP;
+
+
+    // END CONNECTION SCREEN
+
+    // FINAL SCREEN
+
+    // END FINAL SCREEN
 
 
     public void onExitButtonClicked(MouseEvent event) {
@@ -56,6 +66,10 @@ public class Controller {
             userArrow.setVisible(false);
         }
 
+    }
+
+    public void onPlayAgainButtonClicked(MouseEvent event) {
+        new prueba();
     }
 
 

@@ -1,5 +1,6 @@
 package edu.asu.stratego.gui;
 
+import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,12 +17,10 @@ import static javafx.application.Application.launch;
  * another opponent to connect to the server. The intended function for this
  * scene is analogous to a loading screen.
  */
-public class FinalScene {
+public class FinalScene  extends Application {
 
     private double xOffset;
     private double yOffset;
-    public static String serverIP, nickname;
-    public static final Object playerLogin = new Object();
 
     public Scene scene;
     {
@@ -31,9 +30,10 @@ public class FinalScene {
             e.printStackTrace();
         }
     }
+
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("FinalScreen.fxml"));
 
 
         //Fin movimiento de ventana.
@@ -41,14 +41,12 @@ public class FinalScene {
 
         scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
-        // primaryStage.setScene(scene);
-        // primaryStage.show();
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
     public static void main(String[] args) {
         launch(args);
     }
 
-
-}
 }

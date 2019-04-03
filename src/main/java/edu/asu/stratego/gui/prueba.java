@@ -26,7 +26,7 @@ public class prueba extends Application {
     }
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("ConnectionScreen.fxml"));
 
 
         //Fin movimiento de ventana.
