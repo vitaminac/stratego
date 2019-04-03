@@ -1,5 +1,6 @@
 package edu.asu.stratego.gui.board.setup;
 
+import edu.asu.stratego.game.SetupBoard;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -20,6 +21,9 @@ import edu.asu.stratego.gui.ClientStage;
 import edu.asu.stratego.media.ImageConstants;
 import edu.asu.stratego.media.PlaySound;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * The panel that is shown during the SETTING_UP phase of a Stratego game.
  * Players interact with this panel to set up their pieces to their starting 
@@ -34,6 +38,9 @@ public class SetupPanel {
     private static Label     instructions      = new Label();
     private static Label     readyLabel        = new Label();
     private static ImageView readyButton       = new ImageView();
+    private static ImageView saveButton        = new ImageView();
+    private static ImageView importButton      = new ImageView();
+    List<Object> setupPieces = new ArrayList<>();
     
     /**
      * Creates a new instance of SetupPanel.
@@ -104,7 +111,38 @@ public class SetupPanel {
         headerPane.add(headerText, 2, 0);
         
         setupPanel.add(headerPane, 0, 0);
-        
+
+        //Save setUp
+        saveButton.setImage(ImageConstants.READY_IDLE);
+        saveButton.setFitHeight(UNIT * 0.75);
+        saveButton.setFitWidth(UNIT * 2.25);
+        saveButton.addEventHandler(MouseEvent.MOUSE_ENTERED_TARGET, e -> {
+            saveButton.setImage(ImageConstants.READY_HOVER);
+        });
+
+        saveButton.addEventHandler(MouseEvent.MOUSE_EXITED_TARGET, e -> {
+            saveButton.setImage(ImageConstants.READY_IDLE);
+        });
+
+        saveButton.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+            Platform.runLater(() -> { save(); } );
+        });
+
+        //Import setUp
+        importButton.setImage(ImageConstants.READY_IDLE);
+        importButton.setFitHeight(UNIT * 0.75);
+        importButton.setFitWidth(UNIT * 2.25);
+        importButton.addEventHandler(MouseEvent.MOUSE_ENTERED_TARGET, e -> {
+            importButton.setImage(ImageConstants.READY_HOVER);
+        });
+
+        importButton.addEventHandler(MouseEvent.MOUSE_EXITED_TARGET, e -> {
+            importButton.setImage(ImageConstants.READY_IDLE);
+        });
+
+        importButton.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+            Platform.runLater(() -> { impo(); } );
+        });
         
         /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
          *                                                                               *
@@ -167,6 +205,8 @@ public class SetupPanel {
         
         instructionPane.getChildren().add(instructions);
         instructionPane.setAlignment(Pos.CENTER);
+        instructionPane.getChildren().add(importButton);
+        instructionPane.getChildren().add(saveButton);
         
         setupPanel.add(instructionPane, 0, 2);
         
@@ -219,6 +259,15 @@ public class SetupPanel {
             
             setupPieces.notify();
         }
+    }
+
+    public  void save(){
+        Object setUpPieces = ClientGameManager.getSetupPieces();
+        this.setupPieces.add(setUpPieces);
+    }
+
+    public Object impo(){
+        return this.setupPieces.get(0);
     }
 
     /**
