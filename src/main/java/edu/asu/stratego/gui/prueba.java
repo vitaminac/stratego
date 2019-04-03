@@ -58,9 +58,7 @@ public class prueba extends Application {
                         ClientSocket.connect(serverIP, 4212);
                     }
                     catch (IOException | InterruptedException e) {
-                     //   Platform.runLater(() -> {
-                     //       statusLabel.setText("Cannot connect to the Server");
-                     //   });
+                     e.printStackTrace();
                     }
                     finally {
                         // Wake up button event thread.

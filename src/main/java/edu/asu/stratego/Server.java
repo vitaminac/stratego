@@ -1,16 +1,13 @@
 package edu.asu.stratego;
 
+import edu.asu.stratego.game.ServerGameManager;
+import edu.asu.stratego.gui.prueba;
+
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Logger;
-
-import edu.asu.stratego.game.ServerGameManager;
-import edu.asu.stratego.gui.prueba;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.stage.Stage;
 
 /**
  * The Stratego Server creates a socket and listens for connections from every 
@@ -29,9 +26,7 @@ public class Server {
             listener = new ServerSocket(4212);
             logger.info("Server started @ " + hostAddress);
             logger.info("Waiting for incoming connections...\n");
-            prueba prueba1 = new prueba();
-            prueba1.init();
-            
+
             while (true) {
                 Socket playerOne = listener.accept();
                 logger.info("Session " + sessionNumber +
