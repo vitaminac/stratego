@@ -2,7 +2,6 @@ package edu.asu.stratego.game;
 
 import java.io.Serializable;
 
-import edu.asu.stratego.game.PieceColor;
 
 /**
  * Contains information about a player.

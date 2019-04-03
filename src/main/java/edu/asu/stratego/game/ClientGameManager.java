@@ -23,7 +23,6 @@ import edu.asu.stratego.util.HashTables;
  */
 public class ClientGameManager implements Runnable {
 
-    private static String msgInterruption = "Interrupted!!";
     private static Object setupPieces = new Object();
     private static Object sendMove    = new Object();
     private static Object receiveMove = new Object();
@@ -33,7 +32,7 @@ public class ClientGameManager implements Runnable {
     protected ObjectOutputStream toServer;
     protected ObjectInputStream  fromServer;
     private ClientStage stage2;
-    
+
     private IClientStage stage;
     
     /**

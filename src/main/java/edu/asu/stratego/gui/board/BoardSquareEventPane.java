@@ -76,7 +76,7 @@ public class BoardSquareEventPane extends GridPane {
             		// <moved to be handled elsewhere>
             	}
             }
-        };
+        }
     }
     
     /**
@@ -101,7 +101,7 @@ public class BoardSquareEventPane extends GridPane {
             		// Moved elsewhere: Function to only allow highlighting of squares piece can move to 
             	}
             }
-        };
+        }
     }
 
     // Set the image to a red highlight indicating an invalid move
@@ -234,11 +234,114 @@ public class BoardSquareEventPane extends GridPane {
             	}
             }
         }
+        private void displayValidMoves(int pieceRow, int pieceCol) {
+            // Iterate through and unhighlight/unglow all squares/pieces
+            for (int row = 0; row < 10; ++row) {
+                for (int col = 0; col < 10; ++col) {
+                    Game.getBoard().getSquare(row, col).getEventPane().getHover().setImage(ImageConstants.HIGHLIGHT_NONE);
+                    Game.getBoard().getSquare(row, col).getEventPane().getHover().setOpacity(1.0);
+                    Game.getBoard().getSquare(row, col).getPiecePane().getPiece().setEffect(new Glow(0.0));
+                }
+            }
+
+            // Glow and set a white highlight around the selected piece
+            Game.getBoard().getSquare(pieceRow,pieceCol).getPiecePane().getPiece().setEffect(new Glow(0.75));
+            Game.getBoard().getSquare(pieceRow,pieceCol).getEventPane().getHover().setImage(ImageConstants.HIGHLIGHT_WHITE);
+
+            // Iterate through all valid moves and highlight respective squares
+            for (Point validMove : validMoves) {
+                Game.getBoard().getSquare((int) validMove.getX(), (int) validMove.getY()).getEventPane().getHover().setImage(ImageConstants.HIGHLIGHT_VALID);
+                Game.getBoard().getSquare((int) validMove.getX(), (int) validMove.getY()).getEventPane().getHover().setOpacity(0.5);
+            }
+        }
+        
+
+        private ArrayList<Point> computeValidMoves(int row, int col) {
+            // Set the max distance of a valid move to 1
+            int max = 1;
+
+            // Set the max distance of a valid move to the board width if the piece is a scout
+            PieceType pieceType = Game.getBoard().getSquare(row, col).getPiece().getPieceType();
+            if(pieceType == PieceType.SCOUT)
+                max = 8;
+
+            ArrayList<Point> validMoves = new ArrayList<>();
+
+            // Iterate through each direction and add valid moves based on if:
+            // 1) The square is in bounds (inside the board)
+            // 2) If the square is not a lake
+            // 3) If the square has no piece on it OR there is a piece, but it is an opponent piece
+
+            if(pieceType != PieceType.BOMB && pieceType != PieceType.FLAG) {
+                // Negative Row (UP)
+                for(int i = -1; i >= -max; --i) {
+                    if(isInBounds(row+i,col) && (!isLake(row+i, col) || (!isNullPiece(row+i, col) && !isOpponentPiece(row+i, col)))) {
+                        if(isNullPiece(row+i, col) || isOpponentPiece(row+i, col)) {
+                            validMoves.add(new Point(row+i, col));
+
+                            if(!isNullPiece(row+i, col) && isOpponentPiece(row+i, col))
+                                break;
+                        }
+                        else
+                            break;
+                    }
+                    else
+                        break;
+                }
+                // Positive Col (RIGHT)
+                for(int i = 1; i <= max; ++i) {
+                    if(isInBounds(row,col+i) && (!isLake(row, col+i) || (!isNullPiece(row, col+i) && !isOpponentPiece(row, col+i)))) {
+                        if(isNullPiece(row, col+i) || isOpponentPiece(row, col+i)) {
+                            validMoves.add(new Point(row, col+i));
+
+                            if(!isNullPiece(row, col+i) && isOpponentPiece(row, col+i))
+                                break;
+                        }
+                        else
+                            break;
+                    }
+                    else
+                        break;
+                }
+                // Positive Row (DOWN)
+                for(int i = 1; i <= max; ++i) {
+                    if(isInBounds(row+i,col) && (!isLake(row+i, col) || (!isNullPiece(row+i, col) && !isOpponentPiece(row+i, col)))) {
+                        if(isNullPiece(row+i, col) || isOpponentPiece(row+i, col)) {
+                            validMoves.add(new Point(row+i, col));
+
+                            if(!isNullPiece(row+i, col) && isOpponentPiece(row+i, col))
+                                break;
+                        }
+                        else
+                            break;
+                    }
+                    else
+                        break;
+                }
+                // Negative Col (LEFT)
+                for(int i = -1; i >= -max; --i) {
+                    if(isInBounds(row,col+i) && (!isLake(row, col+i) || (!isNullPiece(row, col+i) && !isOpponentPiece(row, col+i)))) {
+                        if(isNullPiece(row, col+i) || isOpponentPiece(row, col+i)) {
+                            validMoves.add(new Point(row, col+i));
+
+                            if(!isNullPiece(row, col+i) && isOpponentPiece(row, col+i))
+                                break;
+                        }
+                        else
+                            break;
+                    }
+                    else
+                        break;
+                }
+            }
+
+            return validMoves;
+        }
     }
     
     public boolean isValidMove(int row, int col) {
     	// Iterate through validMoves arraylist and check if a square is a valid move (after computing valid moves)
-    	if(validMoves != null && validMoves.size() > 0) {
+    	if(validMoves != null && !validMoves.isEmpty()) {
     		for(int i = 0; i < validMoves.size(); i++) {
     			if(row == validMoves.get(i).getX() && col == validMoves.get(i).getY()) 
     				return true;
@@ -247,113 +350,13 @@ public class BoardSquareEventPane extends GridPane {
     	return false;
     }
     
-    private void displayValidMoves(int pieceRow, int pieceCol) {
-    	// Iterate through and unhighlight/unglow all squares/pieces
-        for (int row = 0; row < 10; ++row) {
-            for (int col = 0; col < 10; ++col) {
-                Game.getBoard().getSquare(row, col).getEventPane().getHover().setImage(ImageConstants.HIGHLIGHT_NONE);
-                Game.getBoard().getSquare(row, col).getEventPane().getHover().setOpacity(1.0);
-                Game.getBoard().getSquare(row, col).getPiecePane().getPiece().setEffect(new Glow(0.0));                      
-            }
-        }
 
-        // Glow and set a white highlight around the selected piece
-        Game.getBoard().getSquare(pieceRow,pieceCol).getPiecePane().getPiece().setEffect(new Glow(0.75));                      
-        Game.getBoard().getSquare(pieceRow,pieceCol).getEventPane().getHover().setImage(ImageConstants.HIGHLIGHT_WHITE);
-
-        // Iterate through all valid moves and highlight respective squares
-        for (Point validMove : validMoves) {
-            Game.getBoard().getSquare((int) validMove.getX(), (int) validMove.getY()).getEventPane().getHover().setImage(ImageConstants.HIGHLIGHT_VALID);
-            Game.getBoard().getSquare((int) validMove.getX(), (int) validMove.getY()).getEventPane().getHover().setOpacity(0.5);
-        }
-    }
     
-    private ArrayList<Point> computeValidMoves(int row, int col) {    	
-    	// Set the max distance of a valid move to 1
-    	int max = 1;
-    	
-    	// Set the max distance of a valid move to the board width if the piece is a scout
-    	PieceType pieceType = Game.getBoard().getSquare(row, col).getPiece().getPieceType();
-    	if(pieceType == PieceType.SCOUT)
-    		max = 8;
-    	
-    	ArrayList<Point> validMoves = new ArrayList<Point>();
-    	
-    	// Iterate through each direction and add valid moves based on if:
-    	// 1) The square is in bounds (inside the board)
-    	// 2) If the square is not a lake
-    	// 3) If the square has no piece on it OR there is a piece, but it is an opponent piece
-    	
-    	if(pieceType != PieceType.BOMB && pieceType != PieceType.FLAG) {
-	    	// Negative Row (UP)
-	    	for(int i = -1; i >= -max; --i) {
-	    		if(isInBounds(row+i,col) && (!isLake(row+i, col) || (!isNullPiece(row+i, col) && !isOpponentPiece(row+i, col)))) {
-	    			if(isNullPiece(row+i, col) || isOpponentPiece(row+i, col)) {
-	    				validMoves.add(new Point(row+i, col));
-	    				
-	    				if(!isNullPiece(row+i, col) && isOpponentPiece(row+i, col))
-	    					break;
-	    			}
-	    			else
-	    			    break;
-	    		}
-	    		else
-	    			break;
-	    	}
-	    	// Positive Col (RIGHT)
-	    	for(int i = 1; i <= max; ++i) {
-	    		if(isInBounds(row,col+i) && (!isLake(row, col+i) || (!isNullPiece(row, col+i) && !isOpponentPiece(row, col+i)))) {
-	    			if(isNullPiece(row, col+i) || isOpponentPiece(row, col+i)) {
-	    				validMoves.add(new Point(row, col+i));
-	    				
-	    				if(!isNullPiece(row, col+i) && isOpponentPiece(row, col+i))
-	    					break;
-	    			}
-	    			else
-                        break;
-	    		}
-	    		else
-	    			break;
-	    	}
-	    	// Positive Row (DOWN)
-	    	for(int i = 1; i <= max; ++i) {
-	    		if(isInBounds(row+i,col) && (!isLake(row+i, col) || (!isNullPiece(row+i, col) && !isOpponentPiece(row+i, col)))) {
-	    			if(isNullPiece(row+i, col) || isOpponentPiece(row+i, col)) {
-	    				validMoves.add(new Point(row+i, col));
-	    				
-	    				if(!isNullPiece(row+i, col) && isOpponentPiece(row+i, col))
-	    					break;
-	    			}
-	    			else
-                        break;
-	    		}
-	    		else
-	    			break;
-	    	}
-	    	// Negative Col (LEFT)
-	    	for(int i = -1; i >= -max; --i) {
-	    		if(isInBounds(row,col+i) && (!isLake(row, col+i) || (!isNullPiece(row, col+i) && !isOpponentPiece(row, col+i)))) {
-	    			if(isNullPiece(row, col+i) || isOpponentPiece(row, col+i)) {
-	    				validMoves.add(new Point(row, col+i));
-	    				
-	    				if(!isNullPiece(row, col+i) && isOpponentPiece(row, col+i))
-	    					break;
-	    			}
-	    			else
-                        break;
-	    		}
-	    		else
-	    			break;
-	    	}
-    	}
-    	
-    	return validMoves;
-    }
+
 
     // Returns true if the given square is a lake
     private static boolean isLake(int row, int col) {
-    	if (col == 2 || col == 3 || col == 6 || col == 7) {
-            if (row == 4 || row == 5)
+    	if ((col == 2 || col == 3 || col == 6 || col == 7) && (row == 4 || row == 5)) {
                 return true;
         }
     	return false;
@@ -460,7 +463,7 @@ public class BoardSquareEventPane extends GridPane {
         			
         			if(highlightPiece.getPieceColor() != playerColor)
         				return false;
-        		} else 
+        		} else
         			return false;
         	}
         }
