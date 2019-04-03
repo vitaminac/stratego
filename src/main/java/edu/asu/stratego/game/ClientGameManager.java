@@ -54,7 +54,6 @@ public class ClientGameManager implements Runnable {
     public void run() {
         connectToServer();
         waitForOpponent();
-
         setupBoard();
         try {
             playGame();
@@ -399,6 +398,7 @@ public class ClientGameManager implements Runnable {
         }
         
         revealAll();
+
     }
 
 

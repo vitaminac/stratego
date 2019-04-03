@@ -18,7 +18,8 @@ public class Controller {
     @FXML private AnchorPane AIPanel;
     @FXML private AnchorPane userPanel;
 
-    @FXML private TextField nombreIA;
+    //@FXML private TextField nombreIA; WHEN IMPLEMENT IA WE PUT THIS WITH IF.
+    @FXML private TextField nombreUsuario;
     @FXML private TextField dirIP;
 
 
@@ -60,7 +61,7 @@ public class Controller {
 
     public void onPlayButtonClicked(MouseEvent event) {
 
-        nickname = nombreIA.getText();
+        nickname = nombreUsuario.getText();
         serverIP = dirIP.getText();
 
 
