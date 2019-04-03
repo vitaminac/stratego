@@ -1,12 +1,13 @@
 package edu.asu.stratego;
 
+import edu.asu.stratego.game.ServerGameManager;
+import edu.asu.stratego.gui.prueba;
+
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Logger;
-
-import edu.asu.stratego.game.ServerGameManager;
 
 /**
  * The Stratego Server creates a socket and listens for connections from every 
@@ -20,12 +21,12 @@ public class Server {
         String hostAddress    = InetAddress.getLocalHost().getHostAddress();
         ServerSocket listener = null;
         int sessionNumber     = 1;
-        
+
         try {
             listener = new ServerSocket(4212);
             logger.info("Server started @ " + hostAddress);
             logger.info("Waiting for incoming connections...\n");
-            
+
             while (true) {
                 Socket playerOne = listener.accept();
                 logger.info("Session " + sessionNumber +
@@ -40,10 +41,13 @@ public class Server {
                 session.setDaemon(true);
                 session.start();
 
-                // Aquí abría que añadir el fin del juego, este bucle no tiene un end, por tanto se queda
-                // ahi esperando un movimiento que nunca llegará
+
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (listener != null)
+                listener.close();
         }
-        finally { listener.close(); }
     }
 }

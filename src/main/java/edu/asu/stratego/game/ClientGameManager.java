@@ -1,23 +1,22 @@
 package edu.asu.stratego.game;
 
-import edu.asu.stratego.game.board.ClientSquare;
-import edu.asu.stratego.gui.BoardScene;
-import edu.asu.stratego.gui.ConnectionScene;
-import edu.asu.stratego.gui.IClientStage;
-import edu.asu.stratego.gui.board.BoardTurnIndicator;
-import edu.asu.stratego.media.ImageConstants;
-import edu.asu.stratego.util.HashTables;
-import javafx.animation.FadeTransition;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.util.Duration;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import edu.asu.stratego.Server;
+import edu.asu.stratego.gui.*;
+import javafx.animation.FadeTransition;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.util.Duration;
+import edu.asu.stratego.game.board.ClientSquare;
+import edu.asu.stratego.gui.board.BoardTurnIndicator;
+import edu.asu.stratego.media.ImageConstants;
+import edu.asu.stratego.util.HashTables;
 
 /**
  * Task to handle the Stratego game on the client-side.
@@ -30,7 +29,6 @@ public class ClientGameManager implements Runnable {
     private static Object receiveMove = new Object();
     private static Object waitFade    = new Object();
     private static Object waitVisible = new Object();
-    // TODO: revert permission
     protected static final Logger logger = Logger.getLogger( ClientGameManager.class.getName() );
     protected ObjectOutputStream toServer;
     protected ObjectInputStream  fromServer;
@@ -58,7 +56,11 @@ public class ClientGameManager implements Runnable {
         waitForOpponent();
 
         setupBoard();
-        playGame();
+        try {
+            playGame();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     
     /**
@@ -74,12 +76,12 @@ public class ClientGameManager implements Runnable {
      * Executes the ConnectToServer thread. Blocks the current thread until 
      * the ConnectToServer thread terminates.
      * 
-     * @see edu.asu.stratego.gui.ConnectionScene.ConnectToServer
+     * @see edu.asu.stratego.gui.prueba.ConnectToServer
      */
     private void connectToServer() {
         try {
-            ConnectionScene.ConnectToServer connectToServer = 
-                    new ConnectionScene.ConnectToServer();
+            prueba.ConnectToServer connectToServer =
+                    new prueba.ConnectToServer();
             Thread serverConnect = new Thread(connectToServer);
             serverConnect.setDaemon(true);
             serverConnect.start();
@@ -104,8 +106,9 @@ public class ClientGameManager implements Runnable {
      * the game.
      * </p>
      */
-    protected void waitForOpponent() {
-        Platform.runLater(() -> stage.setWaitingScene());
+    private void waitForOpponent() {
+
+       Platform.runLater(() -> stage.setWaitingScene());
         
         try {
             // I/O Streams.
@@ -174,7 +177,7 @@ public class ClientGameManager implements Runnable {
         }
     }
     
-    private void playGame() {
+    private void playGame() throws Exception {
     	// Remove setup panel
         Platform.runLater(() ->
                 BoardScene.getRootPane().getChildren().remove(BoardScene.getSetupPanel()));
@@ -398,7 +401,9 @@ public class ClientGameManager implements Runnable {
         revealAll();
     }
 
-	public static Object getSendMove() {
+
+
+    public static Object getSendMove() {
 		return sendMove;
 	}
 
