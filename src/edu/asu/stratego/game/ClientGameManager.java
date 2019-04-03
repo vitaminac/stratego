@@ -51,8 +51,6 @@ public class ClientGameManager implements Runnable {
     @Override
     public void run() {
         connectToServer();
-        //TODO: quitar
-        //setOutcomeScene();
         waitForOpponent();
 
         setupBoard();
