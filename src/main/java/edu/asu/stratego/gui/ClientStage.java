@@ -65,6 +65,11 @@ public class ClientStage extends Stage implements IClientStage{
         this.setScene(board.scene);
     }
 
+    public void setFinalScene() {
+        finished = new FinalScene();
+        this.setScene(finished.scene);
+    }
+
     /**
      * Returns the ConnectionScene created in the ClientStage instance.
      * 

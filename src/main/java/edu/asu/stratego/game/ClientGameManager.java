@@ -32,6 +32,7 @@ public class ClientGameManager implements Runnable {
     protected static final Logger logger = Logger.getLogger( ClientGameManager.class.getName() );
     protected ObjectOutputStream toServer;
     protected ObjectInputStream  fromServer;
+    private ClientStage stage2;
     
     private IClientStage stage;
     
@@ -398,7 +399,7 @@ public class ClientGameManager implements Runnable {
         }
         
         revealAll();
-
+        stage2.setFinalScene();
     }
 
 
