@@ -1,9 +1,6 @@
 package edu.asu.stratego.gui;
 
-import edu.asu.stratego.Client;
-import edu.asu.stratego.game.ClientGameManager;
 import edu.asu.stratego.game.Game;
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -106,10 +103,11 @@ public class Controller {
             try {
                 playerLogin.notify();  // Signal submitFields button event.
                 playerLogin.wait();    // Wait for connection attempt.
-            } catch (InterruptedException e) {
-                // TODO Handle this exception somehow...
-                e.printStackTrace();
-            }
+            } catch (InterruptedException e) { e.printStackTrace(); }
         }
+    }
+
+    public void onPlayAiButtonClicked(MouseEvent event ) {
+
     }
 }

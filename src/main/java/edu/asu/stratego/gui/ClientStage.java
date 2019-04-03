@@ -37,7 +37,7 @@ public class ClientStage extends Stage implements IClientStage{
 
     /**
      * Switch to the Connection Scene.
-     * 
+     *
      * @see edu.asu.stratego.gui.ConnectionScene
      */
     public void setConnectionScene() {
@@ -47,7 +47,7 @@ public class ClientStage extends Stage implements IClientStage{
 
     /**
      * Switch to the Waiting Scene.
-     * 
+     *
      * @see edu.asu.stratego.gui.WaitingScene
      */
     public void setWaitingScene() {
@@ -57,7 +57,7 @@ public class ClientStage extends Stage implements IClientStage{
 
     /**
      * Switch to the Board Scene.
-     * 
+     *
      * @see edu.asu.stratego.gui.BoardScene
      */
     public void setBoardScene() {

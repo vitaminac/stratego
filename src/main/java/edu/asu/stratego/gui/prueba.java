@@ -11,12 +11,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class prueba extends Application {
-    private double xOffset;
-    private double yOffset;
-    public static String serverIP, nickname;
-    public static final Object playerLogin = new Object();
+    protected static String serverIP;
+    protected static String nickname;
+    protected static final Object playerLogin = new Object();
 
     public Scene scene;
+
     {
         try {
             start(null);
@@ -24,8 +24,9 @@ public class prueba extends Application {
             e.printStackTrace();
         }
     }
+
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("ConnectionScreen.fxml"));
 
 
@@ -34,14 +35,11 @@ public class prueba extends Application {
 
         scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
-       // primaryStage.setScene(scene);
-       // primaryStage.show();
     }
 
     public static void main(String[] args) {
         launch(args);
     }
-
 
 
     public static class ConnectToServer implements Runnable {
@@ -56,11 +54,9 @@ public class prueba extends Application {
 
                         // Attempt connection to server.
                         ClientSocket.connect(serverIP, 4212);
-                    }
-                    catch (IOException | InterruptedException e) {
-                     e.printStackTrace();
-                    }
-                    finally {
+                    } catch (IOException | InterruptedException e) {
+                        e.printStackTrace();
+                    } finally {
                         // Wake up button event thread.
                         playerLogin.notify();
                     }

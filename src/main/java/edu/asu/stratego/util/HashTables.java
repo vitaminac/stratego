@@ -9,7 +9,7 @@ import edu.asu.stratego.media.SoundConstants;
 
 public class HashTables{
     // Piece Image Map (String -> Image).
-    public final static HashMap<String, Image> PIECE_MAP = new HashMap<String, Image>(24);
+    public static final HashMap<String, Image> PIECE_MAP = new HashMap<>(24);
     static {
         // RED Pieces.
         PIECE_MAP.put("RED_02", ImageConstants.RED_02);
@@ -42,9 +42,9 @@ public class HashTables{
         PIECE_MAP.put("BLUE_BACK", ImageConstants.BLUE_BACK);
     }
 
-    public final static HashMap<String, AudioClip> SOUND_MAP = new HashMap<String, AudioClip>(1);
+    public static final HashMap<String, AudioClip> SOUND_MAP = new HashMap<>(1);
     static {
-    	// TODO Sound hashmap disabled
-        //SOUND_MAP.put("cornfield", SoundConstants.CORNFIELD);
+    	// TO DO Sound hashmap disabled
+        // SOUND_MAP.put("cornfield", SoundConstants.CORNFIELD);
     }
 }
