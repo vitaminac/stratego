@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="340.0" prefWidth="318.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.asu.stratego.gui.Controller">
+    <children>
+        <AnchorPane prefHeight="63.0" prefWidth="318.0" style="-fx-background-color: #35445b;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <HBox prefHeight="65.0" prefWidth="318.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <Separator prefWidth="200.0" visible="false" />
+                        <ImageView id="userButton" fx:id="userButton" fitHeight="43.0" fitWidth="99.0" onMouseClicked="#onPlayerButtonClicked" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../media/images/icons/user2.png" />
+                            </image>
+                            <HBox.margin>
+                                <Insets left="12.0" top="12.0" />
+                            </HBox.margin>
+                        </ImageView>
+                        <Separator prefWidth="200.0" visible="false" />
+                        <ImageView fx:id="AIButton" fitHeight="43.0" fitWidth="99.0" onMouseClicked="#onAIButtonClicked" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../media/images/icons/IA.png" />
+                            </image>
+                            <HBox.margin>
+                                <Insets top="12.0" />
+                            </HBox.margin>
+                        </ImageView>
+                        <Separator prefWidth="200.0" visible="false" />
+                        <ImageView id="exitButton" fitHeight="43.0" fitWidth="99.0" onMouseClicked="#onExitButtonClicked" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../media/images/icons/enter.png" />
+                            </image>
+                            <HBox.margin>
+                                <Insets top="12.0" />
+                            </HBox.margin>
+                        </ImageView>
+                        <Separator prefWidth="200.0" visible="false" />
+                    </children></HBox>
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="userPanel" prefHeight="261.0" prefWidth="318.0" style="-fx-background-color: #35445b;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <children>
+                <ImageView fitHeight="43.0" fitWidth="40.0" layoutX="38.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../media/images/icons/user.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="43.0" fitWidth="40.0" layoutX="38.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../media/images/icons/domain.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="43.0" fitWidth="40.0" layoutX="140.0" layoutY="174.0" onMouseClicked="#onPlayButtonClicked" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../media/images/icons/play.png" />
+                    </image>
+                </ImageView>
+                <TextField fx:id="nombreUsusario" layoutX="97.0" layoutY="56.0" promptText="Nombre">
+                    <cursor>
+                        <Cursor fx:constant="TEXT" />
+                    </cursor>
+                </TextField>
+                <TextField fx:id="dirIP" layoutX="97.0" layoutY="103.0" promptText="IP" style="-fx-text-fill: red;">
+                    <cursor>
+                        <Cursor fx:constant="TEXT" />
+                    </cursor>
+                </TextField>
+            </children></AnchorPane>
+      <AnchorPane fx:id="AIPanel" layoutX="10.0" layoutY="10.0" prefHeight="261.0" prefWidth="318.0" style="-fx-background-color: #35445b;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <ImageView id="playButton" fitHeight="43.0" fitWidth="40.0" layoutX="139.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../media/images/icons/play.png" />
+               </image>
+            </ImageView>
+            <TextField fx:id="nombreIA" layoutX="76.0" layoutY="89.0" promptText="Nombre de la IA">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
+            </TextField>
+         </children>
+      </AnchorPane>
+        <ImageView fx:id="userArrow" fitHeight="14.0" fitWidth="13.0" layoutX="72.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../media/images/icons/arrow_up.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="AIArrow" fitHeight="14.0" fitWidth="13.0" layoutX="159.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" visible="false">
+            <image>
+                <Image url="@../media/images/icons/arrow_up.png" />
+            </image>
+        </ImageView>
+    </children>
+</AnchorPane>
