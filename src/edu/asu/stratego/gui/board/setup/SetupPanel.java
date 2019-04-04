@@ -18,8 +18,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-<<<<<<< HEAD:src/edu/asu/stratego/gui/board/setup/SetupPanel.java
-=======
 import edu.asu.stratego.game.ClientGameManager;
 import edu.asu.stratego.game.Game;
 import edu.asu.stratego.gui.ClientStage;
@@ -27,7 +25,6 @@ import edu.asu.stratego.media.ImageConstants;
 
 import java.util.ArrayList;
 import java.util.List;
->>>>>>> master:src/main/java/edu/asu/stratego/gui/board/setup/SetupPanel.java
 
 /**
  * The panel that is shown during the SETTING_UP phase of a Stratego game.
