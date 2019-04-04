@@ -10,15 +10,6 @@ import javafx.stage.Stage;
  * preset Stage for facilitating easy navigation between scenes in the Client
  * application.
  */
-<<<<<<< HEAD:src/edu/asu/stratego/gui/ClientStage.java
-public class ClientStage extends Stage {
-    
-    private ConnectionScene connection;
-    private WaitingScene    waiting;
-    private BoardScene      board;
-    private OutcomeScene    outcome;
-    
-=======
 public class ClientStage extends Stage implements IClientStage{
 
     private prueba connection;
@@ -26,7 +17,6 @@ public class ClientStage extends Stage implements IClientStage{
     private BoardScene board;
     private FinalScene finished;
 
->>>>>>> master:src/main/java/edu/asu/stratego/gui/ClientStage.java
     private static double UNIT;
     private static int SIDE;
 
@@ -40,7 +30,6 @@ public class ClientStage extends Stage implements IClientStage{
         UNIT = SIDE / 12;
 
         setConnectionScene();
-        //setOutcomeScene();
         this.setTitle("ASU Stratego");
         this.setResizable(false);
         this.show();
@@ -82,17 +71,8 @@ public class ClientStage extends Stage implements IClientStage{
     }
 
     /**
-     * Switch to the Outcome Scene.
-     * @see edu.asu.stratego.gui.OutcomeScene
-     */
-    public void setOutcomeScene() {
-        outcome = new OutcomeScene();
-        this.setScene(outcome.scene);
-    }
-
-    /**
      * Returns the ConnectionScene created in the ClientStage instance.
-     * 
+     *
      * @return ConnectionScene object
      */
     public prueba getConnection() {
