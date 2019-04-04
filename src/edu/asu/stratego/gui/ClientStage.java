@@ -65,6 +65,11 @@ public class ClientStage extends Stage implements IClientStage{
         this.setScene(board.scene);
     }
 
+    /**
+     * Switch to the Final Scene.
+     *
+     * @see edu.asu.stratego.gui.FinalScene
+     */
     public void setFinalScene() {
         finished = new FinalScene();
         this.setScene(finished.scene);
