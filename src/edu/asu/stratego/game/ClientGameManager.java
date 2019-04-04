@@ -31,7 +31,6 @@ public class ClientGameManager implements Runnable {
     protected static final Logger logger = Logger.getLogger( ClientGameManager.class.getName() );
     protected ObjectOutputStream toServer;
     protected ObjectInputStream  fromServer;
-    private ClientStage stage2;
 
     private IClientStage stage;
 
@@ -398,7 +397,7 @@ public class ClientGameManager implements Runnable {
         }
 
         revealAll();
-        stage2.setFinalScene();
+        setFinalScene();
     }
 
 
@@ -421,6 +420,14 @@ public class ClientGameManager implements Runnable {
                     }
                 }
             }
+        });
+    }
+
+    private void setFinalScene() {
+        // Show the end game screen
+        Platform.runLater(() -> {
+            ClientStage stage2 = new ClientStage();
+            stage2.setFinalScene();
         });
     }
 
