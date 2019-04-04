@@ -74,7 +74,7 @@
                     </cursor>
                 </TextField>
             </children></AnchorPane>
-      <AnchorPane fx:id="AIPanel" layoutX="10.0" layoutY="10.0" prefHeight="261.0" prefWidth="318.0" style="-fx-background-color: #35445b;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <AnchorPane fx:id="AIPanel" layoutX="10.0" layoutY="10.0" prefHeight="261.0" prefWidth="318.0" style="-fx-background-color: #35445b;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
             <ImageView id="playButton" fx:id="playIaButton" fitHeight="43.0" fitWidth="40.0" layoutX="139.0" layoutY="131.0" onMouseClicked="#onPlayAiButtonClicked" pickOnBounds="true" preserveRatio="true">
                <image>
