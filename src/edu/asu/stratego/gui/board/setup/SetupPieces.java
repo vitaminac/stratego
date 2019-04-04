@@ -22,17 +22,22 @@ import java.util.HashMap;
  * @see edu.asu.stratego.gui.board.setup.SetupPanel
  */
 public class SetupPieces {
+<<<<<<< HEAD:src/edu/asu/stratego/gui/board/setup/SetupPieces.java
 	private static HashMap<PieceType, MutableBoolean> pieceSelected =
 	        new HashMap<PieceType, MutableBoolean>(12);
+=======
+	private static HashMap<PieceType, MutableBoolean> pieceSelected = 
+	        new HashMap<>(12);
+>>>>>>> master:src/main/java/edu/asu/stratego/gui/board/setup/SetupPieces.java
 	
 	private static HashMap<PieceType, Integer> availability = 
-	        new HashMap<PieceType, Integer>(12);
+	        new HashMap<>(12);
 	
 	private static HashMap<PieceType, ImageView> pieceImages = 
-	        new HashMap<PieceType, ImageView>(12);
+	        new HashMap<>(12);
 	
 	private static HashMap<PieceType, Label> pieceCount = 
-	        new HashMap<PieceType, Label>(12);
+	        new HashMap<>(12);
 	
 	private static PieceType selectedPieceType;
 	private static ColorAdjust zeroPieces = new ColorAdjust();
@@ -44,8 +49,7 @@ public class SetupPieces {
     public SetupPieces() {
         final double UNIT = ClientStage.getUnit();
         zeroPieces.setSaturation(-1.0);
-        selectedPieceType = null;
-        
+
         // Get the player color.
         String playerColor = Game.getPlayer().getColor().toString();
         
@@ -102,9 +106,9 @@ public class SetupPieces {
             	
             	// If the piece type does not match the piece type selected...
                 if (pieceImages.get(pieceType) != pieceImage) {
-                    // Un-select the piece type.
-                    if (availability.get(pieceType) != 0)
+                    if (availability.get(pieceType) != 0) {
                         pieceImages.get(pieceType).setEffect(new Glow(0.0));
+                    }
                     pieceSelected.get(pieceType).setFalse();
                 }
                 

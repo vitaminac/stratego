@@ -20,6 +20,10 @@ public class Game {
     private static PieceColor turn;
     private static ClientBoard board;
     
+    private static String serverIP;
+    
+    public static final int PORT = 4212;
+    
     /**
      * Initializes data fields for a new game.
      */
@@ -121,4 +125,12 @@ public class Game {
 	public static void setMoveStatus(MoveStatus moveStatus) {
 		Game.moveStatus = moveStatus;
 	}
+
+    public static String getServerIP() {
+        return serverIP;
+    }
+
+    public static void setServerIP(String serverIP) {
+        Game.serverIP = serverIP;
+    }
 }

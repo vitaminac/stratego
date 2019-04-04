@@ -2,6 +2,10 @@ package edu.asu.stratego.game;
 
 import java.io.Serializable;
 
+<<<<<<< HEAD:src/edu/asu/stratego/game/Player.java
+=======
+
+>>>>>>> master:src/main/java/edu/asu/stratego/game/Player.java
 /**
  * Contains information about a player.
  */

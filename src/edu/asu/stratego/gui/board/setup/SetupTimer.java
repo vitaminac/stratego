@@ -22,21 +22,21 @@ public class SetupTimer {
     private static final int START_TIME = 300;
     private Timeline timeline;
     private Label timerLabel = new Label();
-    private IntegerProperty secondsLeft = 
+    private IntegerProperty secondsLeft =
             new SimpleIntegerProperty(START_TIME);
-    
+
     /**
      * Creates a new instance of SetupTimer.
      */
     public SetupTimer() {
         final double UNIT = ClientStage.getUnit();
-        
+
         timerLabel.textProperty().bind(secondsLeft.asString());
         timerLabel.setFont(Font.font("Century Gothic", UNIT / 3));
         timerLabel.setTextFill(new Color(0.9, 0.5, 0.0, 1.0));
         timerLabel.setAlignment(Pos.TOP_LEFT);
     }
-    
+
     /**
      * Task to start the timer and count down from the start time.
      */
@@ -47,12 +47,12 @@ public class SetupTimer {
             timeline = new Timeline();
             timeline.getKeyFrames().add(
                     new KeyFrame(Duration.seconds(START_TIME + 1),
-                    new KeyValue(secondsLeft, 0)));
+                            new KeyValue(secondsLeft, 0)));
             timeline.playFromStart();
             timeline.setOnFinished(new TimerFinished());
         }
     }
-    
+
     /**
      * Creates a new thread to start the timer task.
      */
@@ -61,15 +61,15 @@ public class SetupTimer {
         startTimer.setDaemon(true);
         startTimer.start();
     }
-    
+
     /**
-     * @return JavaFX label that displays how many seconds are left in the 
+     * @return JavaFX label that displays how many seconds are left in the
      * timer.
      */
     public Label getLabel() {
         return timerLabel;
     }
-    
+
     /**
      * Executes when the timer finishes counting down to zero.
      */

@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * 
  */
 public class PieceSet {
-    private ArrayList<Piece> pieces = new ArrayList<Piece>();
+    private ArrayList<Piece> pieces = new ArrayList<>();
     
     public PieceSet(PieceColor color) {
         PieceColor player = Game.getPlayer().getColor();
