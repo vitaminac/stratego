@@ -37,6 +37,7 @@ public class SetupPanel {
     private static GridPane  piecePane         = new GridPane();
     private static Object    updateReadyStatus = new Object();
     private static StackPane instructionPane   = new StackPane();
+    private static GridPane  saveimportPane    = new GridPane();
     private static Label     instructions      = new Label();
     private static Label     readyLabel        = new Label();
     private static ImageView readyButton       = new ImageView();
@@ -51,13 +52,13 @@ public class SetupPanel {
         String typeOfLetter = "Century Gothic";
         final double UNIT = ClientStage.getUnit();
         
-        setupPanel.setMaxHeight(UNIT * 4);
+        setupPanel.setMaxHeight(UNIT * 5);
         setupPanel.setMaxWidth(UNIT * 10);
         
         // Panel background.
         String backgroundURL = "edu/asu/stratego/media/images/board/setup_panel.png";
         setupPanel.setStyle("-fx-background-image: url(" + backgroundURL + "); " + 
-                      "-fx-background-size: " + UNIT * 10 + " " + UNIT * 5 + ";" +
+                      "-fx-background-size: " + UNIT * 10 + " " + UNIT * 6 + ";" +
                       "-fx-background-repeat: stretch;");
         
         
@@ -115,31 +116,6 @@ public class SetupPanel {
         
         setupPanel.add(headerPane, 0, 0);
 
-        //Save setUp
-        saveButton.setImage(ImageConstants.READY_IDLE);
-        saveButton.setFitHeight(UNIT * 0.75);
-        saveButton.setFitWidth(UNIT * 2.25);
-        saveButton.addEventHandler(MouseEvent.MOUSE_ENTERED_TARGET, e ->
-            saveButton.setImage(ImageConstants.READY_HOVER));
-
-        saveButton.addEventHandler(MouseEvent.MOUSE_EXITED_TARGET, e ->
-            saveButton.setImage(ImageConstants.READY_IDLE));
-
-        saveButton.addEventHandler(MouseEvent.MOUSE_CLICKED, e ->
-            Platform.runLater(() ->  save() ));
-
-        //Import setUp
-        importButton.setImage(ImageConstants.READY_IDLE);
-        importButton.setFitHeight(UNIT * 0.75);
-        importButton.setFitWidth(UNIT * 2.25);
-        importButton.addEventHandler(MouseEvent.MOUSE_ENTERED_TARGET, e ->
-            importButton.setImage(ImageConstants.READY_HOVER));
-
-        importButton.addEventHandler(MouseEvent.MOUSE_EXITED_TARGET, e ->
-            importButton.setImage(ImageConstants.READY_IDLE));
-
-        importButton.addEventHandler(MouseEvent.MOUSE_CLICKED, e ->
-            Platform.runLater(() -> { impo(); } ));
         
         /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
          *                                                                               *
@@ -186,6 +162,32 @@ public class SetupPanel {
         
         readyButton.addEventHandler(MouseEvent.MOUSE_CLICKED, e ->
             Platform.runLater(() -> { finishSetup(); } ));
+
+        //Save setUp
+        saveButton.setImage(ImageConstants.READY_IDLE);
+        saveButton.setFitHeight(UNIT * 0.75);
+        saveButton.setFitWidth(UNIT * 2.25);
+        saveButton.addEventHandler(MouseEvent.MOUSE_ENTERED_TARGET, e ->
+                saveButton.setImage(ImageConstants.READY_HOVER));
+
+        saveButton.addEventHandler(MouseEvent.MOUSE_EXITED_TARGET, e ->
+                saveButton.setImage(ImageConstants.READY_IDLE));
+
+        saveButton.addEventHandler(MouseEvent.MOUSE_CLICKED, e ->
+                Platform.runLater(() ->  save() ));
+
+        //Import setUp
+        importButton.setImage(ImageConstants.READY_IDLE);
+        importButton.setFitHeight(UNIT * 0.75);
+        importButton.setFitWidth(UNIT * 2.25);
+        importButton.addEventHandler(MouseEvent.MOUSE_ENTERED_TARGET, e ->
+                importButton.setImage(ImageConstants.READY_HOVER));
+
+        importButton.addEventHandler(MouseEvent.MOUSE_EXITED_TARGET, e ->
+                importButton.setImage(ImageConstants.READY_IDLE));
+
+        importButton.addEventHandler(MouseEvent.MOUSE_CLICKED, e ->
+                Platform.runLater(() -> { impo(); } ));
         
         // Text properties.
         instructions.setFont(Font.font(typeOfLetter, UNIT * 0.3));
@@ -196,13 +198,17 @@ public class SetupPanel {
         Thread updateButton = new Thread(new UpdateReadyButton());
         updateButton.setDaemon(true);
         updateButton.start();
-        
+
+        GridPane.setMargin(saveimportPane,new Insets(UNIT*0.15,0.0,0.0,0.0));
+
         instructionPane.getChildren().add(instructions);
         instructionPane.setAlignment(Pos.CENTER);
-        instructionPane.getChildren().add(importButton);
-        instructionPane.getChildren().add(saveButton);
+
+        saveimportPane.getChildren().add(importButton);
+        saveimportPane.setAlignment(Pos.CENTER);
         
         setupPanel.add(instructionPane, 0, 2);
+        setupPanel.add(saveimportPane,0,4);
         
         
         /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -287,6 +293,8 @@ public class SetupPanel {
                             Platform.runLater(() -> {
                                 instructionPane.getChildren().remove(instructions);
                                 instructionPane.getChildren().add(readyButton);
+                                saveimportPane.getChildren().remove(importButton);
+                                saveimportPane.getChildren().add(saveButton);
                             });
                             
                             readyState = true;
@@ -297,6 +305,7 @@ public class SetupPanel {
                             Platform.runLater(() -> {
                                 instructionPane.getChildren().remove(readyButton);
                                 instructionPane.getChildren().add(instructions);
+                                saveimportPane.getChildren().remove(saveButton);
                             });
                             
                             readyState = false;
