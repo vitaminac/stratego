@@ -1,7 +1,7 @@
 package edu.asu.stratego.gui.board.setup;
 
-import edu.asu.stratego.game.ClientGameManager;
-import edu.asu.stratego.game.Game;
+import edu.asu.stratego.game.*;
+import edu.asu.stratego.game.board.ClientBoard;
 import edu.asu.stratego.gui.ClientStage;
 import edu.asu.stratego.media.ImageConstants;
 import javafx.application.Platform;
@@ -23,6 +23,7 @@ import edu.asu.stratego.game.Game;
 import edu.asu.stratego.gui.ClientStage;
 import edu.asu.stratego.media.ImageConstants;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class SetupPanel {
     private static ImageView readyButton       = new ImageView();
     private static ImageView saveButton        = new ImageView();
     private static ImageView importButton      = new ImageView();
-    List<Object> setupPieces = new ArrayList<>();
+
     
     /**
      * Creates a new instance of SetupPanel.
@@ -261,13 +262,31 @@ public class SetupPanel {
         }
     }
 
-    public  void save(){
-        Object setUpPieces = ClientGameManager.getSetupPieces();
-        this.setupPieces.add(setUpPieces);
+    public  void save() {
+        ClientBoard clientBoard = new ClientBoard();
+        try{
+            FileOutputStream fileOutputStream = new FileOutputStream("position",true);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(clientBoard);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
-    public Object impo(){
-        return this.setupPieces.get(0);
+    public void impo(){
+        ClientBoard clientBoard = new ClientBoard();
+        Object setupPieces = ClientGameManager.getSetupPieces();
+        synchronized (setupPieces) {
+            try {
+                FileInputStream fileInputStream = new FileInputStream("position");
+                ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+                clientBoard = (ClientBoard) objectInputStream.readObject();
+                Game.setBoard(clientBoard);
+                setupPieces.notify();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
