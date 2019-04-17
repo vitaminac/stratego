@@ -77,3 +77,4 @@ output
 build
 .settings
 .gradle
+.DS_Store
