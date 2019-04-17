@@ -164,27 +164,27 @@ public class SetupPanel {
             Platform.runLater(() -> { finishSetup(); } ));
 
         //Save setUp
-        saveButton.setImage(ImageConstants.READY_IDLE);
+        saveButton.setImage(ImageConstants.SAVE_IDLE);
         saveButton.setFitHeight(UNIT * 0.75);
         saveButton.setFitWidth(UNIT * 2.25);
         saveButton.addEventHandler(MouseEvent.MOUSE_ENTERED_TARGET, e ->
-                saveButton.setImage(ImageConstants.READY_HOVER));
+                saveButton.setImage(ImageConstants.SAVE_HOVER));
 
         saveButton.addEventHandler(MouseEvent.MOUSE_EXITED_TARGET, e ->
-                saveButton.setImage(ImageConstants.READY_IDLE));
+                saveButton.setImage(ImageConstants.SAVE_IDLE));
 
         saveButton.addEventHandler(MouseEvent.MOUSE_CLICKED, e ->
                 Platform.runLater(() ->  save() ));
 
         //Import setUp
-        importButton.setImage(ImageConstants.READY_IDLE);
+        importButton.setImage(ImageConstants.IMPORT_IDLE);
         importButton.setFitHeight(UNIT * 0.75);
         importButton.setFitWidth(UNIT * 2.25);
         importButton.addEventHandler(MouseEvent.MOUSE_ENTERED_TARGET, e ->
-                importButton.setImage(ImageConstants.READY_HOVER));
+                importButton.setImage(ImageConstants.IMPORT_HOVER));
 
         importButton.addEventHandler(MouseEvent.MOUSE_EXITED_TARGET, e ->
-                importButton.setImage(ImageConstants.READY_IDLE));
+                importButton.setImage(ImageConstants.IMPORT_IDLE));
 
         importButton.addEventHandler(MouseEvent.MOUSE_CLICKED, e ->
                 Platform.runLater(() -> { impo(); } ));
