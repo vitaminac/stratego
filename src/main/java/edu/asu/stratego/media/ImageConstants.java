@@ -14,6 +14,14 @@ public class ImageConstants {
             ImageConstants.class.getResource("images/board/ready_hover.png").toString());
     public static final Image READY_IDLE = new Image(
             ImageConstants.class.getResource("images/board/ready_idle.png").toString());
+    public static final Image IMPORT_HOVER = new Image(
+            ImageConstants.class.getResource("images/board/import_hover.png").toString());
+    public static final Image IMPORT_IDLE = new Image(
+            ImageConstants.class.getResource("images/board/import_idle.png").toString());
+    public static final Image SAVE_HOVER = new Image(
+            ImageConstants.class.getResource("images/board/save_hover.png").toString());
+    public static final Image SAVE_IDLE = new Image(
+            ImageConstants.class.getResource("images/board/save_idle.png").toString());
     public static final Image BORDER = new Image(
             ImageConstants.class.getResource("images/board/border.png").toString());
     public static final Image DARK_GRASS = new Image(
