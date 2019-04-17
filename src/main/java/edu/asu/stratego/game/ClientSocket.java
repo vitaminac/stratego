@@ -2,7 +2,6 @@ package edu.asu.stratego.game;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 /**
  * Client socket that connects to the server. The client should only use one 
@@ -24,7 +23,7 @@ public final class ClientSocket {
      * @param port server port number
      */
     public static void connect(String serverIP, int port) 
-            throws UnknownHostException, IOException {
+            throws IOException {
         socket = new Socket(serverIP, port);
     }
     

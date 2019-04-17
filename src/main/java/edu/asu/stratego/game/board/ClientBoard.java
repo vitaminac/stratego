@@ -11,7 +11,7 @@ public class ClientBoard {
 
     private final BoardPane piecePane;
     private final BoardEventPane eventPane;
-    private final int size = 10;
+    private static final int SIZE = 10;
     private ClientSquare[][] squares;
     
     /**
@@ -19,9 +19,9 @@ public class ClientBoard {
      */
     public ClientBoard() {
         // Initialize the board GUI.
-        squares = new ClientSquare[size][size];
-        for (int row = 0; row < size; ++row) {
-            for (int col = 0; col < size; ++col) {
+        squares = new ClientSquare[SIZE][SIZE];
+        for (int row = 0; row < SIZE; ++row) {
+            for (int col = 0; col < SIZE; ++col) {
                 if ((row + col) % 2 == 0)
                     squares[row][col] = new ClientSquare(BoardSquareType.DARK);
                 else

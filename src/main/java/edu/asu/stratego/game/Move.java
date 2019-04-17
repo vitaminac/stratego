@@ -1,6 +1,6 @@
 package edu.asu.stratego.game;
 
-import java.awt.Point;
+import java.awt.*;
 import java.io.Serializable;
 
 public class Move implements Serializable {

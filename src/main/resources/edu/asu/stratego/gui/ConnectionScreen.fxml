@@ -63,7 +63,7 @@
                         <Image url="@../media/images/icons/play.png" />
                     </image>
                 </ImageView>
-                <TextField fx:id="nombreUsusario" layoutX="97.0" layoutY="56.0" promptText="Nombre">
+                <TextField fx:id="nombreUsuario" layoutX="97.0" layoutY="56.0" promptText="Nombre">
                     <cursor>
                         <Cursor fx:constant="TEXT" />
                     </cursor>
@@ -76,7 +76,7 @@
             </children></AnchorPane>
       <AnchorPane fx:id="AIPanel" layoutX="10.0" layoutY="10.0" prefHeight="261.0" prefWidth="318.0" style="-fx-background-color: #35445b;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <ImageView id="playButton" fitHeight="43.0" fitWidth="40.0" layoutX="139.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView id="playButton" fx:id="playIaButton" fitHeight="43.0" fitWidth="40.0" layoutX="139.0" layoutY="131.0" onMouseClicked="#onPlayAiButtonClicked" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../media/images/icons/play.png" />
                </image>

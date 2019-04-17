@@ -1,9 +1,8 @@
 package edu.asu.stratego.gui.board;
 
-import javafx.scene.layout.GridPane;
-
 import edu.asu.stratego.game.board.ClientBoard;
 import edu.asu.stratego.media.ImageConstants;
+import javafx.scene.layout.GridPane;
 
 /**
  * A graphical representation of the Stratego board.

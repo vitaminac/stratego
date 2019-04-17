@@ -1,6 +1,5 @@
 package edu.asu.stratego;
 
-import edu.asu.stratego.gui.prueba;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

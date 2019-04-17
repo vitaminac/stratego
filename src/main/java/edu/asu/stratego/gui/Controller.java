@@ -3,23 +3,44 @@ package edu.asu.stratego.gui;
 import edu.asu.stratego.game.Game;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 import static edu.asu.stratego.gui.prueba.*;
 
 public class Controller {
 
-    @FXML private ImageView userArrow;
-    @FXML private ImageView AIArrow;
+    // Connection Screen
+    @FXML
+    private ImageView userArrow;
+    @FXML
+    private ImageView AIArrow;
 
-    @FXML private AnchorPane AIPanel;
-    @FXML private AnchorPane userPanel;
+    @FXML
+    private AnchorPane AIPanel;
+    @FXML
+    private AnchorPane userPanel;
 
-    @FXML private TextField nombreIA;
-    @FXML private TextField dirIP;
+    //@FXML private TextField nombreIA; WHEN IMPLEMENT IA WE PUT THIS WITH IF.
+    @FXML
+    private TextField nombreUsuario;
+    @FXML
+    private TextField dirIP;
+
+
+    // END CONNECTION SCREEN
+
+    // FINAL SCREEN
+
+    // END FINAL SCREEN
 
 
     public void onExitButtonClicked(MouseEvent event) {
@@ -31,8 +52,7 @@ public class Controller {
         if (!AIArrow.isVisible() || userArrow.isVisible()) {
             AIArrow.setVisible(true);
             userArrow.setVisible(false);
-        }
-        else
+        } else
             AIArrow.setVisible(false);
         if (!AIPanel.isVisible()) {
             AIPanel.setVisible(true);
@@ -57,25 +77,37 @@ public class Controller {
 
     }
 
+    public void onPlayAgainButtonClicked(MouseEvent event) {
+        try {
+
+            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("ConnectionScreen.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene;
+            scene = new Scene(loader.load());
+
+            stage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public void onPlayButtonClicked(MouseEvent event) {
 
-        nickname = nombreIA.getText();
+        nickname = nombreUsuario.getText();
         serverIP = dirIP.getText();
 
-
         Game.getPlayer().setNickname(nickname);
-
 
         synchronized (playerLogin) {
             try {
                 playerLogin.notify();  // Signal submitFields button event.
                 playerLogin.wait();    // Wait for connection attempt.
-            }
-            catch (InterruptedException e) {
-                // TODO Handle this exception somehow...
-                e.printStackTrace();
-            }
+            } catch (InterruptedException e) { e.printStackTrace(); }
         }
+    }
+
+    public void onPlayAiButtonClicked(MouseEvent event ) {
+
     }
 }

@@ -18,8 +18,8 @@ import javafx.scene.paint.Color;
  */
 public class WaitingScene {
     
-    private final int WINDOW_WIDTH  = 300;
-    private final int WINDOW_HEIGHT = 150;
+    private static final int WINDOW_WIDTH  = 300;
+    private static final int WINDOW_HEIGHT = 150;
     
     Scene scene;
     private static Button aiButton = new Button();

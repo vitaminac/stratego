@@ -1,9 +1,11 @@
 package edu.asu.stratego.gui;
 
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 /**
  * Wrapper class for a JavaFX scene. Contains a scene UI to indicate that the
@@ -11,22 +13,30 @@ import javafx.scene.paint.Color;
  * another opponent to connect to the server. The intended function for this
  * scene is analogous to a loading screen.
  */
-public class FinalScene {
+public class FinalScene extends Application {
 
-    private final int WINDOW_WIDTH = 300;
-    private final int WINDOW_HEIGHT = 150;
+    public Scene scene;
 
-    Scene scene;
-
-    /**
-     * Creates a new instance of FinalScene.
-     */
-    public FinalScene() {
-        // Create UI.
-        StackPane pane = new StackPane();
-        pane.getChildren().add(new Label("La partida ha finalizado!"));
-
-        scene = new Scene(pane, WINDOW_WIDTH, WINDOW_HEIGHT);
-        scene.setFill(Color.LIGHTGRAY);
+    {
+        try {
+            start(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("FinalScreen.fxml"));
+
+        scene = new Scene(root);
+        scene.setFill(Color.TRANSPARENT);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
 }

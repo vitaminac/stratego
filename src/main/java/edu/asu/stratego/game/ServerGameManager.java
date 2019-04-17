@@ -1,13 +1,13 @@
 package edu.asu.stratego.game;
 
-import java.awt.Point;
+import edu.asu.stratego.game.board.ServerBoard;
+
+import java.awt.*;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
-
-import edu.asu.stratego.game.board.ServerBoard;
 
 /**
  * Task to manage a Stratego game between two clients.
@@ -30,8 +30,7 @@ public class ServerGameManager implements Runnable {
     private Point playerTwoFlag;
     
     private PieceColor turn;
-    private Move move;
-    
+
     private Socket socketOne;
     private Socket socketTwo;
     
@@ -84,7 +83,7 @@ public class ServerGameManager implements Runnable {
             fromPlayerTwo = new ObjectInputStream(socketTwo.getInputStream());
         }
         catch(IOException e) {
-            // TODO Handle this exception somehow...
+            // TO DO Handle this exception somehow...
             e.printStackTrace();
         }
     }
@@ -113,7 +112,7 @@ public class ServerGameManager implements Runnable {
             toPlayerTwo.writeObject(playerOne);
         }
         catch(ClassNotFoundException | IOException e) {
-            // TODO Handle this exception somehow...
+            // TO DO Handle this exception somehow...
             e.printStackTrace();
         }
     }
@@ -160,13 +159,14 @@ public class ServerGameManager implements Runnable {
             toPlayerTwo.writeObject(winCondition);
         }
         catch (ClassNotFoundException | IOException e) {
-            // TODO Handle this exception somehow...
+            // TO DO Handle this exception somehow...
             e.printStackTrace();
         }
         
     }
     
-    private void playGame() {       
+    private void playGame() {
+    	Move move;
         while (true) {
             try {
                 // Send player turn color to clients.
@@ -183,7 +183,8 @@ public class ServerGameManager implements Runnable {
                 	move = (Move) fromPlayerTwo.readObject();
                 }
                                 
-                Move moveToPlayerOne = new Move(), moveToPlayerTwo = new Move();
+                Move moveToPlayerOne = new Move();
+                Move moveToPlayerTwo = new Move();
 
                 // Register move on the board.
                 // If there is no piece at the end (normal move, no attack)
@@ -320,12 +321,10 @@ public class ServerGameManager implements Runnable {
     }
     
     private boolean isCaptured(PieceColor inColor) {
-    	if(playerOne.getColor() == inColor) {
-    		if(board.getSquare(playerOneFlag.x, playerOneFlag.y).getPiece().getPieceType() != PieceType.FLAG) 
+    	if((playerOne.getColor() == inColor) && (board.getSquare(playerOneFlag.x, playerOneFlag.y).getPiece().getPieceType() != PieceType.FLAG)) {
     			return true;
     	}
-    	if(playerTwo.getColor() == inColor) {
-    		if(board.getSquare(playerTwoFlag.x, playerTwoFlag.y).getPiece().getPieceType() != PieceType.FLAG)
+    	if((playerTwo.getColor() == inColor) && (board.getSquare(playerTwoFlag.x, playerTwoFlag.y).getPiece().getPieceType() != PieceType.FLAG)) {
     			return true;
     	}
     	return false;
@@ -334,10 +333,8 @@ public class ServerGameManager implements Runnable {
     private boolean hasAvailableMoves(PieceColor inColor) {
     	for(int row = 0; row < 10; ++row) {
     		for(int col = 0; col < 10; ++col) {
-    			if(board.getSquare(row, col).getPiece() != null && board.getSquare(row, col).getPiece().getPieceColor() == inColor) {
-	    			if(computeValidMoves(row, col, inColor).size() > 0) {
-	    				return true;
-	    			}
+    			if((board.getSquare(row, col).getPiece() != null && board.getSquare(row, col).getPiece().getPieceColor() == inColor) && (computeValidMoves(row, col, inColor).size() > 0)) {
+    				return true;
     			}
     		}
     	}
@@ -420,9 +417,8 @@ public class ServerGameManager implements Runnable {
     }
     
     private static boolean isLake(int row, int col) {
-    	if (col == 2 || col == 3 || col == 6 || col == 7) {
-            if (row == 4 || row == 5)
-                return true;
+    	if ((col == 2 || col == 3 || col == 6 || col == 7) && (row == 4 || row == 5)) {
+    		return true;
         }
     	return false;
     }

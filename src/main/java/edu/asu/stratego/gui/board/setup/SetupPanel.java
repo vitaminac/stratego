@@ -1,5 +1,9 @@
 package edu.asu.stratego.gui.board.setup;
 
+import edu.asu.stratego.game.ClientGameManager;
+import edu.asu.stratego.game.Game;
+import edu.asu.stratego.gui.ClientStage;
+import edu.asu.stratego.media.ImageConstants;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -18,7 +22,9 @@ import edu.asu.stratego.game.ClientGameManager;
 import edu.asu.stratego.game.Game;
 import edu.asu.stratego.gui.ClientStage;
 import edu.asu.stratego.media.ImageConstants;
-import edu.asu.stratego.media.PlaySound;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The panel that is shown during the SETTING_UP phase of a Stratego game.
@@ -31,23 +37,28 @@ public class SetupPanel {
     private static GridPane  piecePane         = new GridPane();
     private static Object    updateReadyStatus = new Object();
     private static StackPane instructionPane   = new StackPane();
+    private static GridPane  saveimportPane    = new GridPane();
     private static Label     instructions      = new Label();
     private static Label     readyLabel        = new Label();
     private static ImageView readyButton       = new ImageView();
+    private static ImageView saveButton        = new ImageView();
+    private static ImageView importButton      = new ImageView();
+    List<Object> setupPieces = new ArrayList<>();
     
     /**
      * Creates a new instance of SetupPanel.
      */
     public SetupPanel() {
+        String typeOfLetter = "Century Gothic";
         final double UNIT = ClientStage.getUnit();
         
-        setupPanel.setMaxHeight(UNIT * 4);
+        setupPanel.setMaxHeight(UNIT * 5);
         setupPanel.setMaxWidth(UNIT * 10);
         
         // Panel background.
         String backgroundURL = "edu/asu/stratego/media/images/board/setup_panel.png";
         setupPanel.setStyle("-fx-background-image: url(" + backgroundURL + "); " + 
-                      "-fx-background-size: " + UNIT * 10 + " " + UNIT * 5 + ";" +
+                      "-fx-background-size: " + UNIT * 10 + " " + UNIT * 6 + ";" +
                       "-fx-background-repeat: stretch;");
         
         
@@ -73,17 +84,17 @@ public class SetupPanel {
         GridPane.setMargin(headerText, new Insets(UNIT * 0.2, 0, 0, UNIT * 0.2));
         
         String titleContent = Game.getPlayer().getNickname() + " vs. " + Game.getOpponent().getNickname();
-        double fontScale = 1.0 / ((titleContent.length() - 7) / 8 + 2);
+        double fontScale = 1.0 /  ((titleContent.length() - 7) / (double) 8 + 2);
         
         Label nameDisplay = new Label(titleContent);
-        nameDisplay.setFont(Font.font("Century Gothic", FontWeight.BOLD, UNIT * fontScale));
+        nameDisplay.setFont(Font.font(typeOfLetter, FontWeight.BOLD, UNIT * fontScale));
         nameDisplay.setTextFill(new Color(1.0, 0.7, 0.0, 1.0));
         nameDisplay.setAlignment(Pos.BOTTOM_LEFT);
         headerText.add(nameDisplay, 0, 0);
         
         // Setup Timer.
         Label setupTimer = new Label("Setup Time Left: ");
-        setupTimer.setFont(Font.font("Century Gothic", UNIT / 3));
+        setupTimer.setFont(Font.font(typeOfLetter, UNIT / 3));
         setupTimer.setTextFill(new Color(0.9, 0.5, 0.0, 1.0));
         setupTimer.setAlignment(Pos.TOP_LEFT);
         
@@ -104,7 +115,7 @@ public class SetupPanel {
         headerPane.add(headerText, 2, 0);
         
         setupPanel.add(headerPane, 0, 0);
-        
+
         
         /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
          *                                                                               *
@@ -143,20 +154,43 @@ public class SetupPanel {
         readyButton.setFitHeight(UNIT * 0.75);
         readyButton.setFitWidth(UNIT * 2.25);
         
-        readyButton.addEventHandler(MouseEvent.MOUSE_ENTERED_TARGET, e -> {
-            readyButton.setImage(ImageConstants.READY_HOVER);
-        });
+        readyButton.addEventHandler(MouseEvent.MOUSE_ENTERED_TARGET, e ->
+            readyButton.setImage(ImageConstants.READY_HOVER));
         
-        readyButton.addEventHandler(MouseEvent.MOUSE_EXITED_TARGET, e -> {
-            readyButton.setImage(ImageConstants.READY_IDLE);
-        });
+        readyButton.addEventHandler(MouseEvent.MOUSE_EXITED_TARGET, e ->
+            readyButton.setImage(ImageConstants.READY_IDLE));
         
-        readyButton.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-            Platform.runLater(() -> { finishSetup(); } );
-        });
+        readyButton.addEventHandler(MouseEvent.MOUSE_CLICKED, e ->
+            Platform.runLater(() -> { finishSetup(); } ));
+
+        //Save setUp
+        saveButton.setImage(ImageConstants.READY_IDLE);
+        saveButton.setFitHeight(UNIT * 0.75);
+        saveButton.setFitWidth(UNIT * 2.25);
+        saveButton.addEventHandler(MouseEvent.MOUSE_ENTERED_TARGET, e ->
+                saveButton.setImage(ImageConstants.READY_HOVER));
+
+        saveButton.addEventHandler(MouseEvent.MOUSE_EXITED_TARGET, e ->
+                saveButton.setImage(ImageConstants.READY_IDLE));
+
+        saveButton.addEventHandler(MouseEvent.MOUSE_CLICKED, e ->
+                Platform.runLater(() ->  save() ));
+
+        //Import setUp
+        importButton.setImage(ImageConstants.READY_IDLE);
+        importButton.setFitHeight(UNIT * 0.75);
+        importButton.setFitWidth(UNIT * 2.25);
+        importButton.addEventHandler(MouseEvent.MOUSE_ENTERED_TARGET, e ->
+                importButton.setImage(ImageConstants.READY_HOVER));
+
+        importButton.addEventHandler(MouseEvent.MOUSE_EXITED_TARGET, e ->
+                importButton.setImage(ImageConstants.READY_IDLE));
+
+        importButton.addEventHandler(MouseEvent.MOUSE_CLICKED, e ->
+                Platform.runLater(() -> { impo(); } ));
         
         // Text properties.
-        instructions.setFont(Font.font("Century Gothic", UNIT * 0.3));
+        instructions.setFont(Font.font(typeOfLetter, UNIT * 0.3));
         instructions.setTextFill(new Color(1.0, 0.7, 0.0, 1.0));
         
         // Worker thread to update the ready button when all of the pieces 
@@ -164,11 +198,17 @@ public class SetupPanel {
         Thread updateButton = new Thread(new UpdateReadyButton());
         updateButton.setDaemon(true);
         updateButton.start();
-        
+
+        GridPane.setMargin(saveimportPane,new Insets(UNIT*0.15,0.0,0.0,0.0));
+
         instructionPane.getChildren().add(instructions);
         instructionPane.setAlignment(Pos.CENTER);
+
+        saveimportPane.getChildren().add(importButton);
+        saveimportPane.setAlignment(Pos.CENTER);
         
         setupPanel.add(instructionPane, 0, 2);
+        setupPanel.add(saveimportPane,0,4);
         
         
         /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -179,7 +219,7 @@ public class SetupPanel {
         
         GridPane.setMargin(readyLabel, new Insets(UNIT * 0.8, 0.0, 0.0, UNIT * 1.5));
         readyLabel.setText("Waiting for opponent...");
-        readyLabel.setFont(Font.font("Century Gothic", UNIT * 0.6));
+        readyLabel.setFont(Font.font(typeOfLetter, UNIT * 0.6));
         readyLabel.setTextFill(new Color(1.0, 0.7, 0.0, 1.0));
     }
     
@@ -221,6 +261,15 @@ public class SetupPanel {
         }
     }
 
+    public  void save(){
+        Object setUpPieces = ClientGameManager.getSetupPieces();
+        this.setupPieces.add(setUpPieces);
+    }
+
+    public Object impo(){
+        return this.setupPieces.get(0);
+    }
+
     /**
      * Worker task that waits for a Setup Piece to be incremented or 
      * decremented. If all of the pieces have been placed, this task removes 
@@ -244,6 +293,8 @@ public class SetupPanel {
                             Platform.runLater(() -> {
                                 instructionPane.getChildren().remove(instructions);
                                 instructionPane.getChildren().add(readyButton);
+                                saveimportPane.getChildren().remove(importButton);
+                                saveimportPane.getChildren().add(saveButton);
                             });
                             
                             readyState = true;
@@ -254,13 +305,14 @@ public class SetupPanel {
                             Platform.runLater(() -> {
                                 instructionPane.getChildren().remove(readyButton);
                                 instructionPane.getChildren().add(instructions);
+                                saveimportPane.getChildren().remove(saveButton);
                             });
                             
                             readyState = false;
                         }
                     }
                     catch (InterruptedException e) {
-                        // TODO Handle this exception somehow...
+                        // TO DO Handle this exception somehow...
                     }
                 }
             }

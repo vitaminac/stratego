@@ -1,8 +1,8 @@
 package edu.asu.stratego.game;
 
-import java.io.Serializable;
-
 import edu.asu.stratego.game.board.ClientBoard;
+
+import java.io.Serializable;
 
 public class SetupBoard implements Serializable {
     
