@@ -5,12 +5,13 @@ buildscript {
 }
 
 plugins {
-  id "org.sonarqube" version "2.7"
+    id "org.sonarqube" version "2.7"
 }
 
 apply plugin: 'java'
 apply plugin: 'org.sonarqube'
 apply plugin: 'jacoco'
+apply plugin: 'application'
 
 repositories {
     jcenter()
@@ -26,5 +27,25 @@ sonarqube {
         property "sonar.projectName", "stratego"
         property "sonar.projectKey", "vitaminac_stratego"
         property "sonar.host.url", "https://sonarcloud.io"
+    }
+}
+
+task clientJar(type: Jar) {
+    baseName "client"
+    from(sourceSets.main.output) {
+        include "**"
+    }
+    manifest {
+        attributes('Main-Class': "edu.asu.stratego.Client")
+    }
+}
+
+task serverJar(type: Jar) {
+    baseName "server"
+    from(sourceSets.main.output) {
+        include "**"
+    }
+    manifest {
+        attributes('Main-Class': "edu.asu.stratego.Server")
     }
 }

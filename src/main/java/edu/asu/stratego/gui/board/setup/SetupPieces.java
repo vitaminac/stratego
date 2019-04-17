@@ -47,7 +47,7 @@ public class SetupPieces {
         zeroPieces.setSaturation(-1.0);
 
         // Get the player color.
-        String playerColor = Game.getPlayer().getColor().toString();
+        String playerColor = Game.getGame().getPlayer().getColor().toString();
 
         // ImageConstants suffixes.
         String[] pieceSuffix = new String[] { "02",   "03",   "04",   "05",   "06",   "07",

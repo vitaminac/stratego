@@ -13,7 +13,7 @@ public class SetupBoard implements Serializable {
      * Store the player's initial piece positions in positions[][].
      */
     public void getPiecePositions() {
-        ClientBoard board = Game.getBoard();
+        ClientBoard board = Game.getGame().getBoard();
         for (int row = 6; row < 10; ++row) {
             for (int col = 0; col < 10; ++col)
                 pieces[row - 6][col] = board.getSquare(row, col).getPiece();
