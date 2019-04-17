@@ -256,7 +256,7 @@ public class SetupPanel {
             setupPanel.getChildren().remove(instructionPane);
             setupPanel.getChildren().remove(piecePane);
             setupPanel.add(readyLabel, 0, 1);
-            
+            saveimportPane.getChildren().remove(saveButton);
             setupPieces.notify();
         }
     }
@@ -305,7 +305,6 @@ public class SetupPanel {
                             Platform.runLater(() -> {
                                 instructionPane.getChildren().remove(readyButton);
                                 instructionPane.getChildren().add(instructions);
-                                saveimportPane.getChildren().remove(saveButton);
                             });
                             
                             readyState = false;
