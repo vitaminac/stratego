@@ -1,6 +1,6 @@
 package edu.asu.stratego.gui;
 
-import edu.asu.stratego.game.ClientSocket;
+import edu.asu.stratego.game.Game;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -46,14 +46,14 @@ public class prueba extends Application {
         @Override
         public void run() {
 
-            while (ClientSocket.getInstance() == null) {
+            while (Game.getGame().getSocket() == null) {
                 synchronized (playerLogin) {
                     try {
                         // Wait for submitFields button event.
                         playerLogin.wait();
 
                         // Attempt connection to server.
-                        ClientSocket.connect(serverIP, 4212);
+                        Game.getGame().connect();
                     } catch (IOException | InterruptedException e) {
                         e.printStackTrace();
                     } finally {

@@ -1,6 +1,7 @@
 package edu.asu.stratego.gui;
 
-import edu.asu.stratego.game.ai.AIGameManager;
+import edu.asu.stratego.game.ClientGameManager;
+import edu.asu.stratego.game.Game;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -9,6 +10,8 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+
+import java.io.IOException;
 
 /**
  * Wrapper class for a JavaFX scene. Contains a scene UI to indicate that the 
@@ -39,9 +42,14 @@ public class WaitingScene {
         aiButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                Thread manager = new Thread(new AIGameManager(new AIClientStage()));
-                manager.setDaemon(true);
-                manager.start();
+                try {
+                    Game.getComputer().connect();
+                    Thread manager = new Thread(new ClientGameManager(new AIClientStage(), Game.getComputer()));
+                    manager.setDaemon(true);
+                    manager.start();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 

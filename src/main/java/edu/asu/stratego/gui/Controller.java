@@ -97,7 +97,7 @@ public class Controller {
         nickname = nombreUsuario.getText();
         serverIP = dirIP.getText();
 
-        Game.getPlayer().setNickname(nickname);
+        Game.getGame().getPlayer().setNickname(nickname);
 
         synchronized (playerLogin) {
             try {

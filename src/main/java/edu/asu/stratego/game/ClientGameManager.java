@@ -1,22 +1,24 @@
 package edu.asu.stratego.game;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import edu.asu.stratego.Server;
-import edu.asu.stratego.gui.*;
+import edu.asu.stratego.game.board.ClientSquare;
+import edu.asu.stratego.gui.BoardScene;
+import edu.asu.stratego.gui.ClientStage;
+import edu.asu.stratego.gui.IClientStage;
+import edu.asu.stratego.gui.board.BoardTurnIndicator;
+import edu.asu.stratego.gui.prueba;
+import edu.asu.stratego.media.ImageConstants;
+import edu.asu.stratego.util.HashTables;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.util.Duration;
-import edu.asu.stratego.game.board.ClientSquare;
-import edu.asu.stratego.gui.board.BoardTurnIndicator;
-import edu.asu.stratego.media.ImageConstants;
-import edu.asu.stratego.util.HashTables;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Task to handle the Stratego game on the client-side.
@@ -32,15 +34,17 @@ public class ClientGameManager implements Runnable {
     protected ObjectOutputStream toServer;
     protected ObjectInputStream  fromServer;
 
-    private IClientStage stage;
-
+    private final IClientStage stage;
+    private final Game game;
+    
     /**
      * Creates a new instance of ClientGameManager.
      *
      * @param stage the stage that the client is set in
      */
-    public ClientGameManager(IClientStage stage) {
+    public ClientGameManager(IClientStage stage, Game game) {
         this.stage = stage;
+        this.game = game;
     }
 
     /**
@@ -104,24 +108,24 @@ public class ClientGameManager implements Runnable {
      * the game.
      * </p>
      */
-    private void waitForOpponent() {
+    protected void waitForOpponent() {
 
         Platform.runLater(() -> stage.setWaitingScene());
 
         try {
             // I/O Streams.
-            toServer = new ObjectOutputStream(ClientSocket.getInstance().getOutputStream());
-            fromServer = new ObjectInputStream(ClientSocket.getInstance().getInputStream());
+            toServer = new ObjectOutputStream(this.game.getSocket().getOutputStream());
+            fromServer = new ObjectInputStream(this.game.getSocket().getInputStream());
 
             // Exchange player information.
-            toServer.writeObject(Game.getPlayer());
-            Game.setOpponent((Player) fromServer.readObject());
+            toServer.writeObject(this.game.getPlayer());
+            this.game.setOpponent((Player) fromServer.readObject());
 
             // Infer player color from opponent color.
-            if (Game.getOpponent().getColor() == PieceColor.RED)
-                Game.getPlayer().setColor(PieceColor.BLUE);
+            if (this.game.getOpponent().getColor() == PieceColor.RED)
+                this.game.getPlayer().setColor(PieceColor.BLUE);
             else
-                Game.getPlayer().setColor(PieceColor.RED);
+                this.game.getPlayer().setColor(PieceColor.RED);
         }
         catch (IOException | ClassNotFoundException e) {
             // TO DO Handle this exception somehow...
@@ -141,7 +145,7 @@ public class ClientGameManager implements Runnable {
             try {
                 // Wait for the player to set up their pieces.
                 setupPieces.wait();
-                Game.setStatus(GameStatus.WAITING_OPP);
+                this.game.setStatus(GameStatus.WAITING_OPP);
 
                 // Send initial piece positions to server.
                 SetupBoard initial = new SetupBoard();
@@ -155,10 +159,10 @@ public class ClientGameManager implements Runnable {
                 Platform.runLater(() -> {
                     for (int row = 0; row < 4; ++row) {
                         for (int col = 0; col < 10; ++col) {
-                            ClientSquare square = Game.getBoard().getSquare(row, col);
+                            ClientSquare square = this.game.getBoard().getSquare(row, col);
                             square.setPiece(opponentInitial.getPiece(row, col));
 
-                            if (Game.getPlayer().getColor() == PieceColor.RED)
+                            if (this.game.getPlayer().getColor() == PieceColor.RED)
                                 square.getPiecePane().setPiece(ImageConstants.BLUE_BACK);
                             else
                                 square.getPiecePane().setPiece(ImageConstants.RED_BACK);
@@ -182,7 +186,7 @@ public class ClientGameManager implements Runnable {
 
         // Get game status from the server
         try {
-            Game.setStatus((GameStatus) fromServer.readObject());
+            this.game.setStatus((GameStatus) fromServer.readObject());
         } catch (ClassNotFoundException | IOException e1) {
             // TO DO Handle this somehow...
             logger.log( Level.SEVERE, e1.toString(), e1 );
@@ -190,16 +194,16 @@ public class ClientGameManager implements Runnable {
 
 
         // Main loop (when playing)
-        while (Game.getStatus() == GameStatus.IN_PROGRESS) {
+        while (this.game.getStatus() == GameStatus.IN_PROGRESS) {
             try {
                 // Get turn color from server.
-                Game.setTurn((PieceColor) fromServer.readObject());
+                this.game.setTurn((PieceColor) fromServer.readObject());
 
                 // If the turn is the client's, set move status to none selected
-                if(Game.getPlayer().getColor() == Game.getTurn())
-                    Game.setMoveStatus(MoveStatus.NONE_SELECTED);
+                if(this.game.getPlayer().getColor() == this.game.getTurn())
+                    this.game.setMoveStatus(MoveStatus.NONE_SELECTED);
                 else
-                    Game.setMoveStatus(MoveStatus.OPP_TURN);
+                    this.game.setMoveStatus(MoveStatus.OPP_TURN);
 
                 // Notify turn indicator.
                 synchronized (BoardTurnIndicator.getTurnIndicatorTrigger()) {
@@ -207,26 +211,26 @@ public class ClientGameManager implements Runnable {
                 }
 
                 // Send move to the server.
-                if (Game.getPlayer().getColor() == Game.getTurn() && Game.getMoveStatus() != MoveStatus.SERVER_VALIDATION) {
+                if (this.game.getPlayer().getColor() == this.game.getTurn() && this.game.getMoveStatus() != MoveStatus.SERVER_VALIDATION) {
                     synchronized (sendMove) {
                         sendMove.wait();
-                        toServer.writeObject(Game.getMove());
-                        Game.setMoveStatus(MoveStatus.SERVER_VALIDATION);
+                        toServer.writeObject(this.game.getMove());
+                        this.game.setMoveStatus(MoveStatus.SERVER_VALIDATION);
                     }
                 }
 
                 // Receive move from the server.
-                Game.setMove((Move) fromServer.readObject());
-                Piece startPiece = Game.getMove().getStartPiece();
-                Piece endPiece = Game.getMove().getEndPiece();
+                this.game.setMove((Move) fromServer.readObject());
+                Piece startPiece = this.game.getMove().getStartPiece();
+                Piece endPiece = this.game.getMove().getEndPiece();
 
                 // If the move is an attack, not just a move to an unoccupied square
-                if(Game.getMove().isAttackMove()) {
-                    Piece attackingPiece = Game.getBoard().getSquare(Game.getMove().getStart().x, Game.getMove().getStart().y).getPiece();
+                if(this.game.getMove().isAttackMove()) {
+                    Piece attackingPiece = this.game.getBoard().getSquare(this.game.getMove().getStart().x, this.game.getMove().getStart().y).getPiece();
                     if(attackingPiece.getPieceType() == PieceType.SCOUT) {
                         // Check if the scout is attacking over more than one square
-                        int moveX = Game.getMove().getStart().x - Game.getMove().getEnd().x;
-                        int moveY = Game.getMove().getStart().y - Game.getMove().getEnd().y;
+                        int moveX = this.game.getMove().getStart().x - this.game.getMove().getEnd().x;
+                        int moveY = this.game.getMove().getStart().y - this.game.getMove().getEnd().y;
 
                         if(Math.abs(moveX) > 1 || Math.abs(moveY) > 1) {
                             Platform.runLater(() -> {
@@ -240,8 +244,8 @@ public class ClientGameManager implements Runnable {
                                     else if(moveY < 0) {shiftY = -1;}
 
                                     // Move the scout in front of the piece it's attacking before actually fading out
-                                    ClientSquare scoutSquare = Game.getBoard().getSquare(Game.getMove().getEnd().x+shiftX, Game.getMove().getEnd().y+shiftY);
-                                    ClientSquare startSquare = Game.getBoard().getSquare(Game.getMove().getStart().x, Game.getMove().getStart().y);
+                                    ClientSquare scoutSquare = this.game.getBoard().getSquare(this.game.getMove().getEnd().x+shiftX, this.game.getMove().getEnd().y+shiftY);
+                                    ClientSquare startSquare = this.game.getBoard().getSquare(this.game.getMove().getStart().x, this.game.getMove().getStart().y);
                                     scoutSquare.getPiecePane().setPiece(HashTables.PIECE_MAP.get(startSquare.getPiece().getPieceSpriteKey()));
                                     startSquare.getPiecePane().setPiece(null);
                                 }
@@ -261,20 +265,20 @@ public class ClientGameManager implements Runnable {
                             else if(moveX < 0) {shiftX = -1;}
                             else if(moveY > 0) {shiftY = 1;}
                             else if(moveY < 0) {shiftY = -1;}
-                            ClientSquare startSquare = Game.getBoard().getSquare(Game.getMove().getStart().x, Game.getMove().getStart().y);
+                            ClientSquare startSquare = this.game.getBoard().getSquare(this.game.getMove().getStart().x, this.game.getMove().getStart().y);
 
                             // Fix the clientside software boards (and move) to reflect new scout location, now attacks like a normal piece
-                            Game.getBoard().getSquare(Game.getMove().getEnd().x+shiftX, Game.getMove().getEnd().y+shiftY).setPiece(startSquare.getPiece());
-                            Game.getBoard().getSquare(Game.getMove().getStart().x, Game.getMove().getStart().y).setPiece(null);
+                            this.game.getBoard().getSquare(this.game.getMove().getEnd().x+shiftX, this.game.getMove().getEnd().y+shiftY).setPiece(startSquare.getPiece());
+                            this.game.getBoard().getSquare(this.game.getMove().getStart().x, this.game.getMove().getStart().y).setPiece(null);
 
-                            Game.getMove().setStart(Game.getMove().getEnd().x+shiftX, Game.getMove().getEnd().y+shiftY);
+                            this.game.getMove().setStart(this.game.getMove().getEnd().x+shiftX, this.game.getMove().getEnd().y+shiftY);
                         }
                     }
                     Platform.runLater(() -> {
                         try {
                             // Set the face images visible to both players (from the back that doesn't show piecetype)
-                            ClientSquare startSquare = Game.getBoard().getSquare(Game.getMove().getStart().x, Game.getMove().getStart().y);
-                            ClientSquare endSquare = Game.getBoard().getSquare(Game.getMove().getEnd().x, Game.getMove().getEnd().y);
+                            ClientSquare startSquare = this.game.getBoard().getSquare(this.game.getMove().getStart().x, this.game.getMove().getStart().y);
+                            ClientSquare endSquare = this.game.getBoard().getSquare(this.game.getMove().getEnd().x, this.game.getMove().getEnd().y);
 
                             Piece animStartPiece = startSquare.getPiece();
                             Piece animEndPiece = endSquare.getPiece();
@@ -294,18 +298,18 @@ public class ClientGameManager implements Runnable {
                     // Fade out pieces that lose (or draw)
                     Platform.runLater(() -> {
                         try {
-                            ClientSquare startSquare = Game.getBoard().getSquare(Game.getMove().getStart().x, Game.getMove().getStart().y);
-                            ClientSquare endSquare = Game.getBoard().getSquare(Game.getMove().getEnd().x, Game.getMove().getEnd().y);
+                            ClientSquare startSquare = this.game.getBoard().getSquare(this.game.getMove().getStart().x, this.game.getMove().getStart().y);
+                            ClientSquare endSquare = this.game.getBoard().getSquare(this.game.getMove().getEnd().x, this.game.getMove().getEnd().y);
 
                             // If the piece dies, fade it out (also considers a draw, where both "win" are set to false)
-                            if(!Game.getMove().isAttackWin()) {
+                            if(!this.game.getMove().isAttackWin()) {
                                 FadeTransition fadeStart = new FadeTransition(Duration.millis(1500), startSquare.getPiecePane().getPiece());
                                 fadeStart.setFromValue(1.0);
                                 fadeStart.setToValue(0.0);
                                 fadeStart.play();
                                 fadeStart.setOnFinished(new ResetImageVisibility());
                             }
-                            if(!Game.getMove().isDefendWin()) {
+                            if(!this.game.getMove().isDefendWin()) {
                                 FadeTransition fadeEnd = new FadeTransition(Duration.millis(1500), endSquare.getPiecePane().getPiece());
                                 fadeEnd.setFromValue(1.0);
                                 fadeEnd.setToValue(0.0);
@@ -324,19 +328,19 @@ public class ClientGameManager implements Runnable {
                 }
 
                 // Set the piece on the software (non-GUI) board to the updated pieces (either null or the winning piece)
-                Game.getBoard().getSquare(Game.getMove().getStart().x, Game.getMove().getStart().y).setPiece(startPiece);
-                Game.getBoard().getSquare(Game.getMove().getEnd().x, Game.getMove().getEnd().y).setPiece(endPiece);
+                this.game.getBoard().getSquare(this.game.getMove().getStart().x, this.game.getMove().getStart().y).setPiece(startPiece);
+                this.game.getBoard().getSquare(this.game.getMove().getEnd().x, this.game.getMove().getEnd().y).setPiece(endPiece);
 
                 // Update GUI.
                 Platform.runLater(() -> {
-                    ClientSquare endSquare = Game.getBoard().getSquare(Game.getMove().getEnd().x, Game.getMove().getEnd().y);
+                    ClientSquare endSquare = this.game.getBoard().getSquare(this.game.getMove().getEnd().x, this.game.getMove().getEnd().y);
 
                     // Draw
                     if(endPiece == null)
                         endSquare.getPiecePane().setPiece(null);
                     else{
                         // If not a draw, set the end piece to the PieceType face
-                        if(endPiece.getPieceColor() == Game.getPlayer().getColor()) {
+                        if(endPiece.getPieceColor() == this.game.getPlayer().getColor()) {
                             endSquare.getPiecePane().setPiece(HashTables.PIECE_MAP.get(endPiece.getPieceSpriteKey()));
                         }
                         // ...unless it is the opponent's piece which it will display the back instead
@@ -350,26 +354,26 @@ public class ClientGameManager implements Runnable {
                 });
 
                 // If it is an attack, wait 0.05 seconds to allow the arrow to be visible
-                if(Game.getMove().isAttackMove()) {
+                if(this.game.getMove().isAttackMove()) {
                     Thread.sleep(50);
                 }
 
                 Platform.runLater(() -> {
                     // Arrow
-                    ClientSquare arrowSquare = Game.getBoard().getSquare(Game.getMove().getStart().x, Game.getMove().getStart().y);
+                    ClientSquare arrowSquare = this.game.getBoard().getSquare(this.game.getMove().getStart().x, this.game.getMove().getStart().y);
 
                     // Change the arrow to an image (and depending on what color the arrow should be)
-                    if(Game.getMove().getMoveColor() == PieceColor.RED)
+                    if(this.game.getMove().getMoveColor() == PieceColor.RED)
                         arrowSquare.getPiecePane().setPiece(ImageConstants.MOVEARROW_RED);
                     else
                         arrowSquare.getPiecePane().setPiece(ImageConstants.MOVEARROW_BLUE);
 
                     // Rotate the arrow to show the direction of the move
-                    if(Game.getMove().getStart().x > Game.getMove().getEnd().x)
+                    if(this.game.getMove().getStart().x > this.game.getMove().getEnd().x)
                         arrowSquare.getPiecePane().getPiece().setRotate(0);
-                    else if(Game.getMove().getStart().y < Game.getMove().getEnd().y)
+                    else if(this.game.getMove().getStart().y < this.game.getMove().getEnd().y)
                         arrowSquare.getPiecePane().getPiece().setRotate(90);
-                    else if(Game.getMove().getStart().x < Game.getMove().getEnd().x)
+                    else if(this.game.getMove().getStart().x < this.game.getMove().getEnd().x)
                         arrowSquare.getPiecePane().getPiece().setRotate(180);
                     else
                         arrowSquare.getPiecePane().getPiece().setRotate(270);
@@ -386,7 +390,7 @@ public class ClientGameManager implements Runnable {
                 synchronized (waitFade) { waitFade.wait(); }
 
                 // Get game status from server.
-                Game.setStatus((GameStatus) fromServer.readObject());
+                this.game.setStatus((GameStatus) fromServer.readObject());
             }
             catch (ClassNotFoundException | IOException | InterruptedException e) {
                 // TO DO Handle this exception somehow...
@@ -415,8 +419,8 @@ public class ClientGameManager implements Runnable {
         Platform.runLater(() -> {
             for(int row = 0; row < 10; row++) {
                 for(int col = 0; col < 10; col++) {
-                    if(Game.getBoard().getSquare(row, col).getPiece() != null && Game.getBoard().getSquare(row, col).getPiece().getPieceColor() != Game.getPlayer().getColor()) {
-                        Game.getBoard().getSquare(row, col).getPiecePane().setPiece(HashTables.PIECE_MAP.get(Game.getBoard().getSquare(row, col).getPiece().getPieceSpriteKey()));
+                    if(this.game.getBoard().getSquare(row, col).getPiece() != null && this.game.getBoard().getSquare(row, col).getPiece().getPieceColor() != this.game.getPlayer().getColor()) {
+                        this.game.getBoard().getSquare(row, col).getPiecePane().setPiece(HashTables.PIECE_MAP.get(this.game.getBoard().getSquare(row, col).getPiece().getPieceSpriteKey()));
                     }
                 }
             }
@@ -438,27 +442,28 @@ public class ClientGameManager implements Runnable {
         public void handle(ActionEvent event) {
             synchronized (waitFade) {
                 waitFade.notifyAll();
-                Game.getBoard().getSquare(Game.getMove().getStart().x, Game.getMove().getStart().y).getPiecePane().getPiece().setOpacity(1.0);
-                Game.getBoard().getSquare(Game.getMove().getStart().x, Game.getMove().getStart().y).getPiecePane().getPiece().setRotate(0.0);
-                Game.getBoard().getSquare(Game.getMove().getStart().x, Game.getMove().getStart().y).getPiecePane().setPiece(null);
+                ClientGameManager.this.game.getBoard().getSquare(ClientGameManager.this.game.getMove().getStart().x, ClientGameManager.this.game.getMove().getStart().y).getPiecePane().getPiece().setOpacity(1.0);
+                ClientGameManager.this.game.getBoard().getSquare(ClientGameManager.this.game.getMove().getStart().x, ClientGameManager.this.game.getMove().getStart().y).getPiecePane().getPiece().setRotate(0.0);
+                ClientGameManager.this.game.getBoard().getSquare(ClientGameManager.this.game.getMove().getStart().x, ClientGameManager.this.game.getMove().getStart().y).getPiecePane().setPiece(null);
 
-                Game.getBoard().getSquare(Game.getMove().getEnd().x, Game.getMove().getEnd().y).getPiecePane().getPiece().setOpacity(1.0);
-                Game.getBoard().getSquare(Game.getMove().getEnd().x, Game.getMove().getEnd().y).getPiecePane().getPiece().setRotate(0.0);
+                ClientGameManager.this.game.getBoard().getSquare(ClientGameManager.this.game.getMove().getEnd().x, ClientGameManager.this.game.getMove().getEnd().y).getPiecePane().getPiece().setOpacity(1.0);
+                ClientGameManager.this.game.getBoard().getSquare(ClientGameManager.this.game.getMove().getEnd().x, ClientGameManager.this.game.getMove().getEnd().y).getPiecePane().getPiece().setRotate(0.0);
             }
         }
     }
+
     // read above comments
     private class ResetImageVisibility implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent event) {
             synchronized (waitVisible) {
                 waitVisible.notifyAll();
-                Game.getBoard().getSquare(Game.getMove().getStart().x, Game.getMove().getStart().y).getPiecePane().getPiece().setOpacity(1.0);
-                Game.getBoard().getSquare(Game.getMove().getStart().x, Game.getMove().getStart().y).getPiecePane().getPiece().setRotate(0.0);
-                Game.getBoard().getSquare(Game.getMove().getStart().x, Game.getMove().getStart().y).getPiecePane().setPiece(null);
+                ClientGameManager.this.game.getBoard().getSquare(ClientGameManager.this.game.getMove().getStart().x, ClientGameManager.this.game.getMove().getStart().y).getPiecePane().getPiece().setOpacity(1.0);
+                ClientGameManager.this.game.getBoard().getSquare(ClientGameManager.this.game.getMove().getStart().x, ClientGameManager.this.game.getMove().getStart().y).getPiecePane().getPiece().setRotate(0.0);
+                ClientGameManager.this.game.getBoard().getSquare(ClientGameManager.this.game.getMove().getStart().x, ClientGameManager.this.game.getMove().getStart().y).getPiecePane().setPiece(null);
 
-                Game.getBoard().getSquare(Game.getMove().getEnd().x, Game.getMove().getEnd().y).getPiecePane().getPiece().setOpacity(1.0);
-                Game.getBoard().getSquare(Game.getMove().getEnd().x, Game.getMove().getEnd().y).getPiecePane().getPiece().setRotate(0.0);
+                ClientGameManager.this.game.getBoard().getSquare(ClientGameManager.this.game.getMove().getEnd().x, ClientGameManager.this.game.getMove().getEnd().y).getPiecePane().getPiece().setOpacity(1.0);
+                ClientGameManager.this.game.getBoard().getSquare(ClientGameManager.this.game.getMove().getEnd().x, ClientGameManager.this.game.getMove().getEnd().y).getPiecePane().getPiece().setRotate(0.0);
             }
         }
     }

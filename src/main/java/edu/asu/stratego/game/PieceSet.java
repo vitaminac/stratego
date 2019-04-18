@@ -9,7 +9,7 @@ public class PieceSet {
     private ArrayList<Piece> pieces = new ArrayList<>();
     
     public PieceSet(PieceColor color) {
-        PieceColor player = Game.getPlayer().getColor();
+        PieceColor player = Game.getGame().getPlayer().getColor();
         boolean isOpponentPiece = (player != color);
         
         for (PieceType type : PieceType.values()) {

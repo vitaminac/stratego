@@ -30,7 +30,7 @@ public class BoardTurnIndicator {
         turnIndicator = new Rectangle(0, 0, SIDE, SIDE);
         
         // Set the setup game turn color.
-        if (Game.getPlayer().getColor() == PieceColor.RED)
+        if (Game.getGame().getPlayer().getColor() == PieceColor.RED)
             turnIndicator.setFill(red);
         else
             turnIndicator.setFill(blue);
@@ -67,7 +67,7 @@ public class BoardTurnIndicator {
                         
                         Platform.runLater(() -> {
                             // Blue -> Red.
-                            if (Game.getTurn() == PieceColor.RED && 
+                            if (Game.getGame().getTurn() == PieceColor.RED &&
                                     BoardTurnIndicator.getTurnIndicator().getFill() != red) {
                                 FillTransition ft = new FillTransition(Duration.millis(2000), 
                                         BoardTurnIndicator.getTurnIndicator(), blue, red);
@@ -75,7 +75,7 @@ public class BoardTurnIndicator {
                             }
                             
                             // Red -> Blue.
-                            else if (Game.getTurn() == PieceColor.BLUE && 
+                            else if (Game.getGame().getTurn() == PieceColor.BLUE &&
                                     BoardTurnIndicator.getTurnIndicator().getFill() != blue) {
                                 FillTransition ft = new FillTransition(Duration.millis(3000), 
                                         BoardTurnIndicator.getTurnIndicator(), red, blue);

@@ -73,10 +73,10 @@ public class BoardScene {
         final int size = 10;
         for (int row = 0; row < size; ++row) {
             for (int col = 0; col < size; ++col) {
-                Game.getBoard().getSquare(row, col).getPiecePane().getPiece().setFitHeight(UNIT);
-                Game.getBoard().getSquare(row, col).getPiecePane().getPiece().setFitWidth(UNIT);
-                Game.getBoard().getSquare(row, col).getEventPane().getHover().setFitHeight(UNIT);
-                Game.getBoard().getSquare(row, col).getEventPane().getHover().setFitWidth(UNIT);
+                Game.getGame().getBoard().getSquare(row, col).getPiecePane().getPiece().setFitHeight(UNIT);
+                Game.getGame().getBoard().getSquare(row, col).getPiecePane().getPiece().setFitWidth(UNIT);
+                Game.getGame().getBoard().getSquare(row, col).getEventPane().getHover().setFitHeight(UNIT);
+                Game.getGame().getBoard().getSquare(row, col).getEventPane().getHover().setFitWidth(UNIT);
             }
         }
         
@@ -93,11 +93,11 @@ public class BoardScene {
         border.setFitWidth(SIDE);
         
         // Show Board GUI.
-        root = new StackPane(background, Game.getBoard().getPiecePane(), 
-                             Game.getBoard().getEventPane(), setupPanel, border);
+        root = new StackPane(background, Game.getGame().getBoard().getPiecePane(),
+                             Game.getGame().getBoard().getEventPane(), setupPanel, border);
         root.setMaxSize(SIDE, SIDE);
-        Game.getBoard().getPiecePane().setAlignment(Pos.CENTER);
-        Game.getBoard().getEventPane().setAlignment(Pos.CENTER);
+        Game.getGame().getBoard().getPiecePane().setAlignment(Pos.CENTER);
+        Game.getGame().getBoard().getEventPane().setAlignment(Pos.CENTER);
         
         
         scene = new Scene(root, SIDE, SIDE);

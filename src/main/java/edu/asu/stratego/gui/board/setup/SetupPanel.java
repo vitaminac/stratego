@@ -84,7 +84,7 @@ public class SetupPanel {
         headerText.getRowConstraints().add(new RowConstraints(UNIT * 0.6));
         GridPane.setMargin(headerText, new Insets(UNIT * 0.2, 0, 0, UNIT * 0.2));
         
-        String titleContent = Game.getPlayer().getNickname() + " vs. " + Game.getOpponent().getNickname();
+        String titleContent = Game.getGame().getPlayer().getNickname() + " vs. " + Game.getGame().getOpponent().getNickname();
         double fontScale = 1.0 /  ((titleContent.length() - 7) / (double) 8 + 2);
         
         Label nameDisplay = new Label(titleContent);

@@ -12,8 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
- 
-import edu.asu.stratego.game.ClientSocket;
+
 import edu.asu.stratego.game.Game;
  
 /**
@@ -97,7 +96,7 @@ public class ConnectionScene {
             if (serverIP.equals(""))
                 serverIP = "localhost";
            
-            Game.getPlayer().setNickname(nickname);
+            Game.getGame().getPlayer().setNickname(nickname);
            
             nicknameField.setEditable(false);
             serverIPField.setEditable(false);
@@ -142,14 +141,14 @@ public class ConnectionScene {
         @Override
         public void run() {
            
-            while (ClientSocket.getInstance() == null) {
+            while (Game.getGame().getSocket() == null) {
                 synchronized (playerLogin) {
                     try {
                         // Wait for submitFields button event.
                         playerLogin.wait();
                        
                         // Attempt connection to server.
-                        ClientSocket.connect(serverIP, 4212);
+                        Game.getGame().connect();
                     }
                     catch (IOException | InterruptedException e) {
                         Platform.runLater(() -> {
