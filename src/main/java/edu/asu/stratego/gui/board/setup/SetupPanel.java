@@ -281,7 +281,7 @@ public class SetupPanel {
                 FileInputStream fileInputStream = new FileInputStream("position");
                 ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
                 clientBoard = (ClientBoard) objectInputStream.readObject();
-                Game.setBoard(clientBoard);
+                Game.getGame().setBoard(clientBoard);
                 setupPieces.notify();
             } catch (Exception e) {
                 e.printStackTrace();
