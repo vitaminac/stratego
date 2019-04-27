@@ -94,4 +94,8 @@ public class Piece implements Serializable {
     public String getPieceSpriteKey() {
         return spriteKey;
     }
+
+    public void setColor (PieceColor color){
+        this.color=color;
+    }
 }

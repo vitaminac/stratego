@@ -2,8 +2,11 @@ package edu.asu.stratego.gui.board.setup;
 
 import edu.asu.stratego.game.*;
 import edu.asu.stratego.game.board.ClientBoard;
+import edu.asu.stratego.game.board.ClientSquare;
 import edu.asu.stratego.gui.ClientStage;
+import edu.asu.stratego.gui.board.BoardSquarePane;
 import edu.asu.stratego.media.ImageConstants;
+import edu.asu.stratego.util.HashTables;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -263,25 +266,42 @@ public class SetupPanel {
     }
 
     public  void save() {
-        ClientBoard clientBoard = new ClientBoard();
+        Piece[][] pieces = new Piece[4][10];
         try{
+            for (int col = 0; col < 10; ++col) {
+                for (int row = 6; row < 10; ++row) {
+                    ClientSquare square = Game.getGame().getBoard().getSquare(row, col);
+                    Piece squarePiece = square.getPiece();
+                    pieces[row-6][col] = squarePiece;
+                }
+            }
             FileOutputStream fileOutputStream = new FileOutputStream("position",true);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-            objectOutputStream.writeObject(clientBoard);
+            objectOutputStream.writeObject(pieces);
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
     public void impo(){
-        ClientBoard clientBoard = new ClientBoard();
         Object setupPieces = ClientGameManager.getSetupPieces();
+        PieceColor playerColor = Game.getGame().getPlayer().getColor();
         synchronized (setupPieces) {
             try {
                 FileInputStream fileInputStream = new FileInputStream("position");
                 ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-                clientBoard = (ClientBoard) objectInputStream.readObject();
-                Game.getGame().setBoard(clientBoard);
+                Piece[][] pieces = (Piece[][]) objectInputStream.readObject();
+                for (int col = 0; col < 10; ++col) {
+                    for (int row = 6; row < 10; ++row) {
+                        BoardSquarePane squarePane = Game.getGame().getBoard().getSquare(row, col).getPiecePane();
+                        ClientSquare square = Game.getGame().getBoard().getSquare(row, col);
+                        Piece piece=pieces[row-6][col];
+                        piece.setColor(playerColor);
+                        square.setPiece(piece);
+                        squarePane.setPiece(HashTables.PIECE_MAP.get(square.getPiece().getPieceSpriteKey()));
+                        SetupPieces.decrementPieceCount(piece.getPieceType());
+                    }
+                }
                 setupPieces.notify();
             } catch (Exception e) {
                 e.printStackTrace();
