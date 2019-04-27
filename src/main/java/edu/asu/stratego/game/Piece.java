@@ -97,5 +97,6 @@ public class Piece implements Serializable {
 
     public void setColor (PieceColor color){
         this.color=color;
+        this.setPieceImage();
     }
 }
