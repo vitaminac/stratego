@@ -344,6 +344,8 @@ public class SetupPanel {
                             Platform.runLater(() -> {
                                 instructionPane.getChildren().remove(readyButton);
                                 instructionPane.getChildren().add(instructions);
+                                saveimportPane.getChildren().remove(saveButton);
+                                saveimportPane.getChildren().add(importButton);
                             });
                             
                             readyState = false;
