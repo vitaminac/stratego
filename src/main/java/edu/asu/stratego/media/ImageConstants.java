@@ -22,6 +22,10 @@ public class ImageConstants {
             ImageConstants.class.getResource("images/board/save_hover.png").toString());
     public static final Image SAVE_IDLE = new Image(
             ImageConstants.class.getResource("images/board/save_idle.png").toString());
+    public static final Image RANDOM_HOVER = new Image(
+            ImageConstants.class.getResource("images/board/random_hover.png").toString());
+    public static final Image RANDOM_IDLE = new Image(
+            ImageConstants.class.getResource("images/board/random_idle.png").toString());
     public static final Image BORDER = new Image(
             ImageConstants.class.getResource("images/board/border.png").toString());
     public static final Image DARK_GRASS = new Image(

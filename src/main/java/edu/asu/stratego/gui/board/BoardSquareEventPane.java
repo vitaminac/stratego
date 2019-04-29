@@ -407,6 +407,7 @@ public class BoardSquareEventPane extends GridPane {
 
                     // And lower the availability count of that piece
                     SetupPieces.decrementPieceCount(pieceType);
+                    SetupPanel.getSetupPanel().getChildren().remove(SetupPanel.getSaveimportPane());
                 }
             }
         }

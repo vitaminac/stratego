@@ -4,6 +4,7 @@ import edu.asu.stratego.game.*;
 import edu.asu.stratego.game.board.ClientBoard;
 import edu.asu.stratego.game.board.ClientSquare;
 import edu.asu.stratego.gui.ClientStage;
+import edu.asu.stratego.gui.board.BoardSquareEventPane;
 import edu.asu.stratego.gui.board.BoardSquarePane;
 import edu.asu.stratego.media.ImageConstants;
 import edu.asu.stratego.util.HashTables;
@@ -47,6 +48,7 @@ public class SetupPanel {
     private static ImageView readyButton       = new ImageView();
     private static ImageView saveButton        = new ImageView();
     private static ImageView importButton      = new ImageView();
+    private static ImageView randomButton      = new ImageView();
 
     
     /**
@@ -192,7 +194,22 @@ public class SetupPanel {
 
         importButton.addEventHandler(MouseEvent.MOUSE_CLICKED, e ->
                 Platform.runLater(() -> { impo(); } ));
-        
+
+        //randomSetUp
+        randomButton.setImage(ImageConstants.RANDOM_IDLE);
+        randomButton.setFitHeight(UNIT * 0.75);
+        randomButton.setFitWidth(UNIT * 2.25);
+        randomButton.addEventHandler(MouseEvent.MOUSE_ENTERED_TARGET, e ->
+                randomButton.setImage(ImageConstants.RANDOM_HOVER));
+
+        randomButton.addEventHandler(MouseEvent.MOUSE_EXITED_TARGET, e ->
+                randomButton.setImage(ImageConstants.RANDOM_IDLE));
+
+        randomButton.addEventHandler(MouseEvent.MOUSE_CLICKED, e ->
+                Platform.runLater(() -> {
+                    BoardSquareEventPane.randomSetup();
+                } ));
+
         // Text properties.
         instructions.setFont(Font.font(typeOfLetter, UNIT * 0.3));
         instructions.setTextFill(new Color(1.0, 0.7, 0.0, 1.0));
@@ -208,11 +225,12 @@ public class SetupPanel {
         instructionPane.getChildren().add(instructions);
         instructionPane.setAlignment(Pos.CENTER);
 
-        saveimportPane.getChildren().add(importButton);
+        saveimportPane.add(importButton,0,0);
+        saveimportPane.add(randomButton,1,0);
         saveimportPane.setAlignment(Pos.CENTER);
-        
+
         setupPanel.add(instructionPane, 0, 2);
-        setupPanel.add(saveimportPane,0,4);
+        setupPanel.add(saveimportPane,0,3);
         
         
         /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -308,6 +326,13 @@ public class SetupPanel {
         }
     }
 
+    public static GridPane getSetupPane(){
+        return setupPanel;
+    }
+    public static GridPane getSaveimportPane(){
+        return saveimportPane;
+    }
+
     /**
      * Worker task that waits for a Setup Piece to be incremented or 
      * decremented. If all of the pieces have been placed, this task removes 
@@ -333,6 +358,7 @@ public class SetupPanel {
                                 instructionPane.getChildren().add(readyButton);
                                 saveimportPane.getChildren().remove(importButton);
                                 saveimportPane.getChildren().add(saveButton);
+                                saveimportPane.getChildren().remove(randomButton);
                             });
                             
                             readyState = true;
@@ -345,6 +371,7 @@ public class SetupPanel {
                                 instructionPane.getChildren().add(instructions);
                                 saveimportPane.getChildren().remove(saveButton);
                                 saveimportPane.getChildren().add(importButton);
+                                saveimportPane.getChildren().add(randomButton);
                             });
                             
                             readyState = false;
