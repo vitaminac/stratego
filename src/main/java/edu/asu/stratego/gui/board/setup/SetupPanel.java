@@ -302,7 +302,6 @@ public class SetupPanel {
                         SetupPieces.decrementPieceCount(piece.getPieceType());
                     }
                 }
-                setupPieces.notify();
             } catch (Exception e) {
                 e.printStackTrace();
             }
