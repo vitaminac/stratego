@@ -273,24 +273,25 @@ public class ClientGameManager implements Runnable {
 
                             this.game.getMove().setStart(this.game.getMove().getEnd().x+shiftX, this.game.getMove().getEnd().y+shiftY);
                         }
+                        Platform.runLater(() -> {
+                            try {
+                                // Set the face images visible to both players (from the back that doesn't show piecetype)
+                                ClientSquare startSquare = this.game.getBoard().getSquare(this.game.getMove().getStart().x, this.game.getMove().getStart().y);
+                                ClientSquare endSquare = this.game.getBoard().getSquare(this.game.getMove().getEnd().x, this.game.getMove().getEnd().y);
+
+                                Piece animStartPiece = startSquare.getPiece();
+                                Piece animEndPiece = endSquare.getPiece();
+
+                                startSquare.getPiecePane().setPiece(HashTables.PIECE_MAP.get(animStartPiece.getPieceSpriteKey()));
+                                endSquare.getPiecePane().setPiece(HashTables.PIECE_MAP.get(animEndPiece.getPieceSpriteKey()));
+                            }
+                            catch (Exception e) {
+                                // TO DO Handle this somehow...
+                                logger.log( Level.SEVERE, e.toString(), e );
+                            }
+                        });
                     }
-                    Platform.runLater(() -> {
-                        try {
-                            // Set the face images visible to both players (from the back that doesn't show piecetype)
-                            ClientSquare startSquare = this.game.getBoard().getSquare(this.game.getMove().getStart().x, this.game.getMove().getStart().y);
-                            ClientSquare endSquare = this.game.getBoard().getSquare(this.game.getMove().getEnd().x, this.game.getMove().getEnd().y);
 
-                            Piece animStartPiece = startSquare.getPiece();
-                            Piece animEndPiece = endSquare.getPiece();
-
-                            startSquare.getPiecePane().setPiece(HashTables.PIECE_MAP.get(animStartPiece.getPieceSpriteKey()));
-                            endSquare.getPiecePane().setPiece(HashTables.PIECE_MAP.get(animEndPiece.getPieceSpriteKey()));
-                        }
-                        catch (Exception e) {
-                            // TO DO Handle this somehow...
-                            logger.log( Level.SEVERE, e.toString(), e );
-                        }
-                    });
 
                     // Wait three seconds (the image is shown to client, then waits 2 seconds)
                     Thread.sleep(2000);
