@@ -28,7 +28,7 @@ public class Game {
 
     private Socket socket;
 
-    private static String serverIP;
+    private static String serverIP = "localhost";
 
     public static final int PORT = 4212;
 
@@ -37,6 +37,7 @@ public class Game {
      */
     public Game() {
         player = new Player();
+        player.setNickname("anonimo");
         opponent = new Player();
 
         move = new Move();

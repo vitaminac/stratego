@@ -63,12 +63,12 @@
                         <Image url="@../media/images/icons/play.png" />
                     </image>
                 </ImageView>
-                <TextField fx:id="nombreUsuario" layoutX="97.0" layoutY="56.0" promptText="Nombre">
+                <TextField fx:id="nombreUsuario" layoutX="97.0" layoutY="56.0" promptText="Nombre" text="anonimo">
                     <cursor>
                         <Cursor fx:constant="TEXT" />
                     </cursor>
                 </TextField>
-                <TextField fx:id="dirIP" layoutX="97.0" layoutY="103.0" promptText="IP" style="-fx-text-fill: red;">
+                <TextField fx:id="dirIP" layoutX="97.0" layoutY="103.0" promptText="IP" style="-fx-text-fill: red;" text="localhost">
                     <cursor>
                         <Cursor fx:constant="TEXT" />
                     </cursor>
