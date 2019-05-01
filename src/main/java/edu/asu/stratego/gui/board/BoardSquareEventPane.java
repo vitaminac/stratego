@@ -142,10 +142,10 @@ public class BoardSquareEventPane extends GridPane {
             if (Game.getGame().getStatus() == GameStatus.SETTING_UP && isHoverValid(row, col)) {
 
                 // Get the selected piece (piece type and count) from the SetupPanel.
-                PieceType selectedPiece = SetupPieces.getSelectedPieceType();
+                PieceType selectedPiece = Game.getGame().getSetupPieces().getSelectedPieceType();
                 int selectedPieceCount = 0;
                 if (selectedPiece != null)
-                    selectedPieceCount = SetupPieces.getPieceCount(selectedPiece);
+                    selectedPieceCount = Game.getGame().getSetupPieces().getPieceCount(selectedPiece);
 
                 // If the square contains a piece...
                 if (squarePiece != null) {
@@ -154,15 +154,15 @@ public class BoardSquareEventPane extends GridPane {
                     // selected piece (in SetupPanel) or if no piece is selected (in SetupPanel).
                     if (squarePiece.getPieceType() == selectedPiece || selectedPiece == null) {
                         if (squarePiece.getPieceType() != null)
-                            SetupPieces.incrementPieceCount(squarePiece.getPieceType());
+                            Game.getGame().getSetupPieces().incrementPieceCount(squarePiece.getPieceType());
                         squarePane.setPiece(null);
                         square.setPiece(null);
                     }
 
                     // Replace the existing piece with the selected piece (in SetupPanel).
                     else if (squarePiece.getPieceType() != selectedPiece && selectedPieceCount > 0) {
-                        SetupPieces.decrementPieceCount(selectedPiece);
-                        SetupPieces.incrementPieceCount(squarePiece.getPieceType());
+                        Game.getGame().getSetupPieces().decrementPieceCount(selectedPiece);
+                        Game.getGame().getSetupPieces().incrementPieceCount(squarePiece.getPieceType());
                         square.setPiece(new Piece(selectedPiece, playerColor, false));
                         squarePane.setPiece(HashTables.PIECE_MAP.get(square.getPiece().getPieceSpriteKey()));
                     }
@@ -174,7 +174,7 @@ public class BoardSquareEventPane extends GridPane {
                     if (selectedPiece != null && selectedPieceCount > 0) {
                         square.setPiece(new Piece(selectedPiece, playerColor, false));
                         squarePane.setPiece(HashTables.PIECE_MAP.get(square.getPiece().getPieceSpriteKey()));
-                        SetupPieces.decrementPieceCount(selectedPiece);
+                        Game.getGame().getSetupPieces().decrementPieceCount(selectedPiece);
                     }
                 }
             } else if (Game.getGame().getStatus() == GameStatus.IN_PROGRESS && Game.getGame().getTurn() == playerColor) {
@@ -372,19 +372,19 @@ public class BoardSquareEventPane extends GridPane {
      * During the Setup phase of the game, this method randomly places the
      * pieces that have not yet been placed when the Setup Timer hits 0.
      */
-    public static void randomSetup() {
-        PieceColor playerColor = Game.getGame().getPlayer().getColor();
+    public static void randomSetup(Game game) {
+        PieceColor playerColor = game.getPlayer().getColor();
 
         // Iterate through each square
         for (int col = 0; col < 10; ++col) {
             for (int row = 6; row < 10; ++row) {
-                BoardSquarePane squarePane = Game.getGame().getBoard().getSquare(row, col).getPiecePane();
-                ClientSquare square = Game.getGame().getBoard().getSquare(row, col);
+                BoardSquarePane squarePane = game.getBoard().getSquare(row, col).getPiecePane();
+                ClientSquare square = game.getBoard().getSquare(row, col);
                 Piece squarePiece = square.getPiece();
 
                 // Create an arraylist of all the available values
                 ArrayList<PieceType> availTypes =
-                        new ArrayList<PieceType>(Arrays.asList(PieceType.values()));
+                        new ArrayList<>(Arrays.asList(PieceType.values()));
 
                 // If the square is null (will not overwrite existing pieces)
                 if (squarePiece == null) {
@@ -394,7 +394,7 @@ public class BoardSquareEventPane extends GridPane {
                     // checking that its count is > 0
                     while (pieceType == null) {
                         int randInt = (int) (Math.random() * availTypes.size());
-                        if (SetupPieces.getPieceCount(availTypes.get(randInt)) > 0)
+                        if (game.getSetupPieces().getPieceCount(availTypes.get(randInt)) > 0)
                             pieceType = availTypes.get(randInt);
                             // There are no more available for that piecetype, remove it from the array so it won't be randomly generated again
                         else
@@ -406,14 +406,11 @@ public class BoardSquareEventPane extends GridPane {
                     squarePane.setPiece(HashTables.PIECE_MAP.get(square.getPiece().getPieceSpriteKey()));
 
                     // And lower the availability count of that piece
-                    SetupPieces.decrementPieceCount(pieceType);
+                    game.getSetupPieces().decrementPieceCount(pieceType);
                     SetupPanel.getSetupPanel().getChildren().remove(SetupPanel.getSaveimportPane());
                 }
             }
         }
-
-        // Trigger finishSetup so the game will begin
-        SetupPanel.finishSetup();
     }
 
     /**

@@ -1,7 +1,10 @@
 package edu.asu.stratego.gui.board.setup;
 
-import java.util.HashMap;
-
+import edu.asu.stratego.game.PieceType;
+import edu.asu.stratego.game.Player;
+import edu.asu.stratego.gui.ClientStage;
+import edu.asu.stratego.util.HashTables;
+import edu.asu.stratego.util.MutableBoolean;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.effect.ColorAdjust;
@@ -11,50 +14,46 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import edu.asu.stratego.game.Game;
-import edu.asu.stratego.game.PieceType;
-import edu.asu.stratego.gui.ClientStage;
 
-import edu.asu.stratego.util.HashTables;
-import edu.asu.stratego.util.MutableBoolean;
+import java.util.HashMap;
 
 /**
  * Pieces in the SetupPanel that the player can select when setting up the game.
+ *
  * @see edu.asu.stratego.gui.board.setup.SetupPanel
  */
 public class SetupPieces {
-    private static HashMap<PieceType, MutableBoolean> pieceSelected =
+    private HashMap<PieceType, MutableBoolean> pieceSelected =
             new HashMap<>(12);
 
-    private static HashMap<PieceType, Integer> availability =
+    private HashMap<PieceType, Integer> availability =
             new HashMap<>(12);
 
-    private static HashMap<PieceType, ImageView> pieceImages =
+    private HashMap<PieceType, ImageView> pieceImages =
             new HashMap<>(12);
 
-    private static HashMap<PieceType, Label> pieceCount =
+    private HashMap<PieceType, Label> pieceCount =
             new HashMap<>(12);
 
-    private static PieceType selectedPieceType;
-    private static ColorAdjust zeroPieces = new ColorAdjust();
-    private static boolean allPiecesPlaced;
+    private PieceType selectedPieceType;
+    private ColorAdjust zeroPieces = new ColorAdjust();
+    private boolean allPiecesPlaced;
 
     /**
      * Creates a new instance of SetupPieces.
      */
-    public SetupPieces() {
+    public void setup(Player player) {
         final double UNIT = ClientStage.getUnit();
-        zeroPieces.setSaturation(-1.0);
-
-        // Get the player color.
-        String playerColor = Game.getGame().getPlayer().getColor().toString();
-
-        // ImageConstants suffixes.
-        String[] pieceSuffix = new String[] { "02",   "03",   "04",   "05",   "06",   "07",
-                "08",   "09",   "10", "BOMB",  "SPY", "FLAG" };
 
         // Number of pieces of each type a player has at the start of the game.
-        int[] pieceTypeCount = new int[] { 8, 5, 4, 4, 4, 3, 2, 1, 1, 6, 1, 1 };
+        int[] pieceTypeCount = new int[]{8, 5, 4, 4, 4, 3, 2, 1, 1, 6, 1, 1};
+
+        zeroPieces.setSaturation(-1.0);
+        // Get the player color.
+        String playerColor = player.getColor().toString();
+        // ImageConstants suffixes.
+        String[] pieceSuffix = new String[]{"02", "03", "04", "05", "06", "07",
+                "08", "09", "10", "BOMB", "SPY", "FLAG"};
 
         for (int i = 0; i < 12; ++i) {
             // Enumeration values of PieceType.
@@ -80,15 +79,15 @@ public class SetupPieces {
             // Register event handlers.
             pieceImages.get(pieceType).addEventHandler(MouseEvent.MOUSE_PRESSED, new SelectPiece());
 
-            // Map the piece type to a boolean value that denotes whether or not the 
+            // Map the piece type to a boolean value that denotes whether or not the
             // SetupPiece is selected. Initially, none of the pieces are selected.
             pieceSelected.put(pieceType, new MutableBoolean(false));
         }
     }
 
     /**
-     * This event is triggered when one of the piece type images are clicked 
-     * on. It updates the HashMap that keeps track of which piece type is 
+     * This event is triggered when one of the piece type images are clicked
+     * on. It updates the HashMap that keeps track of which piece type is
      * selected and adds a glow to the selected piece type's image.
      */
     private class SelectPiece implements EventHandler<MouseEvent> {
@@ -133,7 +132,7 @@ public class SetupPieces {
     /**
      * @return the type of the selected piece
      */
-    public static PieceType getSelectedPieceType() {
+    public PieceType getSelectedPieceType() {
         return selectedPieceType;
     }
 
@@ -142,18 +141,18 @@ public class SetupPieces {
      * @return the number of pieces of the PieceType have not been set on the
      * board yet
      */
-    public static int getPieceCount(PieceType type) {
+    public int getPieceCount(PieceType type) {
         return availability.get(type);
     }
 
     /**
      * Increments the piece type count by 1 and updates the piece type label.
-     * Signals SetupPanel to update the ready button if all of the pieces are 
+     * Signals SetupPanel to update the ready button if all of the pieces are
      * placed.
      *
      * @param type PieceType to increment
      */
-    public static void incrementPieceCount(PieceType type) {
+    public void incrementPieceCount(PieceType type) {
         availability.put(type, availability.get(type) + 1);
         pieceCount.get(type).setText(" x" + availability.get(type));
 
@@ -168,13 +167,13 @@ public class SetupPieces {
     }
 
     /**
-     * Decrements the piece type count by 1 and updates the piece type label. 
-     * Runs a check to see if all the pieces have been placed. Signals 
+     * Decrements the piece type count by 1 and updates the piece type label.
+     * Runs a check to see if all the pieces have been placed. Signals
      * SetupPanel to update the ready button if all of the pieces are placed.
      *
      * @param type PieceType to decrement
      */
-    public static void decrementPieceCount(PieceType type) {
+    public void decrementPieceCount(PieceType type) {
         availability.put(type, availability.get(type) - 1);
         pieceCount.get(type).setText(" x" + availability.get(type));
 
@@ -199,12 +198,12 @@ public class SetupPieces {
     /**
      * @return true if all the pieces have been placed, false otherwise
      */
-    public static boolean getAllPiecesPlaced() {
+    public boolean getAllPiecesPlaced() {
         return allPiecesPlaced;
     }
 
     /**
-     * @return an array of ImageView objects that display images corresponding 
+     * @return an array of ImageView objects that display images corresponding
      * to the piece type.
      */
     public ImageView[] getPieceImages() {
@@ -219,7 +218,7 @@ public class SetupPieces {
     }
 
     /**
-     * @return an array of JavaFX labels that display the number of pieces of 
+     * @return an array of JavaFX labels that display the number of pieces of
      * each piece type that still need to be placed.
      */
     public Label[] getPieceCountLabels() {

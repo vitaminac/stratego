@@ -1,7 +1,8 @@
 package edu.asu.stratego.gui.board.setup;
 
-import edu.asu.stratego.game.*;
-import edu.asu.stratego.game.board.ClientBoard;
+import edu.asu.stratego.game.Game;
+import edu.asu.stratego.game.Piece;
+import edu.asu.stratego.game.PieceColor;
 import edu.asu.stratego.game.board.ClientSquare;
 import edu.asu.stratego.gui.ClientStage;
 import edu.asu.stratego.gui.board.BoardSquareEventPane;
@@ -22,14 +23,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import edu.asu.stratego.game.ClientGameManager;
-import edu.asu.stratego.game.Game;
-import edu.asu.stratego.gui.ClientStage;
-import edu.asu.stratego.media.ImageConstants;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 /**
  * The panel that is shown during the SETTING_UP phase of a Stratego game.
@@ -50,14 +48,15 @@ public class SetupPanel {
     private static ImageView importButton      = new ImageView();
     private static ImageView randomButton      = new ImageView();
 
-    
     /**
      * Creates a new instance of SetupPanel.
      */
     public SetupPanel() {
         String typeOfLetter = "Century Gothic";
         final double UNIT = ClientStage.getUnit();
-        
+
+        Game.getGame().getSetupPieces().setup(Game.getGame().getPlayer());
+
         setupPanel.setMaxHeight(UNIT * 5);
         setupPanel.setMaxWidth(UNIT * 10);
         
@@ -128,10 +127,9 @@ public class SetupPanel {
          *                          C R E A T E   U I :   B O D Y                        *
          *                                                                               *
          * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-        
-        SetupPieces pieces = new SetupPieces();
-        ImageView[] pieceImages = pieces.getPieceImages();
-        Label[] pieceCount = pieces.getPieceCountLabels();
+
+        ImageView[] pieceImages = Game.getGame().getSetupPieces().getPieceImages();
+        Label[] pieceCount = Game.getGame().getSetupPieces().getPieceCountLabels();
         
         GridPane.setMargin(piecePane, new Insets(UNIT * 0.15, 0.0, 0.0, UNIT * 0.15));
         
@@ -167,7 +165,7 @@ public class SetupPanel {
             readyButton.setImage(ImageConstants.READY_IDLE));
         
         readyButton.addEventHandler(MouseEvent.MOUSE_CLICKED, e ->
-            Platform.runLater(() -> { finishSetup(); } ));
+            Platform.runLater(() -> { finishSetup(Game.getGame()); } ));
 
         //Save setUp
         saveButton.setImage(ImageConstants.SAVE_IDLE);
@@ -207,7 +205,9 @@ public class SetupPanel {
 
         randomButton.addEventHandler(MouseEvent.MOUSE_CLICKED, e ->
                 Platform.runLater(() -> {
-                    BoardSquareEventPane.randomSetup();
+                    BoardSquareEventPane.randomSetup(Game.getGame());
+                    // Trigger finishSetup so the game will begin
+                    SetupPanel.finishSetup(Game.getGame());
                 } ));
 
         // Text properties.
@@ -243,6 +243,7 @@ public class SetupPanel {
         readyLabel.setText("Waiting for opponent...");
         readyLabel.setFont(Font.font(typeOfLetter, UNIT * 0.6));
         readyLabel.setTextFill(new Color(1.0, 0.7, 0.0, 1.0));
+
     }
     
     /**
@@ -271,15 +272,13 @@ public class SetupPanel {
      * to send the initial piece positions to the server and receive the 
      * opponent's initial piece positions.
      */
-    public static void finishSetup() {
-        Object setupPieces = ClientGameManager.getSetupPieces();
-        
-        synchronized (setupPieces) {
+    public static void finishSetup(Game game) {
+        synchronized (game.getSetupPieces()) {
             setupPanel.getChildren().remove(instructionPane);
             setupPanel.getChildren().remove(piecePane);
             setupPanel.add(readyLabel, 0, 1);
             saveimportPane.getChildren().remove(saveButton);
-            setupPieces.notify();
+            game.getSetupPieces().notifyAll();
         }
     }
 
@@ -302,7 +301,7 @@ public class SetupPanel {
     }
 
     public void impo(){
-        Object setupPieces = ClientGameManager.getSetupPieces();
+        Object setupPieces = Game.getGame().getSetupPieces();
         PieceColor playerColor = Game.getGame().getPlayer().getColor();
         synchronized (setupPieces) {
             try {
@@ -317,7 +316,7 @@ public class SetupPanel {
                         piece.setColor(playerColor);
                         square.setPiece(piece);
                         squarePane.setPiece(HashTables.PIECE_MAP.get(square.getPiece().getPieceSpriteKey()));
-                        SetupPieces.decrementPieceCount(piece.getPieceType());
+                        Game.getGame().getSetupPieces().decrementPieceCount(piece.getPieceType());
                     }
                 }
             } catch (Exception e) {
@@ -352,7 +351,7 @@ public class SetupPanel {
                         updateReadyStatus.wait();
                     
                         // Remove instructions, add ready button.
-                        if (SetupPieces.getAllPiecesPlaced() && !readyState) {
+                        if (Game.getGame().getSetupPieces().getAllPiecesPlaced() && !readyState) {
                             Platform.runLater(() -> {
                                 instructionPane.getChildren().remove(instructions);
                                 instructionPane.getChildren().add(readyButton);
@@ -365,7 +364,7 @@ public class SetupPanel {
                         }
                         
                         // Remove ready button, add instructions.
-                        else if (!SetupPieces.getAllPiecesPlaced() && readyState) {
+                        else if (!Game.getGame().getSetupPieces().getAllPiecesPlaced() && readyState) {
                             Platform.runLater(() -> {
                                 instructionPane.getChildren().remove(readyButton);
                                 instructionPane.getChildren().add(instructions);

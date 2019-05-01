@@ -1,6 +1,7 @@
 package edu.asu.stratego.game;
 
 import edu.asu.stratego.game.board.ClientBoard;
+import edu.asu.stratego.gui.board.setup.SetupPieces;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -27,6 +28,8 @@ public class Game {
     private ClientBoard board;
 
     private Socket socket;
+
+    private SetupPieces setupPieces = new SetupPieces();
 
     private static String serverIP = "localhost";
 
@@ -157,5 +160,9 @@ public class Game {
 
     public static Game getComputer() {
         return computer;
+    }
+
+    public SetupPieces getSetupPieces() {
+        return this.setupPieces;
     }
 }

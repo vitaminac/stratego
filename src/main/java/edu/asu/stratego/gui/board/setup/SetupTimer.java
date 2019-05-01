@@ -1,5 +1,6 @@
 package edu.asu.stratego.gui.board.setup;
 
+import edu.asu.stratego.game.Game;
 import edu.asu.stratego.gui.ClientStage;
 import edu.asu.stratego.gui.board.BoardSquareEventPane;
 import javafx.animation.KeyFrame;
@@ -76,7 +77,9 @@ public class SetupTimer {
     private class TimerFinished implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent event) {
-            BoardSquareEventPane.randomSetup();
+            BoardSquareEventPane.randomSetup(Game.getGame());
+            // Trigger finishSetup so the game will begin
+            SetupPanel.finishSetup(Game.getGame());
         }
     }
 }

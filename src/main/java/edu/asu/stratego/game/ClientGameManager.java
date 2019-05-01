@@ -25,7 +25,6 @@ import java.util.logging.Logger;
  */
 public class ClientGameManager implements Runnable {
 
-    private static Object setupPieces = new Object();
     private static Object sendMove    = new Object();
     private static Object receiveMove = new Object();
     private static Object waitFade    = new Object();
@@ -36,7 +35,7 @@ public class ClientGameManager implements Runnable {
 
     private final IClientStage stage;
     private final Game game;
-    
+
     /**
      * Creates a new instance of ClientGameManager.
      *
@@ -70,8 +69,8 @@ public class ClientGameManager implements Runnable {
      * the ClientGameManager to indicate when the player has finished setting
      * up their pieces.
      */
-    public static Object getSetupPieces() {
-        return setupPieces;
+    public Object getSetupPieces() {
+        return this.game.getSetupPieces();
     }
 
     /**
@@ -139,17 +138,16 @@ public class ClientGameManager implements Runnable {
      * positions are sent to the server.
      */
     private void setupBoard() {
-        Platform.runLater(() ->  stage.setBoardScene());
+        Platform.runLater(stage::setBoardScene);
 
-        synchronized (setupPieces) {
+        synchronized (this.getSetupPieces()) {
             try {
                 // Wait for the player to set up their pieces.
-                setupPieces.wait();
+                this.getSetupPieces().wait();
                 this.game.setStatus(GameStatus.WAITING_OPP);
 
                 // Send initial piece positions to server.
-                SetupBoard initial = new SetupBoard();
-                initial.getPiecePositions();
+                SetupBoard initial = new SetupBoard(this.game);
                 toServer.writeObject(initial);
 
                 // Receive opponent's initial piece positions from server.
