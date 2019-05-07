@@ -222,8 +222,8 @@ public class BoardSquareEventPane extends GridPane {
                     // Change the movestatus to reflect that the end point has been selected
                     Game.getGame().setMoveStatus(MoveStatus.END_SELECTED);
 
-                    synchronized (ClientGameManager.getSendMove()) {
-                        ClientGameManager.getSendMove().notify();
+                    synchronized (Game.getGame().getSendMove()) {
+                        Game.getGame().getSendMove().notify();
                     }
                 }
             }

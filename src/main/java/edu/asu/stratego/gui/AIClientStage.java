@@ -18,6 +18,7 @@ public class AIClientStage implements IClientStage {
                 synchronized (Game.getComputer().getSetupPieces()) {
                     Game.getComputer().getSetupPieces().notifyAll();
                 }
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

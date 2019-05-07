@@ -24,8 +24,6 @@ import java.util.logging.Logger;
  * Task to handle the Stratego game on the client-side.
  */
 public class ClientGameManager implements Runnable {
-
-    private static Object sendMove    = new Object();
     private static Object receiveMove = new Object();
     private static Object waitFade    = new Object();
     private static Object waitVisible = new Object();
@@ -204,14 +202,14 @@ public class ClientGameManager implements Runnable {
                     this.game.setMoveStatus(MoveStatus.OPP_TURN);
 
                 // Notify turn indicator.
-                synchronized (BoardTurnIndicator.getTurnIndicatorTrigger()) {
-                    BoardTurnIndicator.getTurnIndicatorTrigger().notify();
+                synchronized (this.game.getTurnIndicatorTrigger()) {
+                    this.game.getTurnIndicatorTrigger().notify();
                 }
 
                 // Send move to the server.
                 if (this.game.getPlayer().getColor() == this.game.getTurn() && this.game.getMoveStatus() != MoveStatus.SERVER_VALIDATION) {
-                    synchronized (sendMove) {
-                        sendMove.wait();
+                    synchronized (this.game.getSendMove()) {
+                        this.game.getSendMove().wait();
                         toServer.writeObject(this.game.getMove());
                         this.game.setMoveStatus(MoveStatus.SERVER_VALIDATION);
                     }
@@ -401,12 +399,6 @@ public class ClientGameManager implements Runnable {
 
         revealAll();
         setFinalScene();
-    }
-
-
-
-    public static Object getSendMove() {
-        return sendMove;
     }
 
     public static Object getReceiveMove() {

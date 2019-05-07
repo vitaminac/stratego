@@ -18,8 +18,7 @@ public class BoardTurnIndicator {
     
     private static Color red  = new Color(0.48, 0.13, 0.13, 1.0);
     private static Color blue = new Color(0.22, 0.24, 0.55, 1.0);
-    
-    private static Object turnIndicatorTrigger = new Object();
+
     private static Rectangle turnIndicator;
     
     /**
@@ -47,23 +46,15 @@ public class BoardTurnIndicator {
     public static Rectangle getTurnIndicator() {
         return turnIndicator;
     }
-    
-    /**
-     * @return Object used to communicate between the ClientGameManager and the 
-     * BoardTurnIndicator to indicate when the player turn color has changed.
-     */
-    public static Object getTurnIndicatorTrigger() {
-        return turnIndicatorTrigger;
-    }
-    
+
     private class UpdateColor implements Runnable {
         @Override
         public void run() {
-            synchronized (turnIndicatorTrigger) {
+            synchronized (Game.getGame().getTurnIndicatorTrigger()) {
                 try {
                     while (true) {
                         // Wait for player turn color to change.
-                        turnIndicatorTrigger.wait();
+                        Game.getGame().getTurnIndicatorTrigger().wait();
                         
                         Platform.runLater(() -> {
                             // Blue -> Red.

@@ -23,6 +23,9 @@ public class Game {
     private Move move;
     private MoveStatus moveStatus;
 
+    private Object sendMove = new Object();
+    private Object turnIndicatorTrigger = new Object();
+
     private GameStatus status;
     private PieceColor turn;
     private ClientBoard board;
@@ -164,5 +167,25 @@ public class Game {
 
     public SetupPieces getSetupPieces() {
         return this.setupPieces;
+    }
+
+    public Object getSendMove() {
+        return sendMove;
+    }
+
+    public void setSendMove(Object sendMove) {
+        this.sendMove = sendMove;
+    }
+
+    /**
+     * @return Object used to communicate between the ClientGameManager and the
+     * BoardTurnIndicator to indicate when the player turn color has changed.
+     */
+    public Object getTurnIndicatorTrigger() {
+        return turnIndicatorTrigger;
+    }
+
+    public void setTurnIndicatorTrigger(Object turnIndicatorTrigger) {
+        this.turnIndicatorTrigger = turnIndicatorTrigger;
     }
 }
