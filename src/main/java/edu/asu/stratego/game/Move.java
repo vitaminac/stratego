@@ -9,8 +9,16 @@ public class Move implements Serializable {
 	
 	private Point start = new Point(-1, -1);
 	private Point end   = new Point(-1, -1);
-    
-    private PieceColor moveColor = null;
+
+	public Move(Point start, Point end) {
+		this.start = start;
+		this.end = end;
+	}
+
+	public Move() {
+	}
+
+	private PieceColor moveColor = null;
     
     private Piece startPiece;
     private Piece endPiece;
