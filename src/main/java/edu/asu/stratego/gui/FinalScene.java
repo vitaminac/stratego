@@ -1,11 +1,11 @@
 package edu.asu.stratego.gui;
 
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
+
+import java.io.IOException;
 
 /**
  * Wrapper class for a JavaFX scene. Contains a scene UI to indicate that the
@@ -13,30 +13,18 @@ import javafx.stage.Stage;
  * another opponent to connect to the server. The intended function for this
  * scene is analogous to a loading screen.
  */
-public class FinalScene extends Application {
+public class FinalScene {
 
     public Scene scene;
 
-    {
+    public FinalScene() {
+        Parent root = null;
         try {
-            start(null);
-        } catch (Exception e) {
+            root = FXMLLoader.load(getClass().getResource("FinalScreen.fxml"));
+        } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FinalScreen.fxml"));
-
         scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
-        primaryStage.setScene(scene);
-        primaryStage.show();
     }
-
-    public static void main(String[] args) {
-        launch(args);
-    }
-
 }
