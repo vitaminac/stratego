@@ -5,6 +5,7 @@ import edu.asu.stratego.game.board.ClientSquare;
 import edu.asu.stratego.gui.board.setup.SetupPanel;
 import edu.asu.stratego.media.ImageConstants;
 import edu.asu.stratego.util.HashTables;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -150,7 +151,7 @@ public class BoardSquareEventPane extends GridPane {
 
                     // And lower the availability count of that piece
                     game.getSetupPieces().decrementPieceCount(pieceType);
-                    SetupPanel.getSetupPanel().getChildren().remove(SetupPanel.getSaveimportPane());
+                    Platform.runLater(() -> SetupPanel.getSetupPanel().getChildren().remove(SetupPanel.getSaveimportPane()));
                 }
             }
         }
