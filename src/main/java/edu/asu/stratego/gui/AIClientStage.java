@@ -5,17 +5,25 @@ import edu.asu.stratego.gui.board.SelectSquare;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Collections;
 
 import static edu.asu.stratego.gui.board.BoardSquareEventPane.randomSetup;
 
 public class AIClientStage implements IClientStage {
+    protected Move chooseBestStep(List<Move> possibleMoves, Piece[][] boards) {
+        Collections.shuffle(possibleMoves);
+        return possibleMoves.get(0);
+    }
+
     private void step(Game computer) {
         PieceColor color = computer.getPlayer().getColor();
         if (Game.getGame().getStatus() == GameStatus.IN_PROGRESS && computer.getTurn() == computer.getPlayer().getColor()) {
             ArrayList<Move> moves = new ArrayList<>();
+            Piece[][] board = new Piece[10][10];
             for (int col = 0; col < 10; ++col) {
                 for (int row = 0; row < 10; ++row) {
+                    board[row][col] = computer.getBoard().getSquare(row, col).getPiece();
                     if (!SelectSquare.isNullPiece(row, col, computer)
                             && computer.getBoard().getSquare(row, col).getPiece().getPieceColor() == color
                             && SelectSquare.isHoverValid(row, col, computer)) {
@@ -25,8 +33,8 @@ public class AIClientStage implements IClientStage {
                     }
                 }
             }
-            Collections.shuffle(moves);
-            computer.setMove(moves.get(0));
+
+            computer.setMove(this.chooseBestStep(moves, board));
             computer.getMove().setMoveColor(color);
             computer.setMoveStatus(MoveStatus.END_SELECTED);
             synchronized (computer.getSendMove()) {
