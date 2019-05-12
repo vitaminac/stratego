@@ -11,7 +11,8 @@ public class Piece implements Serializable {
     
     private PieceColor color;
     private PieceType  type;
-    
+
+    private boolean isFight;
     private boolean isOpponentPiece;
     private String   spriteKey;
     
@@ -98,5 +99,13 @@ public class Piece implements Serializable {
     public void setColor (PieceColor color){
         this.color=color;
         this.setPieceImage();
+    }
+
+    public boolean getFight(){
+        return this.isFight;
+    }
+
+    public void setIsFigth(boolean isFight){
+        this.isFight=isFight;
     }
 }

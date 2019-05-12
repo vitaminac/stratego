@@ -269,24 +269,24 @@ public class ClientGameManager implements Runnable {
 
                             this.game.getMove().setStart(this.game.getMove().getEnd().x+shiftX, this.game.getMove().getEnd().y+shiftY);
                         }
-                        Platform.runLater(() -> {
-                            try {
-                                // Set the face images visible to both players (from the back that doesn't show piecetype)
-                                ClientSquare startSquare = this.game.getBoard().getSquare(this.game.getMove().getStart().x, this.game.getMove().getStart().y);
-                                ClientSquare endSquare = this.game.getBoard().getSquare(this.game.getMove().getEnd().x, this.game.getMove().getEnd().y);
-
-                                Piece animStartPiece = startSquare.getPiece();
-                                Piece animEndPiece = endSquare.getPiece();
-
-                                startSquare.getPiecePane().setPiece(HashTables.PIECE_MAP.get(animStartPiece.getPieceSpriteKey()));
-                                endSquare.getPiecePane().setPiece(HashTables.PIECE_MAP.get(animEndPiece.getPieceSpriteKey()));
-                            }
-                            catch (Exception e) {
-                                // TO DO Handle this somehow...
-                                logger.log( Level.SEVERE, e.toString(), e );
-                            }
-                        });
                     }
+                    Platform.runLater(() -> {
+                        try {
+                            // Set the face images visible to both players (from the back that doesn't show piecetype)
+                            ClientSquare startSquare = this.game.getBoard().getSquare(this.game.getMove().getStart().x, this.game.getMove().getStart().y);
+                            ClientSquare endSquare = this.game.getBoard().getSquare(this.game.getMove().getEnd().x, this.game.getMove().getEnd().y);
+
+                            Piece animStartPiece = startSquare.getPiece();
+                            Piece animEndPiece = endSquare.getPiece();
+
+                            startSquare.getPiecePane().setPiece(HashTables.PIECE_MAP.get(animStartPiece.getPieceSpriteKey()));
+                            endSquare.getPiecePane().setPiece(HashTables.PIECE_MAP.get(animEndPiece.getPieceSpriteKey()));
+                        }
+                        catch (Exception e) {
+                            // TO DO Handle this somehow...
+                            logger.log( Level.SEVERE, e.toString(), e );
+                        }
+                    });
 
 
                     // Wait three seconds (the image is shown to client, then waits 2 seconds)
@@ -297,6 +297,9 @@ public class ClientGameManager implements Runnable {
                         try {
                             ClientSquare startSquare = this.game.getBoard().getSquare(this.game.getMove().getStart().x, this.game.getMove().getStart().y);
                             ClientSquare endSquare = this.game.getBoard().getSquare(this.game.getMove().getEnd().x, this.game.getMove().getEnd().y);
+
+                            startSquare.getPiece().setIsFigth(true);
+                            endSquare.getPiece().setIsFigth(true);
 
                             // If the piece dies, fade it out (also considers a draw, where both "win" are set to false)
                             if(!this.game.getMove().isAttackWin()) {
@@ -342,10 +345,20 @@ public class ClientGameManager implements Runnable {
                         }
                         // ...unless it is the opponent's piece which it will display the back instead
                         else{
-                            if (endPiece.getPieceColor() == PieceColor.BLUE)
-                                endSquare.getPiecePane().setPiece(ImageConstants.BLUE_BACK);
-                            else
-                                endSquare.getPiecePane().setPiece(ImageConstants.RED_BACK);
+                            if (endPiece.getPieceColor() == PieceColor.BLUE) {
+                                if(endPiece.getFight()){
+                                   endSquare.getPiecePane().setPiece(HashTables.PIECE_MAP.get(endSquare.getPiece().getPieceSpriteKey()));
+                                }else{
+                                    endSquare.getPiecePane().setPiece(ImageConstants.BLUE_BACK);
+                                }
+                            }
+                            else{
+                                if(endPiece.getFight()){
+                                    endSquare.getPiecePane().setPiece(HashTables.PIECE_MAP.get(endSquare.getPiece().getPieceSpriteKey()));
+                                }else{
+                                    endSquare.getPiecePane().setPiece(ImageConstants.RED_BACK);
+                                }
+                            }
                         }
                     }
                 });
@@ -384,7 +397,7 @@ public class ClientGameManager implements Runnable {
                 });
 
                 // Wait for fade animation to complete before continuing.
-                synchronized (waitFade) { waitFade.wait(); }
+
 
                 // Get game status from server.
                 this.game.setStatus((GameStatus) fromServer.readObject());

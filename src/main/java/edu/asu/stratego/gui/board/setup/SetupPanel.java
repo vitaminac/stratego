@@ -314,6 +314,7 @@ public class SetupPanel {
                         ClientSquare square = Game.getGame().getBoard().getSquare(row, col);
                         Piece piece=pieces[row-6][col];
                         piece.setColor(playerColor);
+                        piece.setIsFigth(false);
                         square.setPiece(piece);
                         squarePane.setPiece(HashTables.PIECE_MAP.get(square.getPiece().getPieceSpriteKey()));
                         Game.getGame().getSetupPieces().decrementPieceCount(piece.getPieceType());
