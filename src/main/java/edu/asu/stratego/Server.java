@@ -19,11 +19,9 @@ public class Server {
 
     public static void main(String[] args) throws IOException {
         String hostAddress = InetAddress.getLocalHost().getHostAddress();
-        ServerSocket listener = null;
-        int sessionNumber = 1;
 
-        try {
-            listener = new ServerSocket(4212);
+        int sessionNumber = 1;
+        try (ServerSocket listener = new ServerSocket(4212)) {
             logger.info("Server started @ " + hostAddress);
             logger.info("Waiting for incoming connections...\n");
 
@@ -45,9 +43,6 @@ public class Server {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            if (listener != null)
-                listener.close();
         }
     }
 }

@@ -246,8 +246,8 @@ public class SelectSquare implements EventHandler<MouseEvent> {
     public static boolean isValidMove(int row, int col, List<Point> validMoves) {
         // Iterate through validMoves arraylist and check if a square is a valid move (after computing valid moves)
         if (validMoves != null && !validMoves.isEmpty()) {
-            for (int i = 0; i < validMoves.size(); i++) {
-                if (row == validMoves.get(i).getX() && col == validMoves.get(i).getY())
+            for (Point validMove : validMoves) {
+                if (row == validMove.getX() && col == validMove.getY())
                     return true;
             }
         }

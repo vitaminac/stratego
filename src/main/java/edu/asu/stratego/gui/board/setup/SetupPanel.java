@@ -178,7 +178,7 @@ public class SetupPanel {
                 saveButton.setImage(ImageConstants.SAVE_IDLE));
 
         saveButton.addEventHandler(MouseEvent.MOUSE_CLICKED, e ->
-                Platform.runLater(() ->  save() ));
+                Platform.runLater(this::save));
 
         //Import setUp
         importButton.setImage(ImageConstants.IMPORT_IDLE);
@@ -191,7 +191,7 @@ public class SetupPanel {
                 importButton.setImage(ImageConstants.IMPORT_IDLE));
 
         importButton.addEventHandler(MouseEvent.MOUSE_CLICKED, e ->
-                Platform.runLater(() -> { impo(); } ));
+                Platform.runLater(this::impo));
 
         //randomSetUp
         randomButton.setImage(ImageConstants.RANDOM_IDLE);

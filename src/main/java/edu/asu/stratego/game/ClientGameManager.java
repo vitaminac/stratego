@@ -107,7 +107,7 @@ public class ClientGameManager implements Runnable {
      */
     protected void waitForOpponent() {
 
-        Platform.runLater(() -> stage.setWaitingScene());
+        Platform.runLater(stage::setWaitingScene);
 
         try {
             // I/O Streams.
