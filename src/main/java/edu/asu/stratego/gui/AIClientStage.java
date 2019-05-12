@@ -5,12 +5,15 @@ import edu.asu.stratego.gui.board.SelectSquare;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Collections;
+import java.util.List;
+import java.util.logging.Logger;
 
 import static edu.asu.stratego.gui.board.BoardSquareEventPane.randomSetup;
 
 public class AIClientStage implements IClientStage {
+    private static final Logger logger = Logger.getLogger(AIClientStage.class.getName());
+
     protected Move chooseBestStep(List<Move> possibleMoves, Piece[][] boards) {
         Collections.shuffle(possibleMoves);
         return possibleMoves.get(0);
@@ -65,7 +68,7 @@ public class AIClientStage implements IClientStage {
                 }
                 while (computer.getStatus() == GameStatus.IN_PROGRESS);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                logger.info(e.getMessage());
             }
         }).start();
 
