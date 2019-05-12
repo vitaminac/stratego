@@ -30,6 +30,11 @@ sonarqube {
     }
 }
 
+task jars {
+    dependsOn 'clientJar'
+    dependsOn 'serverJar'
+}
+
 task clientJar(type: Jar) {
     baseName "client"
     from(sourceSets.main.output) {
